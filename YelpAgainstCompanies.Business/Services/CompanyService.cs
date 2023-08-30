@@ -1,8 +1,4 @@
-﻿using YelpAgainstCompanies.Data;
-using YelpAgainstCompanies.Domain.Entities;
-using YelpAgainstCompanies.Domain.Interfaces;
-
-namespace YelpAgainstCompanies.Business.Services;
+﻿namespace YelpAgainstCompanies.Business.Services;
 
 //TODO Make things async
 public class CompanyService : ICompanyService
