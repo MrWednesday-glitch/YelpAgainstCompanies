@@ -8,7 +8,7 @@ public class Rating : EntityBase
 
     public User User { get; set; }
 
-    public float Score { get; set; }
+    public double Score { get; set; }
 
     public string? Comment { get; set; }
 }

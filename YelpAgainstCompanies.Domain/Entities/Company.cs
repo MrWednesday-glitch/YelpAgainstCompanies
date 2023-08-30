@@ -9,7 +9,7 @@ public class Company : EntityBase
 
     public string Name { get; set; } = string.Empty;
 
-    public float Score { get; set; }
+    public double Score { get; set; }
 
     public List<Rating> Ratings { get; set; } 
 }
