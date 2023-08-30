@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34009.444
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YelpAgainstCompanies.Api", "YelpAgainstCompanies.Api\YelpAgainstCompanies.Api.csproj", "{A997373E-2810-4F4A-9F75-B67101DF9040}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "9. Testing", "9. Testing", "{22DCBB6C-7AFB-41D6-8CC3-CC052C3DD593}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Data", "1. Data", "{9F55CEED-4EB0-4AE4-BAE8-D7349710DD20}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Business", "2. Business", "{F5A2436E-B3A5-4A47-B957-A0CFB478A804}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Programs", "3. Programs", "{5DC8643D-74C9-45DB-ABDB-D3C2D9ECEC21}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YelpAgainstCompanies.Domain", "YelpAgainstCompanies.Domain\YelpAgainstCompanies.Domain.csproj", "{0BDA423B-448C-4030-9A8F-ABBA65BE8EAE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A997373E-2810-4F4A-9F75-B67101DF9040}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A997373E-2810-4F4A-9F75-B67101DF9040}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A997373E-2810-4F4A-9F75-B67101DF9040}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A997373E-2810-4F4A-9F75-B67101DF9040}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BDA423B-448C-4030-9A8F-ABBA65BE8EAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BDA423B-448C-4030-9A8F-ABBA65BE8EAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BDA423B-448C-4030-9A8F-ABBA65BE8EAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BDA423B-448C-4030-9A8F-ABBA65BE8EAE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A997373E-2810-4F4A-9F75-B67101DF9040} = {5DC8643D-74C9-45DB-ABDB-D3C2D9ECEC21}
+		{0BDA423B-448C-4030-9A8F-ABBA65BE8EAE} = {F5A2436E-B3A5-4A47-B957-A0CFB478A804}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FCA11804-4743-4F81-ADEE-EAF3E362D3D5}
+	EndGlobalSection
+EndGlobal
