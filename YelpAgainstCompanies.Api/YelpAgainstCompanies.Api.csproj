@@ -11,4 +11,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\YelpAgainstCompanies.Business\YelpAgainstCompanies.Business.csproj" />
+    <ProjectReference Include="..\YelpAgainstCompanies.Data\YelpAgainstCompanies.Data.csproj" />
+  </ItemGroup>
+
 </Project>

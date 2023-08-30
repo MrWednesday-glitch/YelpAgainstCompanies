@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\YelpAgainstCompanies.Data\YelpAgainstCompanies.Data.csproj" />
+    <ProjectReference Include="..\YelpAgainstCompanies.Domain\YelpAgainstCompanies.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
