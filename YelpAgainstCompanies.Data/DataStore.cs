@@ -1,6 +1,4 @@
-﻿using YelpAgainstCompanies.Domain.Entities;
-
-namespace YelpAgainstCompanies.Data;
+﻿namespace YelpAgainstCompanies.Data;
 
 public class DataStore
 {
@@ -48,12 +46,21 @@ public class DataStore
             UserId = 1,
             Comment = "This job was fine."
         };
+        var ratingWednesdayKB = new Rating()
+        {
+            Comment = "something",
+            Date = new DateTime(2022, 9, 1),
+            Id = 4,
+            Score = 3,
+            User = userWednesday,
+            UserId = 2,
+        };
 
         var keesBalvert = new Company()
         {
             Id = 1,
             Name = "Kees Balvert",
-            Ratings = new List<Rating>(),
+            Ratings = new List<Rating>() { ratingWednesdayKB },
         };
         var albertHeijn = new Company()
         {
