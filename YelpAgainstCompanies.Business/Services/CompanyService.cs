@@ -13,5 +13,6 @@ public class CompanyService : ICompanyService
     public async Task<IEnumerable<Company>> Get() => await _dataStore.GetCompanies();
 
     //TODO Write tests
-    public async Task<Company> Get(int id) => (await _dataStore.GetCompanies()).SingleOrDefault(x => x.Id == id);
+    public async Task<Company> Get(int id) => (await _dataStore.GetCompanies()).SingleOrDefault(x => x.Id == id)
+        ?? throw new ArgumentNullException("No company was found with this id.");
 }

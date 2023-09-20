@@ -46,4 +46,23 @@ public class CompanyController : Controller
 
         return Ok(companies);
     }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetCompany(int id)
+    {
+        try
+        {
+            var company = Transform(await _companyService.Get(id));
+
+            return Ok(company);
+        }
+        catch (ArgumentNullException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return NotFound(ex.Message);
+        }
+    }
 }
