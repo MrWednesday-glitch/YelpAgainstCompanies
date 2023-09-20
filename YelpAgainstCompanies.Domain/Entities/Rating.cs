@@ -1,5 +1,6 @@
 ﻿namespace YelpAgainstCompanies.Domain.Entities;
 
+[ExcludeFromCodeCoverage]
 public class Rating : EntityBase
 {
     public DateTime Date { get; set; }

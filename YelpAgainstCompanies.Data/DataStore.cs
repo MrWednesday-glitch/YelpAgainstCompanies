@@ -1,8 +1,9 @@
 ﻿namespace YelpAgainstCompanies.Data;
 
+[ExcludeFromCodeCoverage]
 public class DataStore
 {
-    public async Task< List<Company>> GetCompanies()
+    public async Task<List<Company>> GetCompanies()
     {
         var userRowan = new User()
         {

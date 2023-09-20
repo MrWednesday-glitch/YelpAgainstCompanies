@@ -1,1 +1,2 @@
-﻿global using YelpAgainstCompanies.Domain.Entities;
+﻿global using System.Diagnostics.CodeAnalysis;
+global using YelpAgainstCompanies.Domain.Entities;

@@ -9,7 +9,6 @@ public class CompanyService : ICompanyService
         _dataStore = dataStore;
     }
 
-    //TODO Write tests
     public async Task<IEnumerable<Company>> Get() => await _dataStore.GetCompanies();
 
     //TODO Write tests
