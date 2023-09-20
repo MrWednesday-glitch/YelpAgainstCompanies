@@ -1,8 +1,3 @@
-
-using YelpAgainstCompanies.Business.Services;
-using YelpAgainstCompanies.Data;
-using YelpAgainstCompanies.Domain.Interfaces;
-
 namespace YelpAgainstCompanies.Api
 {
     public class Program
@@ -16,6 +11,7 @@ namespace YelpAgainstCompanies.Api
             webAppBuilder.Services.AddControllers();
 
             webAppBuilder.Services.AddScoped<DataStore>();
+            webAppBuilder.Services.AddScoped<Transformations>();
             webAppBuilder.Services.AddScoped<ICompanyService, CompanyService>();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
