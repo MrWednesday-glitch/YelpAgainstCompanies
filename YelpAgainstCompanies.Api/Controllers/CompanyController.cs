@@ -40,9 +40,9 @@ public class CompanyController : Controller
     };
 
     [HttpGet("companies")]
-    public IActionResult GetCompanies()
+    public async Task<IActionResult> GetCompanies()
     {
-        var companies = _companyService.Get().Select(x => Transform(x));
+        var companies = (await _companyService.Get()).Select(x => Transform(x));
 
         return Ok(companies);
     }

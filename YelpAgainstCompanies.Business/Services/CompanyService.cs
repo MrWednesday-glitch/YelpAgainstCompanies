@@ -1,6 +1,5 @@
 ﻿namespace YelpAgainstCompanies.Business.Services;
 
-//TODO Make things async
 public class CompanyService : ICompanyService
 {
     private readonly DataStore _dataStore;
@@ -11,8 +10,8 @@ public class CompanyService : ICompanyService
     }
 
     //TODO Write tests
-    public List<Company> Get() => _dataStore.GetCompanies();
+    public async Task<IEnumerable<Company>> Get() => await _dataStore.GetCompanies();
 
     //TODO Write tests
-    public Company Get(int id) => _dataStore.GetCompanies().SingleOrDefault(x => x.Id == id);
+    public async Task<Company> Get(int id) => (await _dataStore.GetCompanies()).SingleOrDefault(x => x.Id == id);
 }

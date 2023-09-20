@@ -2,7 +2,7 @@
 
 public interface ICompanyService
 {
-    Company Get(int id);
+    Task<Company> Get(int id);
 
-    List<Company> Get();
+    Task<IEnumerable<Company>> Get();
 }

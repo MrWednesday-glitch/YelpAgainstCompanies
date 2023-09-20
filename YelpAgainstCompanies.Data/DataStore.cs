@@ -2,7 +2,7 @@
 
 public class DataStore
 {
-    public List<Company> GetCompanies()
+    public async Task< List<Company>> GetCompanies()
     {
         var userRowan = new User()
         {
