@@ -10,7 +10,9 @@ public class CompanyService : ICompanyService
         _dataStore = dataStore;
     }
 
+    //TODO Write tests
     public List<Company> Get() => _dataStore.GetCompanies();
 
+    //TODO Write tests
     public Company Get(int id) => _dataStore.GetCompanies().SingleOrDefault(x => x.Id == id);
 }
