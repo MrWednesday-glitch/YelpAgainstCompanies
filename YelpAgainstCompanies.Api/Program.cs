@@ -1,15 +1,24 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace YelpAgainstCompanies.Api
 {
     public class Program
     {
         public static void Main(string[] args)
         {
+            var configBuilder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", false, true)
+                .Build();
+
             var webAppBuilder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
 
             webAppBuilder.Services.AddControllers();
 
+            webAppBuilder.Services.AddDbContext<DataContext>(options
+                => options.UseSqlServer(configBuilder.GetConnectionString("DefaultConnection")), ServiceLifetime.Singleton);
             webAppBuilder.Services.AddScoped<DataStore>();
             webAppBuilder.Services.AddScoped<Transformations>();
             webAppBuilder.Services.AddScoped<ICompanyService, CompanyService>();
