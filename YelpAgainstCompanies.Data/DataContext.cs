@@ -38,6 +38,7 @@ public class DataContext : IdentityDbContext<IdentityUser, IdentityRole, string>
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        //TODO Fill in the seed data
         base.OnModelCreating(builder);
     }
 }

@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
+//https://www.tektutorialshub.com/asp-net-core/asp-net-core-identity-tutorial/#create-new-aspnet-core-project
 namespace YelpAgainstCompanies.Api
 {
     public class Program
@@ -17,8 +19,14 @@ namespace YelpAgainstCompanies.Api
 
             webAppBuilder.Services.AddControllers();
 
-            webAppBuilder.Services.AddDbContext<DataContext>(options
-                => options.UseSqlServer(configBuilder.GetConnectionString("DefaultConnection")), ServiceLifetime.Singleton);
+            webAppBuilder.Services.AddDbContext<DataContext>(options =>
+            {
+                options.UseSqlServer(configBuilder.GetConnectionString("DefaultConnection"));
+            }, ServiceLifetime.Singleton);
+            webAppBuilder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = false;
+            }).AddEntityFrameworkStores<DataContext>(); //Is this last bit needed?
             webAppBuilder.Services.AddScoped<DataStore>();
             webAppBuilder.Services.AddScoped<Transformations>();
             webAppBuilder.Services.AddScoped<ICompanyService, CompanyService>();
@@ -47,6 +55,7 @@ namespace YelpAgainstCompanies.Api
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
 
