@@ -36,6 +36,7 @@ public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
         //TODO Finish/fix this
         var userRowan = new AppUser
         {
+        //TODO Id = Guid.NewGuid().ToString(),
             Id = new Guid("00000000-0000-0000-0000-000000000001"),
             Email = "rowan@email.com",
             EmailConfirmed = true,
@@ -43,6 +44,7 @@ public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
         };
         var userWednesday = new AppUser
         {
+        //TODO Id = Guid.NewGuid().ToString(),
             Id = new Guid("00000000-0000-0000-0000-000000000002"),
             Email = "wednesday@asgard.com",
             EmailConfirmed = true,
