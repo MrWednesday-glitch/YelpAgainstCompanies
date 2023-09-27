@@ -29,7 +29,7 @@ public class JwtAuthorityManager : IJwtAuthorityManager
         var refreshToken = new RefreshToken
         {
             UserName = userName,
-            TokenString = GenerateRefreshTokenString(), //TODO Write this
+            TokenString = GenerateRefreshTokenString(),
             ExpireAt = currentTime.AddMinutes(_jwtTokenConfiguration.RefreshTokenExpiration)
         };
 

@@ -88,7 +88,7 @@ public class AuthorityController : Controller
 
             if (!result.Succeeded)
             {
-                return AddIdentityErrors(result); //TODO write this
+                return AddIdentityErrors(result);
             }
 
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

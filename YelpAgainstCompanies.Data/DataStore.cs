@@ -5,20 +5,35 @@ public class DataStore
 {
     public async Task<List<Company>> GetCompanies()
     {
-        var userRowan = new User()
+        var userRowan = new AppUser
         {
-            FirstName = "Rowan",
-            LastName = "Chander",
-            Email = "rowan@gmail.com",
-            Id = 1
+            Id = new Guid("pre generated value 1"),
+            Email = "rowan@email.com",
+            EmailConfirmed = true,
+            UserName = "rowan@email.com"
         };
-        var userWednesday = new User()
+        var userWednesday = new AppUser
         {
-            FirstName = "Wednesday",
-            LastName = "Asriel",
+            Id = new Guid("pre generated value 2"),
             Email = "wednesday@asgard.com",
-            Id = 2
+            EmailConfirmed = true,
+            UserName = "wednesday@asgard.com"
         };
+
+        //var userRowan = new User()
+        //{
+        //    FirstName = "Rowan",
+        //    LastName = "Chander",
+        //    Email = "rowan@gmail.com",
+        //    Id = 1
+        //};
+        //var userWednesday = new User()
+        //{
+        //    FirstName = "Wednesday",
+        //    LastName = "Asriel",
+        //    Email = "wednesday@asgard.com",
+        //    Id = 2
+        //};
 
         var ratingWedndesdayAH = new Rating()
         {

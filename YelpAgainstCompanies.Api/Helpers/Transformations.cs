@@ -26,6 +26,6 @@ public class Transformations
         Date = rating.Date.ToLongDateString(),
         Comment = rating.Comment,
         Score = rating.Score,
-        UserName = $"{rating.User.FirstName} {rating.User.LastName}"
+        //UserName = $"{rating.User.FirstName} {rating.User.LastName}"
     };
 }

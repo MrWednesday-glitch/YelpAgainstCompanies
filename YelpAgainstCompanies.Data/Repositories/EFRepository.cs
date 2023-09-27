@@ -1,12 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace YelpAgainstCompanies.Data.Repositories;
 
-namespace YelpAgainstCompanies.Data.Repositories;
-
-public class EFRepository
+[ExcludeFromCodeCoverage]
+public class EFRepository<TEntity> : IRepository<TEntity> where TEntity : EntityBase
 {
-    //TODO Finish this
+    private readonly DataContext _dataContext;
+
+    public EFRepository(DataContext dataContext)
+    {
+        _dataContext = dataContext;
+    }
+
+    public virtual async Task CreateRecord(TEntity entity)
+    {
+        await _dataContext.Set<TEntity>().AddAsync(entity);
+    }
+
+    public virtual async Task DeleteRecord(int id)
+    {
+        _dataContext.Set<TEntity>().Remove(GetRecord(id));
+    }
+
+    public virtual IQueryable<TEntity> GetRecords()
+    {
+        return _dataContext.Set<TEntity>().AsQueryable();
+    }
+
+    public virtual TEntity GetRecord(int id)
+    {
+        return _dataContext.Set<TEntity>().SingleOrDefault(x => x.Id == id)
+            ?? throw new Exception("No record was found.");
+    }
+
+    public virtual async Task SaveChanges()
+    {
+        await _dataContext.SaveChangesAsync();
+    }
 }
