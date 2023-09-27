@@ -1,5 +1,3 @@
-//https://www.tektutorialshub.com/asp-net-core/asp-net-core-identity-tutorial/#create-new-aspnet-core-project
-
 namespace YelpAgainstCompanies.Api;
 
 public class Program
@@ -24,7 +22,7 @@ public class Program
         webAppBuilder.Services.AddScoped<DataStore>(); //TODO Delete this once the database is up and running
         webAppBuilder.Services.AddScoped<Transformations>();
         webAppBuilder.Services.AddScoped<ICompanyService, CompanyService>();
-        webAppBuilder.Services.AddScoped<IJwtAuthorityManager, JwtAuthorityManager>(); //TODO Write these
+        webAppBuilder.Services.AddScoped<IJwtAuthorityManager, JwtAuthorityManager>();
 
         webAppBuilder.Services.AddIdentity<AppUser, AppUserRole>(options =>
         {

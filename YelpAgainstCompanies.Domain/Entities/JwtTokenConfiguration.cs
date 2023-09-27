@@ -9,7 +9,7 @@ public class JwtTokenConfiguration
 
     public string? Secret { get; set; }
 
-    public double AccessRokenExpiration { get; set; }
+    public double AccessTokenExpiration { get; set; }
 
     public double RefreshTokenExpiration { get; set; }
 }
