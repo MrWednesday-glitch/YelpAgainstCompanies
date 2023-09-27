@@ -34,9 +34,10 @@ public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
     protected override void OnModelCreating(ModelBuilder builder)
     {
         //TODO Finish/fix this
+        //TODO var guidString1 (and 2) = Guid.NewGuid().ToString();
+        //TODO Enter these into Id = new Guid(guidString1/2),
         var userRowan = new AppUser
         {
-        //TODO Id = Guid.NewGuid().ToString(),
             Id = new Guid("00000000-0000-0000-0000-000000000001"),
             Email = "rowan@email.com",
             EmailConfirmed = true,
@@ -44,7 +45,6 @@ public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
         };
         var userWednesday = new AppUser
         {
-        //TODO Id = Guid.NewGuid().ToString(),
             Id = new Guid("00000000-0000-0000-0000-000000000002"),
             Email = "wednesday@asgard.com",
             EmailConfirmed = true,
