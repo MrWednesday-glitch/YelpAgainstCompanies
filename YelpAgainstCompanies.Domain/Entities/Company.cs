@@ -12,5 +12,5 @@ public class Company : EntityBase
 
     public double Score { get; set; }
 
-    public List<Rating> Ratings { get; set; }
+    public virtual ICollection<Rating> Ratings { get; set; }
 }

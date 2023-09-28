@@ -89,7 +89,7 @@ public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
             User = userWednesday,
             UserId = 2,
             Comment = "Terrible Company!",
-            CompanyId = 2,
+            CompanyId = albertHeijn.Id,
             Company = albertHeijn
         };
         var ratingRowanAH = new Rating()
@@ -100,7 +100,7 @@ public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
             User = userRowan,
             UserId = 1,
             Comment = "It sucks to work here.",
-            CompanyId = 2,
+            CompanyId = albertHeijn.Id,
             Company = albertHeijn
         };
         var ratingRowanBK = new Rating()
@@ -111,7 +111,7 @@ public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
             User = userRowan,
             UserId = 1,
             Comment = "This job was fine.",
-            CompanyId = 3,
+            CompanyId = burgerKing.Id,
             Company = burgerKing
         };
         var ratingWednesdayKB = new Rating()
@@ -122,7 +122,7 @@ public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
             Score = 3,
             User = userWednesday,
             UserId = 2,
-            CompanyId = 1,
+            CompanyId = keesBalvert.Id,
             Company = keesBalvert
         };
 
@@ -132,9 +132,7 @@ public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
 
 
         builder.Entity<AppUser>().HasData(new AppUser[] { userRowan, userWednesday });
-
         builder.Entity<Rating>().HasData(new Rating[] { ratingRowanAH, ratingRowanBK, ratingWednesdayKB, ratingWednesdayAH });
-
         builder.Entity<Company>().HasData(new Company[] { keesBalvert, albertHeijn, burgerKing });
 
         base.OnModelCreating(builder);

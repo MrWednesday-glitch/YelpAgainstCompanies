@@ -15,5 +15,5 @@ public class Rating : EntityBase
 
     public int CompanyId { get; set; }
 
-    public Company Company { get; set; }
+    public virtual Company Company { get; set; } = null!;
 }
