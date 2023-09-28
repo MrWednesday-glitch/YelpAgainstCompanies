@@ -14,4 +14,6 @@ public class Rating : EntityBase
     public string? Comment { get; set; }
 
     public int CompanyId { get; set; }
+
+    public Company Company { get; set; }
 }

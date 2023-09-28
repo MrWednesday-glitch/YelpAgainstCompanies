@@ -55,9 +55,33 @@ public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
             UserName = "wednesday@asgard.com"
         };
 
-        builder.Entity<AppUser>().HasData(new AppUser[] { userRowan, userWednesday });
+        var keesBalvert = new Company()
+        {
+            Id = 1,
+            Name = "Kees Balvert",
+            //Ratings = new List<Rating>() { ratingWednesdayKB },
+        };
+        var albertHeijn = new Company()
+        {
+            Id = 2,
+            Name = "Albert Heijn",
+            //Ratings = new List<Rating>
+            //{
+            //    ratingRowanAH,
+            //    ratingWedndesdayAH
+            //},
+        };
+        var burgerKing = new Company()
+        {
+            Id = 3,
+            Name = "Burger King",
+            //Ratings = new List<Rating>
+            //{
+            //    ratingRowanBK,
+            //}
+        };
 
-        var ratingWedndesdayAH = new Rating()
+        var ratingWednesdayAH = new Rating()
         {
             Id = 1,
             Date = new DateTime(2023, 4, 12),
@@ -65,7 +89,8 @@ public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
             User = userWednesday,
             UserId = 2,
             Comment = "Terrible Company!",
-            CompanyId = 2
+            CompanyId = 2,
+            Company = albertHeijn
         };
         var ratingRowanAH = new Rating()
         {
@@ -75,7 +100,8 @@ public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
             User = userRowan,
             UserId = 1,
             Comment = "It sucks to work here.",
-            CompanyId = 2
+            CompanyId = 2,
+            Company = albertHeijn
         };
         var ratingRowanBK = new Rating()
         {
@@ -85,7 +111,8 @@ public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
             User = userRowan,
             UserId = 1,
             Comment = "This job was fine.",
-            CompanyId = 3
+            CompanyId = 3,
+            Company = burgerKing
         };
         var ratingWednesdayKB = new Rating()
         {
@@ -95,36 +122,18 @@ public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
             Score = 3,
             User = userWednesday,
             UserId = 2,
-            CompanyId = 1
+            CompanyId = 1,
+            Company = keesBalvert
         };
 
-        builder.Entity<Rating>().HasData(new Rating[] { ratingRowanAH,  ratingRowanBK, ratingWednesdayKB, ratingWedndesdayAH });
+        keesBalvert.Ratings = new List<Rating>() { ratingWednesdayKB };
+        albertHeijn.Ratings = new List<Rating> { ratingRowanAH, ratingWednesdayAH };
+        burgerKing.Ratings = new List<Rating> { ratingRowanBK, };
 
-        var keesBalvert = new Company()
-        {
-            Id = 1,
-            Name = "Kees Balvert",
-            Ratings = new List<Rating>() { ratingWednesdayKB },
-        };
-        var albertHeijn = new Company()
-        {
-            Id = 2,
-            Name = "Albert Heijn",
-            Ratings = new List<Rating>
-            {
-                ratingRowanAH,
-                ratingWedndesdayAH
-            },
-        };
-        var burgerKing = new Company()
-        {
-            Id = 3,
-            Name = "Burger King",
-            Ratings = new List<Rating>
-            {
-                ratingRowanBK,
-            }
-        };
+
+        builder.Entity<AppUser>().HasData(new AppUser[] { userRowan, userWednesday });
+
+        builder.Entity<Rating>().HasData(new Rating[] { ratingRowanAH, ratingRowanBK, ratingWednesdayKB, ratingWednesdayAH });
 
         builder.Entity<Company>().HasData(new Company[] { keesBalvert, albertHeijn, burgerKing });
 
