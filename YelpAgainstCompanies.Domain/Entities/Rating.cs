@@ -5,7 +5,7 @@ public class Rating : EntityBase
 {
     public DateTime Date { get; set; }
 
-    public int UserId { get; set; }
+    public Guid UserId { get; set; }
 
     public AppUser User { get; set; }
 

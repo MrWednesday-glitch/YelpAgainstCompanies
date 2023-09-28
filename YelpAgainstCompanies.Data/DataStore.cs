@@ -41,7 +41,7 @@ public class DataStore
             Date = new DateTime(2023, 4, 12),
             Score = 2.2,
             User = userWednesday,
-            UserId = 2,
+            UserId = userWednesday.Id,
             Comment = "Terrible Company!"
         };
         var ratingRowanAH = new Rating()
@@ -50,7 +50,7 @@ public class DataStore
             Date = new DateTime(2023, 4, 15),
             Score = 1.75,
             User = userRowan,
-            UserId = 1,
+            UserId = userRowan.Id,
             Comment = "It sucks to work here."
         };
         var ratingRowanBK = new Rating()
@@ -59,7 +59,7 @@ public class DataStore
             Date = new DateTime(2023, 6, 22),
             Score = 3.9,
             User = userRowan,
-            UserId = 1,
+            UserId = userRowan.Id,
             Comment = "This job was fine."
         };
         var ratingWednesdayKB = new Rating()
@@ -69,7 +69,7 @@ public class DataStore
             Id = 4,
             Score = 3,
             User = userWednesday,
-            UserId = 2,
+            UserId = userWednesday.Id,
         };
 
         var keesBalvert = new Company()
