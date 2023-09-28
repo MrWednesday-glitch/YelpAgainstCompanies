@@ -90,7 +90,7 @@ public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
             UserId = 2,
             Comment = "Terrible Company!",
             CompanyId = albertHeijn.Id,
-            Company = albertHeijn
+            Company = albertHeijn,
         };
         var ratingRowanAH = new Rating()
         {
@@ -126,10 +126,13 @@ public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
             Company = keesBalvert
         };
 
-        keesBalvert.Ratings = new List<Rating>() { ratingWednesdayKB };
-        albertHeijn.Ratings = new List<Rating> { ratingRowanAH, ratingWednesdayAH };
-        burgerKing.Ratings = new List<Rating> { ratingRowanBK, };
+        //keesBalvert.Ratings.Add(ratingWednesdayKB);
+        //albertHeijn.Ratings.Add(ratingRowanAH);
+        //albertHeijn.Ratings.Add(ratingWednesdayAH);
+        //burgerKing.Ratings.Add(ratingRowanBK);
 
+        builder.Entity<Rating>()
+            .HasOne(x => x.Company).WithMany(x => x.Ratings).HasForeignKey(x => x.CompanyId).IsRequired(false);
 
         builder.Entity<AppUser>().HasData(new AppUser[] { userRowan, userWednesday });
         builder.Entity<Rating>().HasData(new Rating[] { ratingRowanAH, ratingRowanBK, ratingWednesdayKB, ratingWednesdayAH });
