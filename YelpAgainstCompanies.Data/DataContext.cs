@@ -34,18 +34,22 @@ public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
     protected override void OnModelCreating(ModelBuilder builder)
     {
         //TODO Finish/fix this
-        //TODO var guidString1 (and 2) = Guid.NewGuid().ToString();
-        //TODO Enter these into Id = new Guid(guidString1/2),
+        //The seed entity for entity type 'Company' cannot be added because it has the navigation 'Ratings' set.
+        //To seed relationships,  add the entity seed to 'Rating' and specify the foreign key values {'CompanyId'}.
+        //Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see the involved property values.
+        var guidStringRowan = Guid.NewGuid().ToString();
+        var guidStringWednesday = Guid.NewGuid().ToString();
+
         var userRowan = new AppUser
         {
-            Id = new Guid("00000000-0000-0000-0000-000000000001"),
+            Id = new Guid(guidStringRowan),
             Email = "rowan@email.com",
             EmailConfirmed = true,
             UserName = "rowan@email.com"
         };
         var userWednesday = new AppUser
         {
-            Id = new Guid("00000000-0000-0000-0000-000000000002"),
+            Id = new Guid(guidStringWednesday),
             Email = "wednesday@asgard.com",
             EmailConfirmed = true,
             UserName = "wednesday@asgard.com"
