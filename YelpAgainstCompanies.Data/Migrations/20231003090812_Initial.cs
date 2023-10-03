@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace YelpAgainstCompanies.Data.Migrations
 {
     /// <inheritdoc />
@@ -62,21 +64,6 @@ namespace YelpAgainstCompanies.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Companies", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "User",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_User", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -192,10 +179,10 @@ namespace YelpAgainstCompanies.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Score = table.Column<double>(type: "float", nullable: false),
                     Comment = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CompanyId = table.Column<int>(type: "int", nullable: true)
+                    CompanyId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -204,13 +191,38 @@ namespace YelpAgainstCompanies.Data.Migrations
                         name: "FK_Rating_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Companies",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Rating_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[,]
+                {
+                    { new Guid("c992957f-7b18-4b1a-8d53-5d3f5c99f726"), 0, "a9ff4be4-a875-4ada-b6ae-4c4be96e9303", "wednesday@asgard.com", true, false, null, null, null, null, null, false, null, false, "wednesday@asgard.com" },
+                    { new Guid("fd598be7-974f-4e01-aba8-0e861915b2e5"), 0, "ca1fb920-7f90-4f30-930c-3aacb71f0b19", "rowan@email.com", true, false, null, null, null, null, null, false, null, false, "rowan@email.com" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Companies",
+                columns: new[] { "Id", "Name", "Score" },
+                values: new object[,]
+                {
+                    { 1, "Kees Balvert", 0.0 },
+                    { 2, "Albert Heijn", 0.0 },
+                    { 3, "Burger King", 0.0 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Rating",
+                columns: new[] { "Id", "Comment", "CompanyId", "Date", "Score", "UserId" },
+                values: new object[,]
+                {
+                    { 1, "Terrible Company!", 2, new DateTime(2023, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 2.2000000000000002, new Guid("c992957f-7b18-4b1a-8d53-5d3f5c99f726") },
+                    { 2, "It sucks to work here.", 2, new DateTime(2023, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 1.75, new Guid("fd598be7-974f-4e01-aba8-0e861915b2e5") },
+                    { 3, "This job was fine.", 3, new DateTime(2023, 6, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), 3.8999999999999999, new Guid("fd598be7-974f-4e01-aba8-0e861915b2e5") },
+                    { 4, "something", 1, new DateTime(2022, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 3.0, new Guid("c992957f-7b18-4b1a-8d53-5d3f5c99f726") }
                 });
 
             migrationBuilder.CreateIndex(
@@ -256,11 +268,6 @@ namespace YelpAgainstCompanies.Data.Migrations
                 name: "IX_Rating_CompanyId",
                 table: "Rating",
                 column: "CompanyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Rating_UserId",
-                table: "Rating",
-                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -292,9 +299,6 @@ namespace YelpAgainstCompanies.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Companies");
-
-            migrationBuilder.DropTable(
-                name: "User");
         }
     }
 }

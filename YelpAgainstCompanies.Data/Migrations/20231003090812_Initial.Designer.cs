@@ -12,7 +12,7 @@ using YelpAgainstCompanies.Data;
 namespace YelpAgainstCompanies.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230927124754_Initial")]
+    [Migration("20231003090812_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -192,6 +192,32 @@ namespace YelpAgainstCompanies.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("fd598be7-974f-4e01-aba8-0e861915b2e5"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "ca1fb920-7f90-4f30-930c-3aacb71f0b19",
+                            Email = "rowan@email.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            PhoneNumberConfirmed = false,
+                            TwoFactorEnabled = false,
+                            UserName = "rowan@email.com"
+                        },
+                        new
+                        {
+                            Id = new Guid("c992957f-7b18-4b1a-8d53-5d3f5c99f726"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "a9ff4be4-a875-4ada-b6ae-4c4be96e9303",
+                            Email = "wednesday@asgard.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            PhoneNumberConfirmed = false,
+                            TwoFactorEnabled = false,
+                            UserName = "wednesday@asgard.com"
+                        });
                 });
 
             modelBuilder.Entity("YelpAgainstCompanies.Domain.Entities.AppUserRole", b =>
@@ -240,6 +266,26 @@ namespace YelpAgainstCompanies.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Companies");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Kees Balvert",
+                            Score = 0.0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Albert Heijn",
+                            Score = 0.0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Burger King",
+                            Score = 0.0
+                        });
                 });
 
             modelBuilder.Entity("YelpAgainstCompanies.Domain.Entities.Rating", b =>
@@ -253,7 +299,7 @@ namespace YelpAgainstCompanies.Data.Migrations
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CompanyId")
+                    b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
@@ -262,40 +308,52 @@ namespace YelpAgainstCompanies.Data.Migrations
                     b.Property<double>("Score")
                         .HasColumnType("float");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Rating");
-                });
 
-            modelBuilder.Entity("YelpAgainstCompanies.Domain.Entities.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("User");
+                    b.HasData(
+                        new
+                        {
+                            Id = 2,
+                            Comment = "It sucks to work here.",
+                            CompanyId = 2,
+                            Date = new DateTime(2023, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Score = 1.75,
+                            UserId = new Guid("fd598be7-974f-4e01-aba8-0e861915b2e5")
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Comment = "This job was fine.",
+                            CompanyId = 3,
+                            Date = new DateTime(2023, 6, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Score = 3.8999999999999999,
+                            UserId = new Guid("fd598be7-974f-4e01-aba8-0e861915b2e5")
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Comment = "something",
+                            CompanyId = 1,
+                            Date = new DateTime(2022, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Score = 3.0,
+                            UserId = new Guid("c992957f-7b18-4b1a-8d53-5d3f5c99f726")
+                        },
+                        new
+                        {
+                            Id = 1,
+                            Comment = "Terrible Company!",
+                            CompanyId = 2,
+                            Date = new DateTime(2023, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Score = 2.2000000000000002,
+                            UserId = new Guid("c992957f-7b18-4b1a-8d53-5d3f5c99f726")
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -353,15 +411,9 @@ namespace YelpAgainstCompanies.Data.Migrations
                 {
                     b.HasOne("YelpAgainstCompanies.Domain.Entities.Company", null)
                         .WithMany("Ratings")
-                        .HasForeignKey("CompanyId");
-
-                    b.HasOne("YelpAgainstCompanies.Domain.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("YelpAgainstCompanies.Domain.Entities.Company", b =>
