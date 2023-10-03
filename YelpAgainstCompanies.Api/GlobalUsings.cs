@@ -13,5 +13,6 @@ global using YelpAgainstCompanies.Business.Extensions;
 global using YelpAgainstCompanies.Business.Managers;
 global using YelpAgainstCompanies.Business.Services;
 global using YelpAgainstCompanies.Data;
+global using YelpAgainstCompanies.Data.Repositories;
 global using YelpAgainstCompanies.Domain.Entities;
 global using YelpAgainstCompanies.Domain.Interfaces;

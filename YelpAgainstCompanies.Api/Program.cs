@@ -1,3 +1,5 @@
+using YelpAgainstCompanies.Data.Repositories;
+
 namespace YelpAgainstCompanies.Api;
 
 public class Program
@@ -19,8 +21,9 @@ public class Program
         {
             options.UseSqlServer(configBuilder.GetConnectionString("DefaultConnection"));
         }, ServiceLifetime.Singleton);
-        webAppBuilder.Services.AddScoped<DataStore>(); //TODO Delete this once the database is up and running
+        //webAppBuilder.Services.AddScoped<DataStore>(); //TODO Delete this once the database is up and running
         webAppBuilder.Services.AddScoped<Transformations>();
+        webAppBuilder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
         webAppBuilder.Services.AddScoped<ICompanyService, CompanyService>();
         webAppBuilder.Services.AddScoped<IJwtAuthorityManager, JwtAuthorityManager>();
 
