@@ -12,5 +12,7 @@ public class Company : EntityBase
 
     public double Score { get; set; }
 
-    public List<Rating> Ratings { get; set; }
+    //TODO Add location
+
+    public virtual IEnumerable<Rating> Ratings { get; set; }
 }

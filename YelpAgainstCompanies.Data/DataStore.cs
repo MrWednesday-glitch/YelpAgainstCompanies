@@ -5,19 +5,19 @@ public class DataStore
 {
     public async Task<List<Company>> GetCompanies()
     {
-        var userRowan = new User()
+        var userRowan = new AppUser
         {
-            FirstName = "Rowan",
-            LastName = "Chander",
-            Email = "rowan@gmail.com",
-            Id = 1
+            Id = new Guid("pre generated value 1"),
+            Email = "rowan@email.com",
+            EmailConfirmed = true,
+            UserName = "rowan@email.com"
         };
-        var userWednesday = new User()
+        var userWednesday = new AppUser
         {
-            FirstName = "Wednesday",
-            LastName = "Asriel",
+            Id = new Guid("pre generated value 2"),
             Email = "wednesday@asgard.com",
-            Id = 2
+            EmailConfirmed = true,
+            UserName = "wednesday@asgard.com"
         };
 
         var ratingWedndesdayAH = new Rating()
@@ -25,8 +25,7 @@ public class DataStore
             Id = 1,
             Date = new DateTime(2023, 4, 12),
             Score = 2.2,
-            User = userWednesday,
-            UserId = 2,
+            UserId = userWednesday.Id,
             Comment = "Terrible Company!"
         };
         var ratingRowanAH = new Rating()
@@ -34,8 +33,7 @@ public class DataStore
             Id = 2,
             Date = new DateTime(2023, 4, 15),
             Score = 1.75,
-            User = userRowan,
-            UserId = 1,
+            UserId = userRowan.Id,
             Comment = "It sucks to work here."
         };
         var ratingRowanBK = new Rating()
@@ -43,8 +41,7 @@ public class DataStore
             Id = 3,
             Date = new DateTime(2023, 6, 22),
             Score = 3.9,
-            User = userRowan,
-            UserId = 1,
+            UserId = userRowan.Id,
             Comment = "This job was fine."
         };
         var ratingWednesdayKB = new Rating()
@@ -53,8 +50,7 @@ public class DataStore
             Date = new DateTime(2022, 9, 1),
             Id = 4,
             Score = 3,
-            User = userWednesday,
-            UserId = 2,
+            UserId = userWednesday.Id,
         };
 
         var keesBalvert = new Company()

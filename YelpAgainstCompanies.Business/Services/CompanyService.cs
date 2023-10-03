@@ -2,16 +2,28 @@
 
 public class CompanyService : ICompanyService
 {
-    private readonly DataStore _dataStore;
+    private readonly ICompanyRepository _companyRepository;
+    private readonly IRatingService _ratingService;
 
-    public CompanyService(DataStore dataStore)
+    public CompanyService(ICompanyRepository companyRepository, IRatingService ratingService)
     {
-        _dataStore = dataStore;
+        _companyRepository = companyRepository;
+        _ratingService = ratingService;
     }
 
-    public async Task<IEnumerable<Company>> Get() => await _dataStore.GetCompanies();
+    //TODO Add a method to calculate the average of the ratings based on what is in the ratings and apply it to the get methods
+    public async Task<IEnumerable<Company>> Get()
+    {
+        var companies = _companyRepository.GetRecords();
 
-    //TODO Write tests
-    public async Task<Company> Get(int id) => (await _dataStore.GetCompanies()).SingleOrDefault(x => x.Id == id)
-        ?? throw new ArgumentNullException("No company was found with this id.");
+        return companies;
+    } 
+
+    public async Task<Company> Get(int id)
+    {
+        var company = _companyRepository.GetRecord(id)
+            ?? throw new ArgumentNullException("No company was found with this id.");
+
+        return company;
+    } 
 }
