@@ -33,7 +33,6 @@ public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        //TODO Finish/fix this
         var guidStringRowan = Guid.NewGuid().ToString();
         var guidStringWednesday = Guid.NewGuid().ToString();
 
