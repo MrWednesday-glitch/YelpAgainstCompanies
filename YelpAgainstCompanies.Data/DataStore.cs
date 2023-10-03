@@ -20,27 +20,11 @@ public class DataStore
             UserName = "wednesday@asgard.com"
         };
 
-        //var userRowan = new User()
-        //{
-        //    FirstName = "Rowan",
-        //    LastName = "Chander",
-        //    Email = "rowan@gmail.com",
-        //    Id = 1
-        //};
-        //var userWednesday = new User()
-        //{
-        //    FirstName = "Wednesday",
-        //    LastName = "Asriel",
-        //    Email = "wednesday@asgard.com",
-        //    Id = 2
-        //};
-
         var ratingWedndesdayAH = new Rating()
         {
             Id = 1,
             Date = new DateTime(2023, 4, 12),
             Score = 2.2,
-            User = userWednesday,
             UserId = userWednesday.Id,
             Comment = "Terrible Company!"
         };
@@ -49,7 +33,6 @@ public class DataStore
             Id = 2,
             Date = new DateTime(2023, 4, 15),
             Score = 1.75,
-            User = userRowan,
             UserId = userRowan.Id,
             Comment = "It sucks to work here."
         };
@@ -58,7 +41,6 @@ public class DataStore
             Id = 3,
             Date = new DateTime(2023, 6, 22),
             Score = 3.9,
-            User = userRowan,
             UserId = userRowan.Id,
             Comment = "This job was fine."
         };
@@ -68,7 +50,6 @@ public class DataStore
             Date = new DateTime(2022, 9, 1),
             Id = 4,
             Score = 3,
-            User = userWednesday,
             UserId = userWednesday.Id,
         };
 
