@@ -4,7 +4,7 @@
 public class CompanyRepository : EFRepository<Company>, ICompanyRepository
 {
     public CompanyRepository(DataContext dataContext) : base(dataContext)
-    {        
+    {
     }
 
     public override async Task CreateRecord(Company entity)
@@ -26,13 +26,13 @@ public class CompanyRepository : EFRepository<Company>, ICompanyRepository
 
     public override IQueryable<Company> GetRecords()
     {
-        return base.GetRecords();
+        return base.GetRecords()
+            .Include(x => x.Ratings)
+            .ThenInclude(y => y.User);
     }
 
     public override Company GetRecord(int id)
     {
-        //TODO Make connection with ratings here?
-
         return base.GetRecord(id);
     }
 

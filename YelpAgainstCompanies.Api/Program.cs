@@ -1,7 +1,10 @@
-using YelpAgainstCompanies.Data.Repositories;
-
 namespace YelpAgainstCompanies.Api;
 
+//TODO Write markdown
+//What the app is
+//How it is a joke
+//What it is supposed to do and how
+//What problems I face and how I solved them
 public class Program
 {
     public static void Main(string[] args)
@@ -21,10 +24,13 @@ public class Program
         {
             options.UseSqlServer(configBuilder.GetConnectionString("DefaultConnection"));
         }, ServiceLifetime.Singleton);
-        //webAppBuilder.Services.AddScoped<DataStore>(); //TODO Delete this once the database is up and running
         webAppBuilder.Services.AddScoped<Transformations>();
+        webAppBuilder.Services.AddScoped<IRatingRepository, RatingRepository>();
         webAppBuilder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
+        webAppBuilder.Services.AddScoped<IUserRepository, UserRepository>();
         webAppBuilder.Services.AddScoped<ICompanyService, CompanyService>();
+        webAppBuilder.Services.AddScoped<IRatingService, RatingService>();
+        webAppBuilder.Services.AddScoped<IUserService, UserService>();
         webAppBuilder.Services.AddScoped<IJwtAuthorityManager, JwtAuthorityManager>();
 
         webAppBuilder.Services.AddIdentity<AppUser, AppUserRole>(options =>

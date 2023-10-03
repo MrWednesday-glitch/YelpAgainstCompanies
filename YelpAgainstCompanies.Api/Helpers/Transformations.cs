@@ -2,6 +2,13 @@
 
 public class Transformations
 {
+    private readonly IUserService _userService;
+
+    public Transformations(IUserService userService)
+    {
+        _userService = userService;
+    }
+
     public CompanyDTO Transform(Company company)
     {
         var companyDTO = new CompanyDTO()
@@ -26,6 +33,6 @@ public class Transformations
         Date = rating.Date.ToLongDateString(),
         Comment = rating.Comment,
         Score = rating.Score,
-        //UserName = $"{rating.User.FirstName} {rating.User.LastName}"
+        Name = $"{rating.User.FirstName} {rating.User.LastName}"
     };
 }

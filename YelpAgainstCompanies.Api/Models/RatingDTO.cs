@@ -2,9 +2,9 @@
 
 public class RatingDTO
 {
-    public string Date { get; set; }
+    public string Date { get; set; } = string.Empty;
 
-    public string UserName { get; set; }
+    public string Name { get; set; } = string.Empty;
 
     public double Score { get; set; }
 

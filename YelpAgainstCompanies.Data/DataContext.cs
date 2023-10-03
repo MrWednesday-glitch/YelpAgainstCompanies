@@ -42,14 +42,16 @@ public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
             Id = new Guid(guidStringRowan),
             Email = "rowan@email.com",
             EmailConfirmed = true,
-            UserName = "rowan@email.com"
+            UserName = "rowan@email.com",
+            FirstName = "Rowan"
         };
         var userWednesday = new AppUser
         {
             Id = new Guid(guidStringWednesday),
             Email = "wednesday@asgard.com",
             EmailConfirmed = true,
-            UserName = "wednesday@asgard.com"
+            UserName = "wednesday@asgard.com",
+            FirstName = "Wednesday"
         };
 
         var keesBalvert = new Company()
