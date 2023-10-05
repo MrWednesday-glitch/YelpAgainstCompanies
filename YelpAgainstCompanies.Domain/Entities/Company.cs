@@ -12,7 +12,13 @@ public class Company : EntityBase
 
     public double Score { get; set; }
 
-    //TODO Add location (street, postal code, city) + picture url?
+    public string Address { get; set; } = string.Empty;
+
+    public string PostalCode { get; set; } = string.Empty;
+
+    public string City { get; set; } = string.Empty;
+
+    public string? PictureUrl { get; set; }
 
     public virtual IEnumerable<Rating> Ratings { get; set; }
 }
