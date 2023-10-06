@@ -1,0 +1,14 @@
+$border-colour: #621458;
+
+.company-block {
+    border: 5px solid $border-colour;
+    margin: 5px;
+
+    .picture-box {
+        border: 5px solid $border-colour;
+        border-radius: 20%;
+        margin: 5px;
+        height: auto;
+        max-width: 20%;
+    }
+}
