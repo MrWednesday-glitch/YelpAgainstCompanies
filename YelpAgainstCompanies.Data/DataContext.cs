@@ -33,6 +33,12 @@ public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        builder.Entity<Rating>()
+            .HasOne(e => e.Company)
+            .WithMany(e => e.Ratings)
+            .HasForeignKey(e => e.CompanyId)
+            .IsRequired();
+
         var guidStringRowan = Guid.NewGuid().ToString();
         var guidStringWednesday = Guid.NewGuid().ToString();
 
@@ -127,11 +133,6 @@ public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
         builder.Entity<Rating>().HasData(new Rating[] { ratingRowanAH, ratingRowanBK, ratingWednesdayKB, ratingWednesdayAH });
         builder.Entity<Company>().HasData(new Company[] { keesBalvert, albertHeijn, burgerKing });
 
-        builder.Entity<Rating>()
-            .HasOne(e => e.Company)
-            .WithMany(e => e.Ratings)
-            .HasForeignKey(e => e.CompanyId)
-            .IsRequired();
 
         base.OnModelCreating(builder);
     }
