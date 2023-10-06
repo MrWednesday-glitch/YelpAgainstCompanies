@@ -8,11 +8,16 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { HomepageComponent } from './components/homepage/homepage.component';
+import { CompanyListComponent } from './components/company-list/company-list.component';
+import { CompanyListItemComponent } from './components/company-list-item/company-list-item.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomepageComponent
+    HomepageComponent,
+    CompanyListComponent,
+    CompanyListItemComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +26,8 @@ import { HomepageComponent } from './components/homepage/homepage.component';
     MatToolbarModule,
     BrowserAnimationsModule,
     MatIconModule,
-    MatSidenavModule
+    MatSidenavModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
