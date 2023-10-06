@@ -18,7 +18,8 @@ public class Transformations
             Address = company.Address,
             PostalCode = company.PostalCode,
             City = company.City,
-            NumberOfRatings = company.Ratings.Count(),
+            NumberOfRatings = company.Ratings.Count,
+            PictureUrl = company.PictureUrl,
         };
 
         return companyDTO;
