@@ -20,5 +20,5 @@ public class Company : EntityBase
 
     public string? PictureUrl { get; set; }
 
-    public virtual IEnumerable<Rating> Ratings { get; set; }
+    public virtual ICollection<Rating> Ratings { get; set; }
 }

@@ -13,5 +13,7 @@ public class Rating : EntityBase
 
     public int CompanyId { get; set; }
 
-    public virtual AppUser User { get; set; }
+    public virtual AppUser User { get; set; } = null!;
+
+    public virtual Company Company { get; set; } = null!;
 }

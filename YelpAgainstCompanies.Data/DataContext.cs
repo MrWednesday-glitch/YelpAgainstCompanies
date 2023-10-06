@@ -127,6 +127,12 @@ public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
         builder.Entity<Rating>().HasData(new Rating[] { ratingRowanAH, ratingRowanBK, ratingWednesdayKB, ratingWednesdayAH });
         builder.Entity<Company>().HasData(new Company[] { keesBalvert, albertHeijn, burgerKing });
 
+        builder.Entity<Rating>()
+            .HasOne(e => e.Company)
+            .WithMany(e => e.Ratings)
+            .HasForeignKey(e => e.CompanyId)
+            .IsRequired();
+
         base.OnModelCreating(builder);
     }
 }
