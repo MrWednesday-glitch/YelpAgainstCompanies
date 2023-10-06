@@ -11,19 +11,16 @@ public class Transformations
 
     public CompanyDTO Transform(Company company)
     {
+        //TODO Figure out why there is a disconnect again between the company and the ratings
         var companyDTO = new CompanyDTO()
         {
             Name = company.Name,
             Score = company.Score,
+            Address = company.Address,
+            PostalCode = company.PostalCode,
+            City = company.City,
+            NumberOfRatings = company.Ratings.Count(),
         };
-
-        var ratings = new List<RatingDTO>();
-        foreach (var rating in company.Ratings)
-        {
-            ratings.Add(Transform(rating));
-        }
-
-        companyDTO.Ratings = ratings;
 
         return companyDTO;
     }
