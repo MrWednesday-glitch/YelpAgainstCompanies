@@ -3,12 +3,30 @@ $border-colour: #621458;
 .company-block {
     border: 5px solid $border-colour;
     margin: 5px;
-
+    width: 50%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    
     .picture-box {
         border: 5px solid $border-colour;
         border-radius: 20%;
         margin: 5px;
         height: auto;
         max-width: 20%;
+    }
+
+    .name-and-score-block {
+        margin: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .address-block {
+        margin: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
     }
 }
