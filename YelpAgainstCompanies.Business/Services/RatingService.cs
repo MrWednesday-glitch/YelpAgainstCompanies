@@ -10,4 +10,19 @@ public class RatingService : IRatingService
     {
         _ratingRepository = ratingRepository;
     }
+
+    public async Task<IEnumerable<Rating>> Get(int companyId)
+    {
+        if (companyId <= 0) 
+        {
+            throw new ArgumentOutOfRangeException(nameof(companyId));
+        }
+
+        var ratings = _ratingRepository.GetRecords()
+            .Where(x => x.CompanyId == companyId)
+            .OrderByDescending(x => x.Date);
+
+        //TODO Maybe if ratings.count == 0 throw exception?
+        return ratings;
+    }
 }

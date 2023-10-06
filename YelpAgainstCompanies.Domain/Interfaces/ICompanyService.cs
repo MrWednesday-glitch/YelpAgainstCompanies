@@ -1,5 +1,6 @@
 ﻿namespace YelpAgainstCompanies.Domain.Interfaces;
 
+//TODO Write documenmtation
 public interface ICompanyService
 {
     Task<Company> Get(int id);

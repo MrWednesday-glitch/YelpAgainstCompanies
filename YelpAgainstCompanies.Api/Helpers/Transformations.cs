@@ -1,5 +1,6 @@
 ﻿namespace YelpAgainstCompanies.Api.Helpers;
 
+//TODO Turn this into a static extension methods
 public class Transformations
 {
     private readonly IUserService _userService;
@@ -26,7 +27,7 @@ public class Transformations
         return companyDTO;
     }
 
-    private RatingDTO Transform(Rating rating) => new()
+    public RatingDTO Transform(Rating rating) => new()
     {
         Date = rating.Date.ToLongDateString(),
         Comment = rating.Comment,
