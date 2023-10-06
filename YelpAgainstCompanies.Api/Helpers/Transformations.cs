@@ -14,7 +14,7 @@ public class Transformations
         var companyDTO = new CompanyDTO()
         {
             Name = company.Name,
-            Score = company.Score,
+            Score = company.Score, //TODO Have this rounded to 1 decimal
             Address = company.Address,
             PostalCode = company.PostalCode,
             City = company.City,
