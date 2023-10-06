@@ -12,8 +12,8 @@ using YelpAgainstCompanies.Data;
 namespace YelpAgainstCompanies.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231003090812_Initial")]
-    partial class Initial
+    [Migration("20231006095109_V1")]
+    partial class V1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -148,6 +148,13 @@ namespace YelpAgainstCompanies.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -196,11 +203,13 @@ namespace YelpAgainstCompanies.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("fd598be7-974f-4e01-aba8-0e861915b2e5"),
+                            Id = new Guid("a5fa0aae-fa8e-4a09-b578-006df89aa22f"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ca1fb920-7f90-4f30-930c-3aacb71f0b19",
+                            ConcurrencyStamp = "14822904-12c1-4313-8c82-81ebdfc47efa",
                             Email = "rowan@email.com",
                             EmailConfirmed = true,
+                            FirstName = "Rowan",
+                            LastName = "X",
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
@@ -208,11 +217,13 @@ namespace YelpAgainstCompanies.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c992957f-7b18-4b1a-8d53-5d3f5c99f726"),
+                            Id = new Guid("15782a7b-447b-408e-9de9-57f74c1d0463"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a9ff4be4-a875-4ada-b6ae-4c4be96e9303",
+                            ConcurrencyStamp = "ec2ee74c-9911-4691-b2cd-66046841f176",
                             Email = "wednesday@asgard.com",
                             EmailConfirmed = true,
+                            FirstName = "Wednesday",
+                            LastName = "Y",
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
@@ -256,7 +267,22 @@ namespace YelpAgainstCompanies.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PictureUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostalCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -271,20 +297,32 @@ namespace YelpAgainstCompanies.Data.Migrations
                         new
                         {
                             Id = 1,
+                            Address = "Street 5",
+                            City = "Den Haag",
                             Name = "Kees Balvert",
-                            Score = 0.0
+                            PictureUrl = "https://cdn.autotrack.nl/18126/0-438b7d7d-c717-484c-b4a7-81e6a4df20ae.jpg?w=320",
+                            PostalCode = "1234XD",
+                            Score = 3.0
                         },
                         new
                         {
                             Id = 2,
+                            Address = "Dorpstraat 3",
+                            City = "Zoetermeer",
                             Name = "Albert Heijn",
-                            Score = 0.0
+                            PictureUrl = "https://media.prdn.nl/retailtrends/files/RetailTrends/Albert+Heijn+5.jpg",
+                            PostalCode = "2345RT",
+                            Score = 1.9750000000000001
                         },
                         new
                         {
                             Id = 3,
+                            Address = "Kaaglaan 66",
+                            City = "Den Haag",
                             Name = "Burger King",
-                            Score = 0.0
+                            PictureUrl = "https://st3.idealista.com/news/archivos/styles/imagen_big_lightbox/public/2020-03/burger_king.jpg?sv=TGX70G_u&itok=fWgVKuuM",
+                            PostalCode = "6666YY",
+                            Score = 3.8999999999999999
                         });
                 });
 
@@ -315,6 +353,8 @@ namespace YelpAgainstCompanies.Data.Migrations
 
                     b.HasIndex("CompanyId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Rating");
 
                     b.HasData(
@@ -325,7 +365,7 @@ namespace YelpAgainstCompanies.Data.Migrations
                             CompanyId = 2,
                             Date = new DateTime(2023, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Score = 1.75,
-                            UserId = new Guid("fd598be7-974f-4e01-aba8-0e861915b2e5")
+                            UserId = new Guid("a5fa0aae-fa8e-4a09-b578-006df89aa22f")
                         },
                         new
                         {
@@ -334,7 +374,7 @@ namespace YelpAgainstCompanies.Data.Migrations
                             CompanyId = 3,
                             Date = new DateTime(2023, 6, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Score = 3.8999999999999999,
-                            UserId = new Guid("fd598be7-974f-4e01-aba8-0e861915b2e5")
+                            UserId = new Guid("a5fa0aae-fa8e-4a09-b578-006df89aa22f")
                         },
                         new
                         {
@@ -343,7 +383,7 @@ namespace YelpAgainstCompanies.Data.Migrations
                             CompanyId = 1,
                             Date = new DateTime(2022, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Score = 3.0,
-                            UserId = new Guid("c992957f-7b18-4b1a-8d53-5d3f5c99f726")
+                            UserId = new Guid("15782a7b-447b-408e-9de9-57f74c1d0463")
                         },
                         new
                         {
@@ -352,7 +392,7 @@ namespace YelpAgainstCompanies.Data.Migrations
                             CompanyId = 2,
                             Date = new DateTime(2023, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Score = 2.2000000000000002,
-                            UserId = new Guid("c992957f-7b18-4b1a-8d53-5d3f5c99f726")
+                            UserId = new Guid("15782a7b-447b-408e-9de9-57f74c1d0463")
                         });
                 });
 
@@ -409,11 +449,21 @@ namespace YelpAgainstCompanies.Data.Migrations
 
             modelBuilder.Entity("YelpAgainstCompanies.Domain.Entities.Rating", b =>
                 {
-                    b.HasOne("YelpAgainstCompanies.Domain.Entities.Company", null)
+                    b.HasOne("YelpAgainstCompanies.Domain.Entities.Company", "Company")
                         .WithMany("Ratings")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("YelpAgainstCompanies.Domain.Entities.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("YelpAgainstCompanies.Domain.Entities.Company", b =>

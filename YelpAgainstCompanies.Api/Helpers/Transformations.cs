@@ -11,7 +11,6 @@ public class Transformations
 
     public CompanyDTO Transform(Company company)
     {
-        //TODO Figure out why there is a disconnect again between the company and the ratings
         var companyDTO = new CompanyDTO()
         {
             Name = company.Name,

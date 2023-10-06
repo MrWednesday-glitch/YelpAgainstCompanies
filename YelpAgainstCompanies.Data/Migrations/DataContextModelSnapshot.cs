@@ -200,9 +200,9 @@ namespace YelpAgainstCompanies.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("696259f1-3909-4807-b8b3-46c0f2b32afb"),
+                            Id = new Guid("a5fa0aae-fa8e-4a09-b578-006df89aa22f"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "044bb725-25f0-4f36-84b2-625bf3c2e3e6",
+                            ConcurrencyStamp = "14822904-12c1-4313-8c82-81ebdfc47efa",
                             Email = "rowan@email.com",
                             EmailConfirmed = true,
                             FirstName = "Rowan",
@@ -214,9 +214,9 @@ namespace YelpAgainstCompanies.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("3e4b73a2-984a-49dd-83e5-fd94c2464175"),
+                            Id = new Guid("15782a7b-447b-408e-9de9-57f74c1d0463"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "600372dd-095f-40bb-a3e9-f1da60af98f4",
+                            ConcurrencyStamp = "ec2ee74c-9911-4691-b2cd-66046841f176",
                             Email = "wednesday@asgard.com",
                             EmailConfirmed = true,
                             FirstName = "Wednesday",
@@ -362,7 +362,7 @@ namespace YelpAgainstCompanies.Data.Migrations
                             CompanyId = 2,
                             Date = new DateTime(2023, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Score = 1.75,
-                            UserId = new Guid("696259f1-3909-4807-b8b3-46c0f2b32afb")
+                            UserId = new Guid("a5fa0aae-fa8e-4a09-b578-006df89aa22f")
                         },
                         new
                         {
@@ -371,7 +371,7 @@ namespace YelpAgainstCompanies.Data.Migrations
                             CompanyId = 3,
                             Date = new DateTime(2023, 6, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Score = 3.8999999999999999,
-                            UserId = new Guid("696259f1-3909-4807-b8b3-46c0f2b32afb")
+                            UserId = new Guid("a5fa0aae-fa8e-4a09-b578-006df89aa22f")
                         },
                         new
                         {
@@ -380,7 +380,7 @@ namespace YelpAgainstCompanies.Data.Migrations
                             CompanyId = 1,
                             Date = new DateTime(2022, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Score = 3.0,
-                            UserId = new Guid("3e4b73a2-984a-49dd-83e5-fd94c2464175")
+                            UserId = new Guid("15782a7b-447b-408e-9de9-57f74c1d0463")
                         },
                         new
                         {
@@ -389,7 +389,7 @@ namespace YelpAgainstCompanies.Data.Migrations
                             CompanyId = 2,
                             Date = new DateTime(2023, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Score = 2.2000000000000002,
-                            UserId = new Guid("3e4b73a2-984a-49dd-83e5-fd94c2464175")
+                            UserId = new Guid("15782a7b-447b-408e-9de9-57f74c1d0463")
                         });
                 });
 
