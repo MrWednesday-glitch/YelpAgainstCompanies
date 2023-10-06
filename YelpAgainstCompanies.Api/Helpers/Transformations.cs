@@ -30,8 +30,8 @@ public class Transformations
     public RatingDTO Transform(Rating rating) => new()
     {
         Date = rating.Date.ToLongDateString(),
-        Comment = rating.Comment,
+        Name = $"{rating.User.FirstName} {rating.User.LastName}",
         Score = rating.Score,
-        Name = $"{rating.User.FirstName} {rating.User.LastName}"
+        Comment = rating.Comment,
     };
 }
