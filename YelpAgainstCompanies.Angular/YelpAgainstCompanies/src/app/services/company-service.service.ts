@@ -16,4 +16,10 @@ export class CompanyServiceService {
 
     return this.customHttpClient.get<Company[]>(url);
   }
+
+  getCompany(companyId: number): Observable<Company> {
+    const url: string = "/company/" + companyId;
+
+    return this.customHttpClient.get<Company>(url);
+  }
 }

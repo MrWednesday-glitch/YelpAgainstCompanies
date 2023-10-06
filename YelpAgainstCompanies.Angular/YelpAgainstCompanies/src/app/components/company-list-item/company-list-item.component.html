@@ -1,7 +1,9 @@
 <div class="company-block" *ngIf="company">
     <img class="picture-box" *ngIf="company.pictureUrl" src="{{company.pictureUrl}}" alt="picture of company">
     <div class="name-and-score-block">
-        <h1>{{company.name}}</h1>
+        <a routerLink="/rating/{{company.id}}">
+            <h1>{{company.name}}</h1>
+        </a>
         <p><b>{{company.score}}</b> ({{company.numberOfRatings}} reviews)</p>
     </div>
     <div class="address-block">

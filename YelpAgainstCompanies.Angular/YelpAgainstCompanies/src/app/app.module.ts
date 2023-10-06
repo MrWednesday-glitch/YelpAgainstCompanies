@@ -11,13 +11,17 @@ import { HomepageComponent } from './components/homepage/homepage.component';
 import { CompanyListComponent } from './components/company-list/company-list.component';
 import { CompanyListItemComponent } from './components/company-list-item/company-list-item.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CompanyAndRatingsComponent } from './components/company-and-ratings/company-and-ratings.component';
+import { RatingListItemComponent } from './components/rating-list-item/rating-list-item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomepageComponent,
     CompanyListComponent,
-    CompanyListItemComponent
+    CompanyListItemComponent,
+    CompanyAndRatingsComponent,
+    RatingListItemComponent
   ],
   imports: [
     BrowserModule,
