@@ -1,5 +1,6 @@
 ﻿namespace YelpAgainstCompanies.Data;
 
+[ExcludeFromCodeCoverage]
 public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
 {
     public DataContext()

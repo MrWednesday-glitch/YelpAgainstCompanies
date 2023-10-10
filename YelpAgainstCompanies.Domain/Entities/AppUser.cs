@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿namespace YelpAgainstCompanies.Domain.Entities;
 
-namespace YelpAgainstCompanies.Domain.Entities;
-
+[ExcludeFromCodeCoverage]
 public class AppUser : IdentityUser<Guid>
 {
     public string FirstName { get; set; } = string.Empty;

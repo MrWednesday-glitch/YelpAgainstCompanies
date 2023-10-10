@@ -1,5 +1,6 @@
 ﻿namespace YelpAgainstCompanies.Data.Repositories;
 
+[ExcludeFromCodeCoverage]
 public class UserRepository : IUserRepository
 {
     private readonly DataContext _dataContext;

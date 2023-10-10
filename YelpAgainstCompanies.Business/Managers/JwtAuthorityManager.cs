@@ -1,5 +1,6 @@
 ﻿namespace YelpAgainstCompanies.Business.Managers;
 
+[ExcludeFromCodeCoverage]
 public class JwtAuthorityManager : IJwtAuthorityManager
 {
     private readonly ConcurrentDictionary<string, RefreshToken> _usersRefreshTokens;
