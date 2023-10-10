@@ -1,6 +1,5 @@
 ﻿namespace YelpAgainstCompanies.Api.Helpers;
 
-//TODO Turn this into a static extension methods
 public class Transformations
 {
     private readonly IUserService _userService;
@@ -10,22 +9,17 @@ public class Transformations
         _userService = userService;
     }
 
-    public CompanyDTO Transform(Company company)
+    public CompanyDTO Transform(Company company) => new()
     {
-        var companyDTO = new CompanyDTO()
-        {
-            Id = company.Id,
-            Name = company.Name,
-            Score = company.Score, //TODO Have this rounded to 1 decimal
-            Address = company.Address,
-            PostalCode = company.PostalCode,
-            City = company.City,
-            NumberOfRatings = company.Ratings.Count,
-            PictureUrl = company.PictureUrl,
-        };
-
-        return companyDTO;
-    }
+        Id = company.Id,
+        Name = company.Name,
+        Score = double.Round(company.Score, 1), 
+        Address = company.Address,
+        PostalCode = company.PostalCode,
+        City = company.City,
+        NumberOfRatings = company.Ratings.Count,
+        PictureUrl = company.PictureUrl,
+    };
 
     public RatingDTO Transform(Rating rating) => new()
     {
