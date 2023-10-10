@@ -1,5 +1,6 @@
 ﻿namespace YelpAgainstCompanies.Data.Repositories;
 
+[ExcludeFromCodeCoverage]
 public class RatingRepository : EFRepository<Rating>, IRatingRepository
 {
     public RatingRepository(DataContext dataContext) : base(dataContext)

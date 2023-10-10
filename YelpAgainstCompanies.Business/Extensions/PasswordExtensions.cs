@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace YelpAgainstCompanies.Business.Extensions;
+﻿namespace YelpAgainstCompanies.Business.Extensions;
 
 public static class PasswordExtensions
 {
