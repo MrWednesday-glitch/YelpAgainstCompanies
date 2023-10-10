@@ -1,6 +1,5 @@
 ﻿namespace YelpAgainstCompanies.Business.Testing.ServiceTests.CompanyServiceTests;
 
-//TODO Fix this
 [ExcludeFromCodeCoverage]
 public class Base
 {
