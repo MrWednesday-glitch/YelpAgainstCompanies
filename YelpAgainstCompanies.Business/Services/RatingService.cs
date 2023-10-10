@@ -22,7 +22,11 @@ public class RatingService : IRatingService
             .Where(x => x.CompanyId == companyId)
             .OrderByDescending(x => x.Date);
 
-        //TODO Maybe if ratings.count == 0 throw exception?
+        if (!ratings.Any())
+        {
+            return new List<Rating>();
+        }
+
         return ratings;
     }
 }

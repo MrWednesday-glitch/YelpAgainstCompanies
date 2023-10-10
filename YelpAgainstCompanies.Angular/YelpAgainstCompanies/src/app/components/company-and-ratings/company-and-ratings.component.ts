@@ -21,7 +21,7 @@ export class CompanyAndRatingsComponent implements OnInit {
     
   ngOnInit(): void {
     const companyId: number = Number(this.route.snapshot.paramMap.get("companyId"));
-    this.companyService.getCompany(companyId).subscribe(c => { //todo make this prettier
+    this.companyService.getCompany(companyId).subscribe(c => { //todo make this prettier => make a singular "model " with both the company and all the ratings in a singular query
       this.company = c;
       this.ratingService.getRatingsPerCompany(companyId).subscribe(r => {
         this.ratings = r;

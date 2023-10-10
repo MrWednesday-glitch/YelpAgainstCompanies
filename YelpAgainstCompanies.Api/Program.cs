@@ -1,10 +1,5 @@
 namespace YelpAgainstCompanies.Api;
 
-//TODO Write markdown
-//What the app is
-//How it is a joke
-//What it is supposed to do and how
-//What problems I face and how I solved them
 public class Program
 {
     public static void Main(string[] args)

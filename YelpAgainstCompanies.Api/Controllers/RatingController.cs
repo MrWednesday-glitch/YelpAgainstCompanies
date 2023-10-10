@@ -25,7 +25,7 @@ public class RatingController : Controller
         }
         catch (Exception ex)
         {
-            return NotFound(ex.Message); //TODO Make error message(s) in the repository
+            return NotFound(ex.Message); 
         }
     }
 }
