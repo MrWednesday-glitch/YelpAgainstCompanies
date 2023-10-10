@@ -15,3 +15,5 @@ This is an webapp to judge how a company treated employees either in their emplo
 ### Problems (and how I solved them)
 * Problems with entity framework (migrations, relationships, seeding, etc.)
   => Solving issues with the Guid had me delete the established database and migrations and start anew. I also needed a minute to remember how to properly set up relations by using eager loading.
+* Problems with a singular component in angular requiring miltiple endpoints of the api to retrieve the relevant data, because they are async data does not load properly into the html. 
+  => For now I have one function to get the ratings inside the function to get the company, but it is an ugly solution, so maybe later make a new endpoint that actually retrieves the data in a single json to match the single angular component.
