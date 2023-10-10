@@ -19,16 +19,13 @@ export class CompanyAndRatingsComponent implements OnInit {
     private ratingService: RatingService,
     private companyService: CompanyServiceService) { }
     
-//TODO Fix this
   ngOnInit(): void {
-    this.getCompany();
-    this.ratingService.getRatingsPerCompany(this.company!.id).subscribe(r => {
-      this.ratings = r;
-    });
-  }
-
-  getCompany(): void {
     const companyId: number = Number(this.route.snapshot.paramMap.get("companyId"));
-    this.companyService.getCompany(companyId).subscribe(c => this.company = c);
+    this.companyService.getCompany(companyId).subscribe(c => { //todo make this prettier
+      this.company = c;
+      this.ratingService.getRatingsPerCompany(companyId).subscribe(r => {
+        this.ratings = r;
+      });
+    })         
   }
 }
