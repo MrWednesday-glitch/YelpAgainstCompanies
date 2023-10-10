@@ -1,5 +1,6 @@
 ﻿namespace YelpAgainstCompanies.Api.Helpers;
 
+//TODO Turn this into a static extension methods
 public class Transformations
 {
     private readonly IUserService _userService;
@@ -13,26 +14,24 @@ public class Transformations
     {
         var companyDTO = new CompanyDTO()
         {
+            Id = company.Id,
             Name = company.Name,
-            Score = company.Score,
+            Score = company.Score, //TODO Have this rounded to 1 decimal
+            Address = company.Address,
+            PostalCode = company.PostalCode,
+            City = company.City,
+            NumberOfRatings = company.Ratings.Count,
+            PictureUrl = company.PictureUrl,
         };
-
-        var ratings = new List<RatingDTO>();
-        foreach (var rating in company.Ratings)
-        {
-            ratings.Add(Transform(rating));
-        }
-
-        companyDTO.Ratings = ratings;
 
         return companyDTO;
     }
 
-    private RatingDTO Transform(Rating rating) => new()
+    public RatingDTO Transform(Rating rating) => new()
     {
         Date = rating.Date.ToLongDateString(),
-        Comment = rating.Comment,
+        Name = $"{rating.User.FirstName} {rating.User.LastName}",
         Score = rating.Score,
-        Name = $"{rating.User.FirstName} {rating.User.LastName}"
+        Comment = rating.Comment,
     };
 }

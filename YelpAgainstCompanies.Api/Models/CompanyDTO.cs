@@ -2,14 +2,19 @@
 
 public class CompanyDTO
 {
-    public CompanyDTO()
-    {
-        Ratings = new List<RatingDTO>();
-    }
+    public int Id { get; set; }
 
     public string Name { get; set; } = string.Empty;
 
     public double Score { get; set; }
 
-    public List<RatingDTO> Ratings { get; set; }
+    public int NumberOfRatings { get; set; }
+
+    public string Address { get; set; } = string.Empty;
+
+    public string PostalCode { get; set; } = string.Empty;
+
+    public string City { get; set; } = string.Empty;
+
+    public string? PictureUrl { get; set; }
 }

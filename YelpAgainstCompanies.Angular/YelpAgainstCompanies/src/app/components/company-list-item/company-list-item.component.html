@@ -1,0 +1,13 @@
+<div class="company-block" *ngIf="company">
+    <img class="picture-box" *ngIf="company.pictureUrl" src="{{company.pictureUrl}}" alt="picture of company">
+    <div class="name-and-score-block">
+        <a routerLink="/rating/{{company.id}}">
+            <h1>{{company.name}}</h1>
+        </a>
+        <p><b>{{company.score}}</b> ({{company.numberOfRatings}} reviews)</p> <!--TODO Have a method that returns 1 review or multiple reviews-->
+    </div>
+    <div class="address-block">
+        <p>{{company.address}}</p>
+        <p>{{company.city}}</p>
+    </div>
+</div>

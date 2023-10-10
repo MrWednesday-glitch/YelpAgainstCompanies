@@ -16,7 +16,8 @@ public class CompanyController : Controller
     [HttpGet("companies")]
     public async Task<IActionResult> GetCompanies()
     {
-        var companies = (await _companyService.Get()).Select(x => _transformations.Transform(x));
+        var companies = (await _companyService.Get())
+            .Select(x => _transformations.Transform(x));
 
         return Ok(companies);
     }

@@ -14,7 +14,9 @@ public class CompanyService : ICompanyService
     //TODO Add a method to calculate the average of the ratings based on what is in the ratings and apply it to the get methods
     public async Task<IEnumerable<Company>> Get()
     {
-        var companies = _companyRepository.GetRecords();
+        var companies = _companyRepository.GetRecords()
+            .OrderBy(x => x.Name)
+            .ThenBy(y => y.City);
 
         return companies;
     } 

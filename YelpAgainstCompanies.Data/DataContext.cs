@@ -33,6 +33,12 @@ public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        //builder.Entity<Rating>()
+        //    .HasOne(e => e.Company)
+        //    .WithMany(e => e.Ratings)
+        //    .HasForeignKey(e => e.CompanyId)
+        //    .IsRequired();
+
         var guidStringRowan = Guid.NewGuid().ToString();
         var guidStringWednesday = Guid.NewGuid().ToString();
 
@@ -42,7 +48,8 @@ public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
             Email = "rowan@email.com",
             EmailConfirmed = true,
             UserName = "rowan@email.com",
-            FirstName = "Rowan"
+            FirstName = "Rowan",
+            LastName = "X"
         };
         var userWednesday = new AppUser
         {
@@ -50,23 +57,39 @@ public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
             Email = "wednesday@asgard.com",
             EmailConfirmed = true,
             UserName = "wednesday@asgard.com",
-            FirstName = "Wednesday"
+            FirstName = "Wednesday",
+            LastName = "Y"
         };
 
         var keesBalvert = new Company()
         {
             Id = 1,
             Name = "Kees Balvert",
+            Address = "Street 5",
+            PostalCode = "1234XD",
+            City = "Den Haag",
+            Score = 3,
+            PictureUrl = "https://cdn.autotrack.nl/18126/0-438b7d7d-c717-484c-b4a7-81e6a4df20ae.jpg?w=320"
         };
         var albertHeijn = new Company()
         {
             Id = 2,
             Name = "Albert Heijn",
+            Address = "Dorpstraat 3",
+            City = "Zoetermeer",
+            PostalCode = "2345RT",
+            Score = 1.975,
+            PictureUrl = "https://media.prdn.nl/retailtrends/files/RetailTrends/Albert+Heijn+5.jpg"
         };
         var burgerKing = new Company()
         {
             Id = 3,
             Name = "Burger King",
+            Address = "Kaaglaan 66",
+            City = "Den Haag",
+            PostalCode = "6666YY",
+            Score = 3.9,
+            PictureUrl = "https://st3.idealista.com/news/archivos/styles/imagen_big_lightbox/public/2020-03/burger_king.jpg?sv=TGX70G_u&itok=fWgVKuuM"
         };
 
         var ratingWednesdayAH = new Rating()
@@ -109,6 +132,7 @@ public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
         builder.Entity<AppUser>().HasData(new AppUser[] { userRowan, userWednesday });
         builder.Entity<Rating>().HasData(new Rating[] { ratingRowanAH, ratingRowanBK, ratingWednesdayKB, ratingWednesdayAH });
         builder.Entity<Company>().HasData(new Company[] { keesBalvert, albertHeijn, burgerKing });
+
 
         base.OnModelCreating(builder);
     }

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace YelpAgainstCompanies.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class V1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,6 +32,8 @@ namespace YelpAgainstCompanies.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -59,7 +61,11 @@ namespace YelpAgainstCompanies.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Score = table.Column<double>(type: "float", nullable: false)
+                    Score = table.Column<double>(type: "float", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PictureUrl = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -188,6 +194,12 @@ namespace YelpAgainstCompanies.Data.Migrations
                 {
                     table.PrimaryKey("PK_Rating", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Rating_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Rating_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Companies",
@@ -197,21 +209,21 @@ namespace YelpAgainstCompanies.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("c992957f-7b18-4b1a-8d53-5d3f5c99f726"), 0, "a9ff4be4-a875-4ada-b6ae-4c4be96e9303", "wednesday@asgard.com", true, false, null, null, null, null, null, false, null, false, "wednesday@asgard.com" },
-                    { new Guid("fd598be7-974f-4e01-aba8-0e861915b2e5"), 0, "ca1fb920-7f90-4f30-930c-3aacb71f0b19", "rowan@email.com", true, false, null, null, null, null, null, false, null, false, "rowan@email.com" }
+                    { new Guid("15782a7b-447b-408e-9de9-57f74c1d0463"), 0, "ec2ee74c-9911-4691-b2cd-66046841f176", "wednesday@asgard.com", true, "Wednesday", "Y", false, null, null, null, null, null, false, null, false, "wednesday@asgard.com" },
+                    { new Guid("a5fa0aae-fa8e-4a09-b578-006df89aa22f"), 0, "14822904-12c1-4313-8c82-81ebdfc47efa", "rowan@email.com", true, "Rowan", "X", false, null, null, null, null, null, false, null, false, "rowan@email.com" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Companies",
-                columns: new[] { "Id", "Name", "Score" },
+                columns: new[] { "Id", "Address", "City", "Name", "PictureUrl", "PostalCode", "Score" },
                 values: new object[,]
                 {
-                    { 1, "Kees Balvert", 0.0 },
-                    { 2, "Albert Heijn", 0.0 },
-                    { 3, "Burger King", 0.0 }
+                    { 1, "Street 5", "Den Haag", "Kees Balvert", "https://cdn.autotrack.nl/18126/0-438b7d7d-c717-484c-b4a7-81e6a4df20ae.jpg?w=320", "1234XD", 3.0 },
+                    { 2, "Dorpstraat 3", "Zoetermeer", "Albert Heijn", "https://media.prdn.nl/retailtrends/files/RetailTrends/Albert+Heijn+5.jpg", "2345RT", 1.9750000000000001 },
+                    { 3, "Kaaglaan 66", "Den Haag", "Burger King", "https://st3.idealista.com/news/archivos/styles/imagen_big_lightbox/public/2020-03/burger_king.jpg?sv=TGX70G_u&itok=fWgVKuuM", "6666YY", 3.8999999999999999 }
                 });
 
             migrationBuilder.InsertData(
@@ -219,10 +231,10 @@ namespace YelpAgainstCompanies.Data.Migrations
                 columns: new[] { "Id", "Comment", "CompanyId", "Date", "Score", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "Terrible Company!", 2, new DateTime(2023, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 2.2000000000000002, new Guid("c992957f-7b18-4b1a-8d53-5d3f5c99f726") },
-                    { 2, "It sucks to work here.", 2, new DateTime(2023, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 1.75, new Guid("fd598be7-974f-4e01-aba8-0e861915b2e5") },
-                    { 3, "This job was fine.", 3, new DateTime(2023, 6, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), 3.8999999999999999, new Guid("fd598be7-974f-4e01-aba8-0e861915b2e5") },
-                    { 4, "something", 1, new DateTime(2022, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 3.0, new Guid("c992957f-7b18-4b1a-8d53-5d3f5c99f726") }
+                    { 1, "Terrible Company!", 2, new DateTime(2023, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 2.2000000000000002, new Guid("15782a7b-447b-408e-9de9-57f74c1d0463") },
+                    { 2, "It sucks to work here.", 2, new DateTime(2023, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 1.75, new Guid("a5fa0aae-fa8e-4a09-b578-006df89aa22f") },
+                    { 3, "This job was fine.", 3, new DateTime(2023, 6, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), 3.8999999999999999, new Guid("a5fa0aae-fa8e-4a09-b578-006df89aa22f") },
+                    { 4, "something", 1, new DateTime(2022, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 3.0, new Guid("15782a7b-447b-408e-9de9-57f74c1d0463") }
                 });
 
             migrationBuilder.CreateIndex(
@@ -268,6 +280,11 @@ namespace YelpAgainstCompanies.Data.Migrations
                 name: "IX_Rating_CompanyId",
                 table: "Rating",
                 column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rating_UserId",
+                table: "Rating",
+                column: "UserId");
         }
 
         /// <inheritdoc />
