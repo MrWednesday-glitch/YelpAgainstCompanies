@@ -3,12 +3,10 @@
 public class CompanyService : ICompanyService
 {
     private readonly ICompanyRepository _companyRepository;
-    private readonly IRatingService _ratingService;
 
-    public CompanyService(ICompanyRepository companyRepository, IRatingService ratingService)
+    public CompanyService(ICompanyRepository companyRepository)
     {
         _companyRepository = companyRepository;
-        _ratingService = ratingService;
     }
 
     public async Task<IEnumerable<Company>> Get()

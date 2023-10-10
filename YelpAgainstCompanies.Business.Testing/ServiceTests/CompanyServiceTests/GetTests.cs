@@ -3,45 +3,33 @@
 [ExcludeFromCodeCoverage]
 public class GetTests : Base
 {
-    //private readonly List<Company> _mockedCompanies = new()
-    //{
-    //    new Company()
-    //    {
-    //        Id = 1,
-    //        Name = "Charles",
-    //        Score = 4.44,
-    //        Ratings = new List<Rating>
-    //        {
-    //            new Rating() { Id = 1, }
-    //        }
-    //    },
-    //    new Company()
-    //    {
-    //        Id = 2,
-    //        Name = "Dave",
-    //        Score = 2.22,
-    //        Ratings = new List<Rating>
-    //        {
-    //            new Rating() { Id = 2, }
-    //        }
-    //    },
-    //    new Company()
-    //    {
-    //        Id = 3,
-    //        Name = "Alex",
-    //        Score = 1.11,
-    //        Ratings = new List<Rating>
-    //        {
-    //            new Rating() { Id = 3, }
-    //        }
-    //    },
-    //};
+    private readonly List<Company> _mockedCompanies = new()
+    {
+        new Company()
+        {
+            Id = 1,
+            Name = "Charles",
+            Score = 4.44,
+        },
+        new Company()
+        {
+            Id = 2,
+            Name = "Dave",
+            Score = 2.22,
+        },
+        new Company()
+        {
+            Id = 3,
+            Name = "Alex",
+            Score = 1.11,
+        },
+    };
 
     [Fact]
     public async Task Should_ReturnCorrectAmountOfCompanies()
     {
         // -- Arrange
-        //_mockedDataStore.Setup(x => x.GetCompanies()).ReturnsAsync(_mockedCompanies);
+        _mockedCompanyRepository.Setup(x => x.GetRecords()).Returns(_mockedCompanies.AsQueryable);
 
         // -- Act
         var companies = await _companyService.Get();
@@ -53,18 +41,29 @@ public class GetTests : Base
     [Fact]
     public async Task Should_BeSorted()
     {
+        // -- Arrange
+        _mockedCompanyRepository.Setup(x => x.GetRecords()).Returns(_mockedCompanies.AsQueryable);
 
+        // -- Act
+        var companies = await _companyService.Get();
+
+        // -- Assert
+        companies.ToList().Should().BeInAscendingOrder(x => x.Name);
     }
 
-    [Theory]
-    [InlineData(1, "Kees Balvert")]
-    [InlineData(2, "Albert Heijn")]
-    [InlineData(3, "Burger King")]
-    public async Task Should_FindCorrectCompany(int id, string name)
+    [Fact]
+    public async Task Should_FindCorrectCompany()
     {
-        var company = await _companyService.Get(id);
+        var mockedCompany = new Company()
+        {
+            Id = 1,
+            Name = "Dead Cells"
+        };
+        _mockedCompanyRepository.Setup(x => x.GetRecord(It.IsAny<int>())).Returns(mockedCompany);
 
-        company.Name.Should().BeEquivalentTo(name);
+        var company = await _companyService.Get(1);
+
+        company.Name.Should().BeEquivalentTo("Dead Cells");
     }
 
     [Theory]

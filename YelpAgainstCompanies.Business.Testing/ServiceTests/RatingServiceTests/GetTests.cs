@@ -130,6 +130,6 @@ public class GetTests : Base
 
         var ratings = await _ratingService.Get(999);
 
-        ratings.ToList().Count.Should().Be(0);
+        ratings.Should().BeEmpty();
     }
 }
