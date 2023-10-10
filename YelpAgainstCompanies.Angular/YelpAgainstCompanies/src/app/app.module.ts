@@ -13,6 +13,7 @@ import { CompanyListItemComponent } from './components/company-list-item/company
 import { HttpClientModule } from '@angular/common/http';
 import { CompanyAndRatingsComponent } from './components/company-and-ratings/company-and-ratings.component';
 import { RatingListItemComponent } from './components/rating-list-item/rating-list-item.component';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { RatingListItemComponent } from './components/rating-list-item/rating-li
     MatIconModule,
     MatSidenavModule,
     HttpClientModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
