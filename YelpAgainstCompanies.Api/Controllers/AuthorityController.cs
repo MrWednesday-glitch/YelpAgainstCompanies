@@ -76,6 +76,8 @@ public class AuthorityController : Controller
 
             var user = new AppUser
             {
+                FirstName = model.FirstName,
+                LastName = model.LastName,
                 UserName = model.Email,
                 Email = model.Email
             };
