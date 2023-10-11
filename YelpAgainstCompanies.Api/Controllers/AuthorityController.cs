@@ -63,6 +63,7 @@ public class AuthorityController : Controller
         }
     }
 
+    //TODO Have first and last name also be registered
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] LoginModel model, [FromQuery] string? returnUrl = null)
     {

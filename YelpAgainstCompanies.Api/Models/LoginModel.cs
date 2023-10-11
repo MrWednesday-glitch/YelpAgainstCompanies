@@ -1,5 +1,6 @@
 ﻿namespace YelpAgainstCompanies.Api.Models;
 
+//TODO Add first name and laster name
 public class LoginModel
 {
     [Required(AllowEmptyStrings = false)]
