@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.WebUtilities;
 
+//TODO In angular => merge the login form and register form into one form, like other sites have it
 namespace YelpAgainstCompanies.Api.Controllers;
 
 [ApiController]
@@ -33,18 +34,22 @@ public class AuthorityController : Controller
 
             if (result.Succeeded)
             {
-                var user = await _userManager.FindByEmailAsync(model.Email);
+                var user = await _userManager.FindByEmailAsync(model.Email) ?? throw new Exception("No user found.");
                 var claims = new[]
                 {
-                    new Claim("Username", user.UserName),
+                    new Claim("Username", user.UserName ?? "No username found."),
                     new Claim("Role", "guest"),
-                    new Claim("Email", user.Email)
+                    new Claim("Email", user.Email ?? "No email found."),
+                    new Claim("Firstname", user.FirstName),
+                    new Claim("Lastname", user.LastName ?? "No last name found.")
                 };
 
-                var jwtResult = _jwtAuthorityManager.GenerateTokens(user.UserName, claims, DateTime.Now);
+                var jwtResult = _jwtAuthorityManager.GenerateTokens(user.UserName ?? throw new Exception("No username found"), claims, DateTime.Now);
 
                 return Ok(new
                 {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
                     UserName = user.UserName,
                     Role = "guest",
                     AccessToken = jwtResult.AccessToken,
@@ -63,6 +68,7 @@ public class AuthorityController : Controller
         }
     }
 
+    //TODO Seperate the loginModel into a seperate registermodel so that the loginmodel does not need superfluous data
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] LoginModel model, [FromQuery] string? returnUrl = null)
     {
@@ -75,6 +81,8 @@ public class AuthorityController : Controller
 
             var user = new AppUser
             {
+                FirstName = model.FirstName,
+                LastName = model.LastName,
                 UserName = model.Email,
                 Email = model.Email
             };

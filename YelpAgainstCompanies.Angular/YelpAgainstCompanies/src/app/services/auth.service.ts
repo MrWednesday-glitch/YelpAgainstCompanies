@@ -14,15 +14,21 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient) { }
 
-  login(userName: string, password: string): Observable<LoginResponse> {
+  login(userName: string, password: string, firstname: string, lastname: string): Observable<LoginResponse> {
     return this.httpClient.post<LoginResponse>(this.baseUrl + "/authority/token", {
-      email: userName, password
+      email: userName, 
+      firstname,
+      lastname,
+      password
     });
   }
 
-  register(username: string, password: string): Observable<RegisterResponse> {
+  register(username: string, password: string, firstname: string, lastname: string): Observable<RegisterResponse> {
     return this.httpClient.post<RegisterResponse>(this.baseUrl + "/authority/register", {
-     email: username, password 
+     email: username,
+     firstname,
+     lastname,
+     password 
     });
   }
 }

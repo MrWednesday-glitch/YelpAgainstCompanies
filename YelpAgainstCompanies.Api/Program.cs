@@ -31,8 +31,9 @@ public class Program
         webAppBuilder.Services.AddIdentity<AppUser, AppUserRole>(options =>
         {
             options.SignIn.RequireConfirmedAccount = false;
-        }).AddRoles<AppUserRole>()
-            .AddEntityFrameworkStores<DataContext>();
+        })  .AddRoles<AppUserRole>()
+            .AddEntityFrameworkStores<DataContext>()
+            .AddDefaultTokenProviders();
 
         var jwtTokenConfiguration = configBuilder.GetSection("jwtTokenConfig")
             .Get<JwtTokenConfiguration>();
