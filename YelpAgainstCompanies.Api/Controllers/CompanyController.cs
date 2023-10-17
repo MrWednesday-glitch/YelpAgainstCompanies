@@ -24,6 +24,8 @@ public class CompanyController : Controller
         return Ok(companies);
     }
 
+    //TODO make this prettier => make a singular "model " with both the company and all the ratings in a singular query
+    //One component <=> one api endpoint
     [HttpGet("{id}")]
     public async Task<IActionResult> GetCompany(int id)
     {
