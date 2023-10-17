@@ -10,6 +10,10 @@ public class CompanyRepository : EFRepository<Company>, ICompanyRepository
     public override async Task CreateRecord(Company entity)
     {
         //TODO Make validators to check if all the required fields are entered.
+        if (entity.PictureUrl == null || entity.City == null || entity.Address == null || entity.Name == null || entity.PostalCode == null)
+        {
+            throw new Exception("You did not enter all the required fields.");
+        }
 
         await base.CreateRecord(entity);
     }

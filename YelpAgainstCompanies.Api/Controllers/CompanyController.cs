@@ -1,4 +1,6 @@
-﻿namespace YelpAgainstCompanies.Api.Controllers;
+﻿using Microsoft.AspNetCore.Authorization;
+
+namespace YelpAgainstCompanies.Api.Controllers;
 
 [ApiController]
 [Route("company")]
@@ -38,6 +40,32 @@ public class CompanyController : Controller
         catch (Exception ex)
         {
             return NotFound(ex.Message);
+        }
+    }
+
+    //[Authorize]
+    [HttpPost("savecompanytodatabase")]
+    public async Task<IActionResult> SaveCompanyToDatabase(CompanyDTO companyDTO)
+    {
+        var company = new Company
+        {
+            Name = companyDTO.Name,
+            Address = companyDTO.Address,
+            City = companyDTO.City,
+            PictureUrl = companyDTO.PictureUrl,
+            PostalCode = companyDTO.PostalCode,
+            Score = 0, //TODO Do something different here?
+        };
+
+        try
+        {
+            await _companyService.Create(company);
+
+            return Ok($"The company {company.Name} has been saved to the database.");
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
         }
     }
 }
