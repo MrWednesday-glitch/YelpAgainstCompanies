@@ -14,9 +14,11 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient) { }
 
-  login(userName: string, password: string): Observable<LoginResponse> {
+  login(userName: string, password: string, firstname: string, lastname: string): Observable<LoginResponse> {
     return this.httpClient.post<LoginResponse>(this.baseUrl + "/authority/token", {
       email: userName, 
+      firstname,
+      lastname,
       password
     });
   }
