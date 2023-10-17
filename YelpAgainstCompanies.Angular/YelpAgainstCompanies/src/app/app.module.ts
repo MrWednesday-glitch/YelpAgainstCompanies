@@ -13,7 +13,11 @@ import { CompanyListItemComponent } from './components/company-list-item/company
 import { HttpClientModule } from '@angular/common/http';
 import { CompanyAndRatingsComponent } from './components/company-and-ratings/company-and-ratings.component';
 import { RatingListItemComponent } from './components/rating-list-item/rating-list-item.component';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
+import { RegisterFormComponent } from './components/register-form/register-form.component';
+import { LoginFormComponent } from './components/login-form/login-form.component';
+import { MatInputModule } from '@angular/material/input'; 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,7 +26,9 @@ import {MatCardModule} from '@angular/material/card';
     CompanyListComponent,
     CompanyListItemComponent,
     CompanyAndRatingsComponent,
-    RatingListItemComponent
+    RatingListItemComponent,
+    RegisterFormComponent,
+    LoginFormComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +39,10 @@ import {MatCardModule} from '@angular/material/card';
     MatIconModule,
     MatSidenavModule,
     HttpClientModule,
-    MatCardModule
+    MatCardModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

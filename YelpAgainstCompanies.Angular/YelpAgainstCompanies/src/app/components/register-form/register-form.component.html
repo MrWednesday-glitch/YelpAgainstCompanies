@@ -1,0 +1,51 @@
+<form class="form">
+
+    <h1 class="header">Register for an account</h1>
+
+    <mat-form-field class="input-field">
+        <input matInput [formControl]="firstnameFormControl" type="firstname" id="firstname" placeholder="First name" autocomplete="off" required>
+        <mat-error *ngIf="firstnameFormControl.hasError('firstname') && !firstnameFormControl.hasError('required')">
+          Please enter a proper firstname.
+        </mat-error>
+        <mat-error *ngIf="firstnameFormControl.hasError('required')">
+          A first name is <strong>required</strong>.
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input-field">
+      <input matInput [formControl]="lastnameFormControl" type="lastname" id="lastname" placeholder="Last name" autocomplete="off" required>
+      <mat-error *ngIf="lastnameFormControl.hasError('firstname') && !lastnameFormControl.hasError('required')">
+        Please enter a proper lastname.
+      </mat-error>
+      <mat-error *ngIf="lastnameFormControl.hasError('required')">
+        A last name is <strong>required</strong>.
+      </mat-error>
+    </mat-form-field>
+    
+    <mat-form-field class="input-field">
+      <input matInput [formControl]="emailFormControl" type="email" id="email" placeholder="Email" autocomplete="off" required>
+      <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+        Please enter a valid email address.
+      </mat-error>
+      <mat-error *ngIf="emailFormControl.hasError('required')">
+        Email is <strong>required</strong>.
+      </mat-error>
+    </mat-form-field>
+    
+    <mat-form-field class="input-field">
+      <input matInput [formControl]="passwordFormControl" type="password" id="password" placeholder="Password" autocomplete="off" required>
+      <mat-error *ngIf="!passwordFormControl.hasError('required')">
+        Please enter a valid password.
+      </mat-error>
+      <mat-error *ngIf="passwordFormControl.hasError('required')">
+        Password is <strong>required</strong>.
+      </mat-error>
+    </mat-form-field>
+  
+    <div class="actions">
+      <button mat-flat-button color="primary" type="submit" (click)="onSubmit()">Register account</button>
+    </div>
+
+    <h3 *ngIf="succesfullyRegistered">You succesfully registered your account.</h3>
+  
+  </form>
