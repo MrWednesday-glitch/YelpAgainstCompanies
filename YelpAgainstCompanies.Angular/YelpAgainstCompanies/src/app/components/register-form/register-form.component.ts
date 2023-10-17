@@ -29,6 +29,8 @@ export class RegisterFormComponent implements OnInit {
         this.firstnameFormControl.value!, 
         this.lastnameFormControl.value!)
         .subscribe(registerResponse => this.succesfullyRegistered = registerResponse.succes);
+    } else {
+      
     }
   }
 }
