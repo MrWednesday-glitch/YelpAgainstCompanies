@@ -43,7 +43,7 @@ public class CompanyController : Controller
         }
     }
 
-    //[Authorize]
+    [Authorize]
     [HttpPost("savecompanytodatabase")]
     public async Task<IActionResult> SaveCompanyToDatabase(CompanyDTO companyDTO)
     {
