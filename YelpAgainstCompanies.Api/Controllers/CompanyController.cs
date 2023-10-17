@@ -45,8 +45,9 @@ public class CompanyController : Controller
 
     [Authorize]
     [HttpPost("savecompanytodatabase")]
-    public async Task<IActionResult> SaveCompanyToDatabase(CompanyDTO companyDTO)
+    public async Task<IActionResult> SaveCompanyToDatabase([FromBody] CompanyDTO companyDTO)
     {
+        //TODO Write checks to ensure the data here is proper (like a regex that says that an address and postalcode are good
         var company = new Company
         {
             Name = companyDTO.Name,
@@ -61,7 +62,11 @@ public class CompanyController : Controller
         {
             await _companyService.Create(company);
 
-            return Ok($"The company {company.Name} has been saved to the database.");
+            //TODO Send proper information back and have the front end respons to it properly by have a major success message and going back to the updated companylist
+            return Ok(new
+            {
+                Message = $"The company {company.Name} has been saved to the database."
+            });
         }
         catch (Exception ex)
         {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.WebUtilities;
 
 //TODO In angular => merge the login form and register form into one form, like other sites have it
+//TODO In Angular => Have pressing buttons return to previous screens (like login returning to the main screen
 namespace YelpAgainstCompanies.Api.Controllers;
 
 [ApiController]
