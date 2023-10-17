@@ -38,13 +38,17 @@ public class AuthorityController : Controller
                 {
                     new Claim("Username", user.UserName),
                     new Claim("Role", "guest"),
-                    new Claim("Email", user.Email)
+                    new Claim("Email", user.Email),
+                    new Claim("Firstname", user.FirstName),
+                    new Claim("Lastname", user.LastName)
                 };
 
                 var jwtResult = _jwtAuthorityManager.GenerateTokens(user.UserName, claims, DateTime.Now);
 
                 return Ok(new
                 {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
                     UserName = user.UserName,
                     Role = "guest",
                     AccessToken = jwtResult.AccessToken,
@@ -63,7 +67,6 @@ public class AuthorityController : Controller
         }
     }
 
-    //TODO Have first and last name also be registered
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] LoginModel model, [FromQuery] string? returnUrl = null)
     {
