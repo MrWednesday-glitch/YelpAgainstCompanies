@@ -18,6 +18,7 @@ import { RegisterFormComponent } from './components/register-form/register-form.
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { MatInputModule } from '@angular/material/input'; 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AddCompanyFormComponent } from './components/add-company-form/add-company-form.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CompanyAndRatingsComponent,
     RatingListItemComponent,
     RegisterFormComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    AddCompanyFormComponent
   ],
   imports: [
     BrowserModule,
