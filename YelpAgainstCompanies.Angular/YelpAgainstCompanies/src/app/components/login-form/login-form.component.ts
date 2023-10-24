@@ -8,6 +8,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss']
 })
+
 export class LoginFormComponent {
 
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
