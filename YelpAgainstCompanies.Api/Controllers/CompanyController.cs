@@ -51,11 +51,11 @@ public class CompanyController : Controller
     {
         var company = new Company
         {
-            Name = companyDTO.Name,
-            Address = companyDTO.Address,
-            City = companyDTO.City,
+            Name = companyDTO.Name.Trim(),
+            Address = companyDTO.Address.Trim(),
+            City = companyDTO.City.Trim(),
             PictureUrl = companyDTO.PictureUrl,
-            PostalCode = companyDTO.PostalCode,
+            PostalCode = companyDTO.PostalCode.Trim(),
             Score = 0, //TODO Do something different here?
         };
 
