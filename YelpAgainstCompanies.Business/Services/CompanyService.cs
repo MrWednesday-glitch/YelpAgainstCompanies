@@ -31,11 +31,13 @@ public class CompanyService : ICompanyService
 
     public async Task Create(Company company)
     {
+        //TODO Test whether these extensions are thrown
         if (!company.Address.IsValidAddress())
         {
             throw new Exception("The address is not properly entered.");
         }
 
+        //TODO Test whether these extensions are thrown
         if (!company.PostalCode.IsValidPostalCode())
         {
             throw new Exception("The postal code is not properly entered.");
