@@ -63,7 +63,6 @@ public class CompanyController : Controller
         {
             await _companyService.Create(company);
 
-            //TODO Send proper information back and have the front end respons to it properly by have a major success message and going back to the updated companylist
             return Ok(new
             {
                 Message = $"The company {company.Name} has been saved to the database.",
