@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-
-namespace YelpAgainstCompanies.Api.Controllers;
+﻿namespace YelpAgainstCompanies.Api.Controllers;
 
 [ApiController]
 [Route("company")]

@@ -1,7 +1,4 @@
-﻿using System.Data.Entity;
-using YelpAgainstCompanies.Business.Extensions;
-
-namespace YelpAgainstCompanies.Business.Services;
+﻿namespace YelpAgainstCompanies.Business.Services;
 
 public class CompanyService : ICompanyService
 {
@@ -19,7 +16,7 @@ public class CompanyService : ICompanyService
             .ThenBy(y => y.City);
 
         return companies;
-    } 
+    }
 
     public async Task<Company> Get(int id)
     {
@@ -31,13 +28,11 @@ public class CompanyService : ICompanyService
 
     public async Task Create(Company company)
     {
-        //TODO Test whether these extensions are thrown
         if (!company.Address.IsValidAddress())
         {
             throw new Exception("The address is not properly entered.");
         }
 
-        //TODO Test whether these extensions are thrown
         if (!company.PostalCode.IsValidPostalCode())
         {
             throw new Exception("The postal code is not properly entered.");
@@ -54,7 +49,7 @@ public class CompanyService : ICompanyService
 
     private async Task<Company?> ExistingCompanyInDB(Company company) =>
         _companyRepository.GetRecords()
-            .SingleOrDefault(x => 
-                x.Name == company.Name && 
+            .SingleOrDefault(x =>
+                x.Name == company.Name &&
                 x.PostalCode == company.PostalCode);
 }
