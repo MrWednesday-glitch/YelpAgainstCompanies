@@ -39,3 +39,8 @@
         </button>
     </div>
 </form>
+
+<div *ngIf="addCompanyResponse">
+    <h1>{{addCompanyResponse.message}}</h1>
+    <button class="button" type="button" routerLink="/companies">Go back!</button>
+</div>

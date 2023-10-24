@@ -19,3 +19,5 @@ This is an webapp to judge how a company treated employees either in their emplo
   => For now I have one function to get the ratings inside the function to get the company, but it is an ugly solution, so maybe later make a new endpoint that actually retrieves the data in a single json to match the single angular component.
 * Somehow I got an error with registering new users, but they did end up in the database anyway... 
   => turns out that I should have added the line .AddDefaultTokenProviders() to the DI.
+* Problems with telling the user proper information. Tried to do a popup in angular, but I have been unable to make that work. For now I will simply use html that appears based on *ngIf.
+* The Api returning errors (like 400) to Angular needs to be caught in a different way. There was a lot of trial and error here but I think I am on the right way with the catchError pipe.

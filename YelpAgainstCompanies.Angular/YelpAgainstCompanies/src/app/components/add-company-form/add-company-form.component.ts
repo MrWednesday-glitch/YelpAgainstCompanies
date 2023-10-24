@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import CompanyResponse from 'src/app/interfaces/company-response';
 import { CompanyServiceService } from 'src/app/services/company-service.service';
 
 @Component({
@@ -15,8 +16,9 @@ export class AddCompanyFormComponent {
   postalCodeFormControl = new FormControl('', [Validators.required]);
   cityFormControl = new FormControl('', [Validators.required]);
   pictureUrlFormControl = new FormControl('');
-  companyMessage: string | undefined;
-  success: boolean = false;
+  addCompanyResponse: CompanyResponse | undefined;
+  //message: string | undefined;
+  //success: boolean = false;
 
   constructor(private companyService: CompanyServiceService) {}
 
@@ -33,9 +35,10 @@ export class AddCompanyFormComponent {
         console.log(this.nameFormControl.value!, this.addressFormControl.value!, this.postalCodeFormControl.value!, this.cityFormControl.value!, pictureUrl)
         this.companyService.saveCompany(this.nameFormControl.value!, this.addressFormControl.value!, this.postalCodeFormControl.value!, this.cityFormControl.value!, pictureUrl)
           .subscribe(x => {
-            this.companyMessage = x.message;
-            this.success = x.success;
-          });
+            this.addCompanyResponse = x;
+            //this.message = x.message;
+            //this.success = x.success;
+          }, y => this.addCompanyResponse = y.error);
     } else {
       console.error("You did not enter all the fields.")
     }

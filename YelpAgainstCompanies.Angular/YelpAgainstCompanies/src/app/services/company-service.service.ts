@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable, catchError, of } from 'rxjs';
+import { Observable, catchError, of, throwError } from 'rxjs';
 import { CustomHttpClientService } from './custom-http-client.service';
 import Company from '../interfaces/company';
 import CompanyResponse from '../interfaces/company-response';
 import { LocalStorageService } from './local-storage.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,10 @@ export class CompanyServiceService {
 
     return this.customHttpClient.post<CompanyResponse>(url, {
       name, address, postalcode, city, pictureUrl
-    });
+    }).pipe(catchError(this.handleError));
+  }
+
+  handleError(error: HttpErrorResponse) {
+    return throwError(error);
   }
 }
