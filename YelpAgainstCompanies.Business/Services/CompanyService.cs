@@ -1,4 +1,7 @@
-﻿namespace YelpAgainstCompanies.Business.Services;
+﻿using System.Data.Entity;
+using YelpAgainstCompanies.Business.Extensions;
+
+namespace YelpAgainstCompanies.Business.Services;
 
 public class CompanyService : ICompanyService
 {
@@ -25,4 +28,31 @@ public class CompanyService : ICompanyService
 
         return company;
     }
+
+    public async Task Create(Company company)
+    {
+        if (!company.Address.IsValidAddress())
+        {
+            throw new Exception("The address is not properly entered.");
+        }
+
+        if (!company.PostalCode.IsValidPostalCode())
+        {
+            throw new Exception("The postal code is not properly entered.");
+        }
+
+        if (await ExistingCompanyInDB(company) != null)
+        {
+            throw new Exception("The company you tried to create already exists.");
+        }
+
+        await _companyRepository.CreateRecord(company);
+        await _companyRepository.SaveChanges();
+    }
+
+    private async Task<Company?> ExistingCompanyInDB(Company company) =>
+        _companyRepository.GetRecords()
+            .SingleOrDefault(x => 
+                x.Name == company.Name && 
+                x.PostalCode == company.PostalCode);
 }

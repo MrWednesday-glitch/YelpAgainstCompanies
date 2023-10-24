@@ -14,4 +14,11 @@ public interface ICompanyService
     /// </summary>
     /// <returns>A collection of company entities from the database.</returns>
     Task<IEnumerable<Company>> Get();
+
+    /// <summary>
+    /// A method to give the company data to be added into a database.
+    /// </summary>
+    /// <param name="company">The company to be added.</param>
+    /// <returns></returns>
+    Task Create(Company company);
 }

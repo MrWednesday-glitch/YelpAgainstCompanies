@@ -1,4 +1,7 @@
 <h2 class="title">Hereby the list of companies in our database</h2>
+<div *ngIf="this.loggedIn()">
+    <button type="button" routerLink="/addcompany">Add company</button>
+</div>
 
 <ul class="company-list">
     <li *ngFor="let company of companies">

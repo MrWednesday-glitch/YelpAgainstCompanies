@@ -1,0 +1,46 @@
+<form class="form">
+    <h1 class="header">Enter the information of the company to be added:</h1>
+
+    <mat-form-field class="input-field">
+        <input matInput [formControl]="nameFormControl" type="name" id="name" placeholder="Company name" autocapitalize="on" autocomplete="off" required>
+        <mat-error *ngIf="nameFormControl.hasError('required')">
+            The company name is <strong>required</strong>.
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input-field">
+        <input matInput [formControl]="addressFormControl" type="address" id="address" placeholder="Streetname + number" autocapitalize="on" autocomplete="off" required>
+        <mat-error *ngIf="addressFormControl.hasError('required')">
+            The address is <strong>required</strong>.
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input-field">
+        <input matInput [formControl]="postalCodeFormControl" type="postalcode" id="postalcode" placeholder="Postal Code" autocapitalize="off" autocomplete="off" required>
+        <mat-error *ngIf="postalCodeFormControl.hasError('required')">
+            The postalcode is <strong>required</strong>.
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input-field">
+        <input matInput [formControl]="cityFormControl" type="city" id="city" placeholder="City" autocapitalize="on" autocomplete="off" required>
+        <mat-error *ngIf="cityFormControl.hasError('required')">
+            The city is <strong>required</strong>.
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input-field">
+        <input matInput [formControl]="pictureUrlFormControl" type="pictureUrl" id="pictureUrl" placeholder="The url to a picture of the company" autocapitalize="off" autocomplete="off">
+    </mat-form-field>
+
+    <div class="actions">
+        <button mat-flat-button color="primary" type="submit" (click)="onSubmit()">
+            Save company
+        </button>
+    </div>
+</form>
+
+<div *ngIf="addCompanyResponse">
+    <h1>{{addCompanyResponse.message}}</h1>
+    <button class="button" type="button" routerLink="/companies">Go back!</button>
+</div>
