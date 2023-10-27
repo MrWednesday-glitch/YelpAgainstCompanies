@@ -26,6 +26,7 @@ public class AuthorityController : Controller
         _apiBehaviorOptions = apiBehaviorOptions;
     }
 
+    //TODO In angular => have a succesfull login send the user to the main page.
     [HttpPost("token")]
     public async Task<IActionResult> Login([FromBody] LoginModel model)
     {
@@ -71,6 +72,7 @@ public class AuthorityController : Controller
     }
 
     //TODO Seperate the loginModel into a seperate registermodel so that the loginmodel does not need superfluous data
+    //TODO In Angular => have a succesful register automatically send the user to the login page
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] LoginModel model, [FromQuery] string? returnUrl = null)
     {
