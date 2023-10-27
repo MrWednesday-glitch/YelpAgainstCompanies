@@ -5,6 +5,27 @@
   <span class="example-spacer"></span>
   <span>{{title}}</span>
   <span class="example-spacer"></span>
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <div *ngIf="this.loggedIn()">
+      <button mat-menu-item>
+        <mat-icon>account_circle</mat-icon>
+        <span>Profile page</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>transit_enterexit</mat-icon>
+        <span>Logout</span>
+      </button>
+    </div>
+    <div *ngIf="!this.loggedIn()">
+      <button mat-menu-item>
+        <mat-icon>account_circle</mat-icon>
+        <span>Log in / Register account</span>
+      </button>
+    </div>
+  </mat-menu>
   <span *ngIf="this.loggedIn()">Logged in</span>
   <a routerLink="/login">
       <button mat-icon-button type="button" mat-button aria-label="Example icon-button with menu icon">
