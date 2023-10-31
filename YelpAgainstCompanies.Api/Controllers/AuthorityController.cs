@@ -52,7 +52,7 @@ public class AuthorityController : Controller
                 return Ok(new
                 {
                     FirstName = user.FirstName,
-                    LastName = user.LastName,
+                    LastName = user.LastName ?? "No lastname found.",
                     UserName = user.UserName,
                     Role = "guest",
                     AccessToken = jwtResult.AccessToken,
