@@ -22,16 +22,16 @@ public class CompanyController : Controller
         return Ok(companies);
     }
 
-    //TODO make this prettier => make a singular "model " with both the company and all the ratings in a singular query
-    //One component <=> one api endpoint
     [HttpGet("{id}")]
     public async Task<IActionResult> GetCompany(int id)
     {
         try
         {
-            var company = _transformations.Transform(await _companyService.Get(id));
+            var company = await _companyService.Get(id);
 
-            return Ok(company);
+            var companyAndRatingsDTO = _transformations.Transform(company, company.Ratings);
+
+            return Ok(companyAndRatingsDTO);
         }
         catch (ArgumentNullException ex)
         {

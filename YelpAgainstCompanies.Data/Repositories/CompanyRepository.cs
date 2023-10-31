@@ -37,7 +37,8 @@ public class CompanyRepository : EFRepository<Company>, ICompanyRepository
 
     public override Company GetRecord(int id)
     {
-        return base.GetRecord(id);
+        return GetRecords().SingleOrDefault(x => x.Id == id)
+            ?? throw new Exception("No record was found.");
     }
 
     public override async Task SaveChanges()

@@ -1,3 +1,5 @@
+import Rating from "./rating";
+
 export default interface Company {
     id: number;
     name: string;
@@ -7,4 +9,5 @@ export default interface Company {
     postalCode: string;
     city: string;
     pictureUrl: string | undefined;
+    ratings: Rating[] | undefined;
 }
