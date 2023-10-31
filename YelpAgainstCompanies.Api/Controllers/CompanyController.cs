@@ -6,11 +6,13 @@ public class CompanyController : Controller
 {
     private readonly ICompanyService _companyService;
     private readonly Transformations _transformations;
+    private readonly IRatingService _ratingService;
 
-    public CompanyController(ICompanyService companyService, Transformations transformations)
+    public CompanyController(ICompanyService companyService, Transformations transformations, IRatingService ratingService)
     {
         _companyService = companyService;
         _transformations = transformations;
+        _ratingService = ratingService;
     }
 
     [HttpGet("companies")]
@@ -29,9 +31,11 @@ public class CompanyController : Controller
     {
         try
         {
-            var company = _transformations.Transform(await _companyService.Get(id));
+            var company = await _companyService.Get(id);
+            
+            var companyAndRatingsDTO = _transformations.Transform(company, company.Ratings);
 
-            return Ok(company);
+            return Ok(companyAndRatingsDTO);
         }
         catch (ArgumentNullException ex)
         {
