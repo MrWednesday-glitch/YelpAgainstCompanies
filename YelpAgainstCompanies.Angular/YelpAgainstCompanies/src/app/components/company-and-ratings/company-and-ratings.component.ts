@@ -21,7 +21,7 @@ export class CompanyAndRatingsComponent implements OnInit {
     const companyId: number = Number(this.route.snapshot.paramMap.get("companyId"));
     this.companyService.getCompany(companyId).subscribe(c => {
       this.company = c;
-      this.ratings = c.ratingDTOs;
+      this.ratings = c.ratings;
     })         
   }
 }

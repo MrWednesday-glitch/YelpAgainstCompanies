@@ -9,5 +9,5 @@ export default interface Company {
     postalCode: string;
     city: string;
     pictureUrl: string | undefined;
-    ratingDTOs: Rating[] | undefined;
+    ratings: Rating[] | undefined;
 }

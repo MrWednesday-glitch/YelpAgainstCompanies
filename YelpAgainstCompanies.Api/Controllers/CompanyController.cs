@@ -6,13 +6,11 @@ public class CompanyController : Controller
 {
     private readonly ICompanyService _companyService;
     private readonly Transformations _transformations;
-    private readonly IRatingService _ratingService;
 
-    public CompanyController(ICompanyService companyService, Transformations transformations, IRatingService ratingService)
+    public CompanyController(ICompanyService companyService, Transformations transformations)
     {
         _companyService = companyService;
         _transformations = transformations;
-        _ratingService = ratingService;
     }
 
     [HttpGet("companies")]
@@ -24,15 +22,13 @@ public class CompanyController : Controller
         return Ok(companies);
     }
 
-    //TODO make this prettier => make a singular "model " with both the company and all the ratings in a singular query
-    //One component <=> one api endpoint
     [HttpGet("{id}")]
     public async Task<IActionResult> GetCompany(int id)
     {
         try
         {
             var company = await _companyService.Get(id);
-            
+
             var companyAndRatingsDTO = _transformations.Transform(company, company.Ratings);
 
             return Ok(companyAndRatingsDTO);

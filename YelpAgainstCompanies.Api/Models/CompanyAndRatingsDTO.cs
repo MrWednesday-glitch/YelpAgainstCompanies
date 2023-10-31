@@ -4,7 +4,7 @@ public class CompanyAndRatingsDTO
 {
     public CompanyAndRatingsDTO()
     {
-        ratingDTOs = new List<RatingDTO>();    
+        Ratings = new List<RatingDTO>();
     }
 
     public int Id { get; set; }
@@ -27,5 +27,5 @@ public class CompanyAndRatingsDTO
 
     public string? PictureUrl { get; set; }
 
-    public List<RatingDTO> ratingDTOs { get; set; }
+    public List<RatingDTO> Ratings { get; set; }
 }

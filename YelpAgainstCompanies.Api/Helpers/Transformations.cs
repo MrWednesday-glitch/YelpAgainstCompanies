@@ -1,6 +1,4 @@
-﻿using YelpAgainstCompanies.Api.Models;
-
-namespace YelpAgainstCompanies.Api.Helpers;
+﻿namespace YelpAgainstCompanies.Api.Helpers;
 
 public class Transformations
 {
@@ -15,7 +13,7 @@ public class Transformations
     {
         Id = company.Id,
         Name = company.Name,
-        Score = double.Round(company.Score, 1), 
+        Score = double.Round(company.Score, 1),
         Address = company.Address,
         PostalCode = company.PostalCode,
         City = company.City,
@@ -49,7 +47,7 @@ public class Transformations
             City = company.City,
             NumberOfRatings = company.Ratings.Count,
             PictureUrl = company.PictureUrl,
-            ratingDTOs = ratingsDTO,
+            Ratings = ratingsDTO,
         };
     }
 }
