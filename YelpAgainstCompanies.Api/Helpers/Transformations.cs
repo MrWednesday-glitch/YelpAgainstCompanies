@@ -2,13 +2,6 @@
 
 public class Transformations
 {
-    private readonly IUserService _userService;
-
-    public Transformations(IUserService userService)
-    {
-        _userService = userService;
-    }
-
     public CompanyDTO Transform(Company company) => new()
     {
         Id = company.Id,
