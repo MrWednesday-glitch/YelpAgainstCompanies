@@ -19,6 +19,8 @@ import { LoginFormComponent } from './components/login-form/login-form.component
 import { MatInputModule } from '@angular/material/input'; 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddCompanyFormComponent } from './components/add-company-form/add-company-form.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { AddCompanyFormComponent } from './components/add-company-form/add-compa
     MatCardModule,
     FormsModule,
     ReactiveFormsModule,
-    MatInputModule
+    MatInputModule,
+    MatMenuModule,
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

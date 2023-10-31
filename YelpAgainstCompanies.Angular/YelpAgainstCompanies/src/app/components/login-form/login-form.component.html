@@ -24,6 +24,9 @@
   
     <div class="actions">
       <button mat-flat-button color="primary" type="submit" (click)="onSubmit()">Login</button>
+      <a routerLink="/register">
+        <button type="button">Register</button>
+    </a>
     </div>
 
     <h3 *ngIf="this.loggedIn()">Logged in.</h3>

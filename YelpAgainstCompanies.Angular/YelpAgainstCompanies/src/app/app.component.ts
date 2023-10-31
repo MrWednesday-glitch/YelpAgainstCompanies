@@ -18,4 +18,13 @@ export class AppComponent {
   loggedIn(): boolean {
     return this.localStorageService.getData("accessToken") != null;
   }
+
+  //TODO Have this be an "actual" profile picture
+  showLoggedInImage(): string {
+    if (this.loggedIn()) {
+      return "https://thumbs.dreamstime.com/z/no-user-profile-picture-24185395.jpg";
+    } else {
+      return "https://cdn.onlinewebfonts.com/svg/img_333642.png";
+    }
+  }
 }

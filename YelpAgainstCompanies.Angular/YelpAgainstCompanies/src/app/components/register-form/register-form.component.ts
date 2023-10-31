@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -16,7 +17,8 @@ export class RegisterFormComponent implements OnInit {
   passwordFormControl = new FormControl('', [Validators.required]);
   succesfullyRegistered: boolean | undefined;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService,
+    private router: Router) {}
 
   ngOnInit(): void {
     this.succesfullyRegistered = false;
@@ -28,7 +30,10 @@ export class RegisterFormComponent implements OnInit {
         this.passwordFormControl.value!, 
         this.firstnameFormControl.value!, 
         this.lastnameFormControl.value!)
-        .subscribe(registerResponse => this.succesfullyRegistered = registerResponse.succes);
+        .subscribe(registerResponse => {
+          this.succesfullyRegistered = registerResponse.succes;
+          this.router.navigate(['/login']).then(() => window.location.reload())
+        });
     } else {
       
     }

@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.WebUtilities;
 
-//TODO In angular => merge the login form and register form into one form, like other sites have it
-//TODO In Angular => Have pressing buttons return to previous screens (like login returning to the main screen
 //TODO In angular => Have it send the user back to the mainscreen when jwt is no longer valid
 namespace YelpAgainstCompanies.Api.Controllers;
 
@@ -51,7 +49,7 @@ public class AuthorityController : Controller
                 return Ok(new
                 {
                     FirstName = user.FirstName,
-                    LastName = user.LastName,
+                    LastName = user.LastName ?? "No lastname found.",
                     UserName = user.UserName,
                     Role = "guest",
                     AccessToken = jwtResult.AccessToken,

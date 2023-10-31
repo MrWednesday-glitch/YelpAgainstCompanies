@@ -5,18 +5,30 @@
   <span class="example-spacer"></span>
   <span>{{title}}</span>
   <span class="example-spacer"></span>
-  <span *ngIf="this.loggedIn()">Logged in</span>
-  <a routerLink="/login">
-      <button mat-icon-button type="button" mat-button aria-label="Example icon-button with menu icon">
-          <mat-icon>login</mat-icon>
-      </button>
-  </a>
-  <button mat-icon-button type="button" (click)="logOut()" mat-button aria-label="Example icon-button with menu icon">
-      <mat-icon>logout</mat-icon>
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <img src="{{this.showLoggedInImage()}}" alt="Something" class="toolbar-image">
   </button>
-  <a routerLink="/register">
-      <button type="button">Register</button>
-  </a>
+  <mat-menu #menu="matMenu">
+    <div *ngIf="this.loggedIn()">
+      <button mat-menu-item>
+        <img src="{{this.showLoggedInImage()}}" alt="Something" class="menu-image">
+        <span>Profile page</span>
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="logOut()">
+        <mat-icon>transit_enterexit</mat-icon>
+        <span>Logout</span>
+      </button>
+    </div>
+    <div *ngIf="!this.loggedIn()">
+      <a routerLink="/login">
+        <button mat-menu-item>
+          <mat-icon>account_circle</mat-icon>
+          <span>Log in / Register account</span>
+        </button>
+      </a>
+    </div>
+  </mat-menu>
 </mat-toolbar>
 
 <mat-drawer-container class="example-container" autosize>
