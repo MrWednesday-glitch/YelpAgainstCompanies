@@ -1,5 +1,23 @@
 <app-company-list-item [company]="company"></app-company-list-item>
 
+<div *ngIf="this.loggedIn()">
+    <mat-accordion>
+        <mat-expansion-panel hideToggle = true>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Add rating
+                </mat-panel-title>
+                <mat-panel-description>
+                    Give a rating and additional comment.
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div *ngIf="companyId">
+                <app-add-rating-form [companyId]="companyId"></app-add-rating-form>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
+
 <div *ngIf="ratings">
     <ul class="list">
         <li *ngFor="let rating of ratings">

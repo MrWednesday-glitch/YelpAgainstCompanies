@@ -1,1 +1,27 @@
-<p>add-rating-form works!</p>
+<form class="form">
+    <h1 class="header">Give your score and additional comment:</h1>
+
+    <mat-form-field>
+        <mat-label>Pick a score</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let star of stars" [value]="star.value">
+            {{star.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    <mat-form-field class="input-field">
+        <input matInput [formControl]="commentFormControl" id="comment" placeholder="comment" autocapitalize="on" autocomplete="off">
+    </mat-form-field>
+
+    <div class="actions">
+        <button mat-flat-button color="primary" type="submit" (click)="onSubmit()">
+            Save comment
+        </button>
+    </div>
+</form>
+
+<div *ngIf="addCompanyResponse">
+    <h1>{{addCompanyResponse.message}}</h1>
+    <button class="button" type="button" routerLink="/companies">Go back!</button>
+</div>

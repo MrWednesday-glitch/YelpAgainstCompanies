@@ -29,7 +29,20 @@ export class CompanyServiceService {
     const url: string = "/company/savecompanytodatabase";
 
     return this.customHttpClient.post<CompanyResponse>(url, {
-      name, address, postalcode, city, pictureUrl
+      name, 
+      address, 
+      postalcode, 
+      city, 
+      pictureUrl
+    }).pipe(catchError(this.handleError));
+  }
+
+  addRatingToCompany(companyId: number, score: number, comment: string | undefined): Observable<CompanyResponse> {
+    const url: string = "company/attachratingtocompany/" + companyId;
+
+    return this.customHttpClient.post<CompanyResponse>(url, {
+      score,
+      comment
     }).pipe(catchError(this.handleError));
   }
 
