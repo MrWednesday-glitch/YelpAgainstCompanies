@@ -1,4 +1,6 @@
-﻿namespace YelpAgainstCompanies.Business.Services;
+﻿using YelpAgainstCompanies.Domain.Interfaces;
+
+namespace YelpAgainstCompanies.Business.Services;
 
 public class CompanyService : ICompanyService
 {
@@ -52,4 +54,23 @@ public class CompanyService : ICompanyService
             .SingleOrDefault(x =>
                 x.Name == company.Name &&
                 x.PostalCode == company.PostalCode);
+
+    //TODO Test this
+    public async Task AddToCompany(Rating rating)
+    {
+        if (rating.CompanyId == null)
+        {
+            throw new Exception("You tried to enter a comment to a company that does not exist.");
+        }
+        if (rating.Score == null)
+        {
+            throw new Exception("You tried to enter a comment without a score.");
+        }
+
+        var company = await Get(rating.CompanyId);
+
+        company.Ratings.Add(rating);
+        company.Score = company.Ratings.Average(x => x.Score);
+        await _companyRepository.SaveChanges();
+    }
 }

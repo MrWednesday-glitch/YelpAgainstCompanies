@@ -34,8 +34,8 @@ public class RatingController : Controller
     }
 
     [Authorize]
-    [HttpPost("attachratingtocompany")]
-    public async Task<IActionResult> AttachRatingToCompany([FromBody] MadeRating madeRating, [FromBody] int companyId)
+    [HttpPost("attachratingtocompany/{companyId}")]
+    public async Task<IActionResult> AttachRatingToCompany([FromBody] MadeRating madeRating, int companyId)
     {
         try
         {
@@ -47,14 +47,14 @@ public class RatingController : Controller
             {
                 Comment = madeRating.Comment ?? "Rater did not add a comment.",
                 Date = DateTime.Now,
-                CompanyId = companyId, //TODO In the service look up the company via the id => then add the comment to the company via company.ratings.add(rating)
+                CompanyId = companyId,
                 Score = madeRating.Score,
                 //Maybe do this in the ratingservice?
                 User = user,
                 UserId = user.Id,
             };
 
-            //TODO Add send rating to the service to be added to the database
+            await _ratingService.AddToCompany(rating);
 
             return Ok(new
             {
