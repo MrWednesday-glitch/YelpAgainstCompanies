@@ -104,7 +104,6 @@ public class CompanyController : Controller
             return Ok(new
             {
                 Message = $"The rating to {companyAndRatingsDTO.Name} has been added.",
-                Company = companyAndRatingsDTO,
                 Success = true
             });
         }
