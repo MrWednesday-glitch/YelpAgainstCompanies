@@ -1,6 +1,4 @@
-﻿using YelpAgainstCompanies.Domain.Interfaces;
-
-namespace YelpAgainstCompanies.Business.Services;
+﻿namespace YelpAgainstCompanies.Business.Services;
 
 public class CompanyService : ICompanyService
 {
@@ -56,7 +54,7 @@ public class CompanyService : ICompanyService
                 x.PostalCode == company.PostalCode);
 
     //TODO Test this
-    public async Task AddToCompany(Rating rating)
+    public async Task<Company> AddToCompany(Rating rating)
     {
         if (rating.CompanyId == null)
         {
@@ -72,5 +70,7 @@ public class CompanyService : ICompanyService
         company.Ratings.Add(rating);
         company.Score = company.Ratings.Average(x => x.Score);
         await _companyRepository.SaveChanges();
+
+        return company;
     }
 }
