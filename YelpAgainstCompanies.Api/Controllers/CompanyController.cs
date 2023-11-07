@@ -37,10 +37,6 @@ public class CompanyController : Controller
 
             return Ok(companyAndRatingsDTO);
         }
-        catch (ArgumentNullException ex)
-        {
-            return NotFound(ex.Message);
-        }
         catch (Exception ex)
         {
             return NotFound(ex.Message);
@@ -107,7 +103,7 @@ public class CompanyController : Controller
 
             return Ok(new
             {
-                Message = $"The rating has been added.",
+                Message = $"The rating to {companyAndRatingsDTO.Name} has been added.",
                 Company = companyAndRatingsDTO,
                 Success = true
             });

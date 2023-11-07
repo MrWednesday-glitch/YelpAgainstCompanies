@@ -10,7 +10,6 @@ public class UserRepository : IUserRepository
         _dataContext = dataContext;
     }
 
-    //TODO Integrate this into the interface
     public AppUser GetUser(string username)
     {
         return _dataContext.Set<AppUser>()

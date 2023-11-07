@@ -15,6 +15,9 @@ export class AppComponent {
     this.localStorageService.removeData("accessToken");
   }
 
+  //logOut2 = () => this.localStorageService.removeData("accessToken");
+  //TODO Write one line methods like this
+
   loggedIn(): boolean {
     return this.localStorageService.getData("accessToken") != null;
   }

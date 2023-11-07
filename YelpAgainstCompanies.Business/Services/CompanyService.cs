@@ -53,13 +53,14 @@ public class CompanyService : ICompanyService
                 x.Name == company.Name &&
                 x.PostalCode == company.PostalCode);
 
-    //TODO Test this
     public async Task<Company> AddToCompany(Rating rating)
     {
+    //TODO Test this
         if (rating.CompanyId == null)
         {
             throw new Exception("You tried to enter a comment to a company that does not exist.");
         }
+        //TODO Test this
         if (rating.Score == null)
         {
             throw new Exception("You tried to enter a comment without a score.");

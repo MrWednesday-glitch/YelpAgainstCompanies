@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, catchError, of, throwError } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { CustomHttpClientService } from './custom-http-client.service';
 import Company from '../interfaces/company';
 import CompanyResponse from '../interfaces/company-response';
-import { LocalStorageService } from './local-storage.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
@@ -34,6 +33,7 @@ export class CompanyServiceService {
     }).pipe(catchError(this.handleError));
   }
 
+  //TODO Why is this crossed out
   handleError(error: HttpErrorResponse) {
     return throwError(error);
   }
