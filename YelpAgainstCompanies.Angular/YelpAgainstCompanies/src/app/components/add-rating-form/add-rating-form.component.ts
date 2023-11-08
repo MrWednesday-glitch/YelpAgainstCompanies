@@ -36,11 +36,11 @@ export class AddRatingFormComponent {
       console.log(this.companyId, score, this.commentFormControl.value ?? undefined);
       //TODO It does not reach the api for some reason...
       this.companyService.addRatingToCompany(this.companyId, score, this.commentFormControl.value ?? undefined)
-        .subscribe( x => {
+      .subscribe( x => {
           this.addCompanyResponse = x;
         }, y => this.addCompanyResponse = y.error);
         console.log(this.addCompanyResponse?.success);
-    } else {
+      } else {
       console.error("You did not select a score.");
     }
   }
