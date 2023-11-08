@@ -10,6 +10,7 @@ import { CompanyServiceService } from 'src/app/services/company-service.service'
   styleUrls: ['./add-rating-form.component.scss']
 })
 
+//TODO once a comment has been made reload the page
 export class AddRatingFormComponent {
 
   stars: Star[] = [
@@ -23,24 +24,25 @@ export class AddRatingFormComponent {
     {value: 4.5, viewValue: "4.5"},
     {value: 5, viewValue: "5"},
   ];
-  commentFormControl = new FormControl('');
-  scoreFormControl = new FormControl('', Validators.required)
+  @Input() companyId!: number;
   addCompanyResponse: CompanyResponse | undefined;
-  @Input() companyId: number = 0;
+  scoreFormControl = new FormControl('', Validators.required)
+  commentFormControl = new FormControl('');
 
   constructor(private companyService: CompanyServiceService) { }
 
   onSubmit(): void {
     if (this.scoreFormControl.valid) {
-      console.log(this.companyService === null ? "it is null" : "it is not null");
       var score: number = +this.scoreFormControl.value!;
-      console.log(this.companyId, score, this.commentFormControl.value);
-      //TODO It does not reach the api for some reason...
-      this.companyService.addRatingToCompany(this.companyId, score, this.commentFormControl.value)
-      .subscribe( x => {
-          this.addCompanyResponse = x;
-        }, y => this.addCompanyResponse = y.error);
-        console.log(this.addCompanyResponse?.success);
+      var comment: string | null;
+      if (this.commentFormControl.value === '') {
+        comment = null;
+      } else {
+        comment = this.commentFormControl.value;
+      }
+
+      this.companyService.addRatingToCompany(this.companyId, score, comment)
+      .subscribe( x => this.addCompanyResponse = x, err => this.addCompanyResponse = err.error);
       } else {
       console.error("You did not select a score.");
     }
