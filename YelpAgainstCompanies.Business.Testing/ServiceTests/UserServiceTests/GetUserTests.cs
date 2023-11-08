@@ -1,5 +1,6 @@
 ﻿namespace YelpAgainstCompanies.Business.Testing.ServiceTests.UserServiceTests;
 
+[ExcludeFromCodeCoverage]
 public class GetUserTests : Base
 {
     [Fact]
