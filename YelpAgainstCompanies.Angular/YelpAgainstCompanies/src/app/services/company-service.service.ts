@@ -37,7 +37,7 @@ export class CompanyServiceService {
     }).pipe(catchError(this.handleError));
   }
 
-  addRatingToCompany(companyId: number, score: number, comment: string | undefined): Observable<CompanyResponse> {
+  addRatingToCompany(companyId: number, score: number, comment: string | null): Observable<CompanyResponse> {
     const url: string = "company/attachratingtocompany/" + companyId;
 
     return this.customHttpClient.post<CompanyResponse>(url, {

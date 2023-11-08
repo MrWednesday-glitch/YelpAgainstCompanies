@@ -32,10 +32,11 @@ export class AddRatingFormComponent {
 
   onSubmit(): void {
     if (this.scoreFormControl.valid) {
+      console.log(this.companyService === null ? "it is null" : "it is not null");
       var score: number = +this.scoreFormControl.value!;
-      console.log(this.companyId, score, this.commentFormControl.value ?? undefined);
+      console.log(this.companyId, score, this.commentFormControl.value);
       //TODO It does not reach the api for some reason...
-      this.companyService.addRatingToCompany(this.companyId, score, this.commentFormControl.value ?? undefined)
+      this.companyService.addRatingToCompany(this.companyId, score, this.commentFormControl.value)
       .subscribe( x => {
           this.addCompanyResponse = x;
         }, y => this.addCompanyResponse = y.error);
