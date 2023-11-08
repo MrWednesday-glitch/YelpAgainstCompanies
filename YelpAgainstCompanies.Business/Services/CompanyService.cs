@@ -55,11 +55,13 @@ public class CompanyService : ICompanyService
 
     public async Task<Company> AddToCompany(Rating rating)
     {
+        //TODO Rewrite to be 0 or less
     //TODO Test this
         if (rating.CompanyId == null)
         {
             throw new Exception("You tried to enter a comment to a company that does not exist.");
         }
+        //TODO Rewrite to be less than 1 AND more than 5
         //TODO Test this
         if (rating.Score == null)
         {
@@ -69,7 +71,9 @@ public class CompanyService : ICompanyService
         var company = await Get(rating.CompanyId);
 
         company.Ratings.Add(rating);
+        //TODO Test if the average goes well
         company.Score = company.Ratings.Average(x => x.Score);
+        //TODO Test if the database gets hit
         await _companyRepository.SaveChanges();
 
         return company;
