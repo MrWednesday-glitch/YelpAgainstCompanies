@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import Star from 'src/app/interfaces/star';
 import CompanyResponse from 'src/app/interfaces/company-response';
 import { CompanyServiceService } from 'src/app/services/company-service.service';
@@ -24,12 +24,25 @@ export class AddRatingFormComponent {
     {value: 5, viewValue: "5"},
   ];
   commentFormControl = new FormControl('');
+  scoreFormControl = new FormControl('', Validators.required)
   addCompanyResponse: CompanyResponse | undefined;
   @Input() companyId: number = 0;
 
   constructor(private companyService: CompanyServiceService) { }
 
   onSubmit(): void {
-    //this.companyService.addRatingToCompany()
+    if (this.scoreFormControl.valid) {
+      var score: number = +this.scoreFormControl.value!;
+      console.log(this.companyId, score, this.commentFormControl.value ?? undefined);
+      //TODO It does not reach the api for some reason...
+      this.companyService.addRatingToCompany(this.companyId, score, this.commentFormControl.value ?? undefined)
+        .subscribe( x => {
+          this.addCompanyResponse = x;
+        }, y => this.addCompanyResponse = y.error);
+        console.log(this.addCompanyResponse?.success);
+    } else {
+      console.error("You did not select a score.");
+    }
+    //TODO Validator to ensure a star level has been selected
   }
 }

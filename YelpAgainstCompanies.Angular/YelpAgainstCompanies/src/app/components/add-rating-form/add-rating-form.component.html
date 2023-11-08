@@ -3,15 +3,17 @@
 
     <mat-form-field>
         <mat-label>Pick a score</mat-label>
-        <mat-select>
+        <mat-select [formControl]="scoreFormControl">
           <mat-option *ngFor="let star of stars" [value]="star.value">
             {{star.viewValue}}
           </mat-option>
         </mat-select>
+        <mat-error *ngIf="scoreFormControl.hasError('required')">Please pick a score.</mat-error>
       </mat-form-field>
 
     <mat-form-field class="input-field">
-        <input matInput [formControl]="commentFormControl" id="comment" placeholder="comment" autocapitalize="on" autocomplete="off">
+      <mat-label>Comment</mat-label>
+      <textarea matInput [formControl]="commentFormControl" id="comment" autocapitalize="on" autocomplete="off"></textarea>
     </mat-form-field>
 
     <div class="actions">
