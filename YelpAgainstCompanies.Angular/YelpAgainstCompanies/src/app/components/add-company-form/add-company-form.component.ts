@@ -33,7 +33,7 @@ export class AddCompanyFormComponent {
         this.companyService.saveCompany(this.nameFormControl.value!, this.addressFormControl.value!, this.postalCodeFormControl.value!, this.cityFormControl.value!, pictureUrl)
           .subscribe(x => {
             this.addCompanyResponse = x;
-          }, y => this.addCompanyResponse = y.error);
+          }, err => this.addCompanyResponse = err.error);
     } else {
       console.error("You did not enter all the fields.")
     }
