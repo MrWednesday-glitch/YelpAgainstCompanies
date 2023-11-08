@@ -1,6 +1,4 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-
-namespace YelpAgainstCompanies.Api.Controllers;
+﻿namespace YelpAgainstCompanies.Api.Controllers;
 
 [ApiController]
 [Route("company")]
@@ -84,7 +82,7 @@ public class CompanyController : Controller
         try
         {
             JwtSecurityToken bearerToken = GetBearerToken() ?? throw new Exception("Cannot add comment when not logged in.");
-            string userName = bearerToken.Claims.Single(c => c.Type == "Username" /*ClaimTypes.Name*/).Value;
+            string userName = bearerToken.Claims.Single(c => c.Type == "Username").Value;
             var user = _userService.GetUser(userName);
 
             var rating = new Rating

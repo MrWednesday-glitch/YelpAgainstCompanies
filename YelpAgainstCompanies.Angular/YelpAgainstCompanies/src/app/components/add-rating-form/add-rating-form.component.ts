@@ -43,6 +43,5 @@ export class AddRatingFormComponent {
     } else {
       console.error("You did not select a score.");
     }
-    //TODO Validator to ensure a star level has been selected
   }
 }
