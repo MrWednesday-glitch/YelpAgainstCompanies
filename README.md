@@ -21,3 +21,4 @@ This is an webapp to judge how a company treated employees either in their emplo
   => turns out that I should have added the line .AddDefaultTokenProviders() to the DI.
 * Problems with telling the user proper information. Tried to do a popup in angular, but I have been unable to make that work. For now I will simply use html that appears based on *ngIf.
 * The Api returning errors (like 400) to Angular needs to be caught in a different way. There was a lot of trial and error here but I think I am on the right way with the catchError pipe.
+* Spend half a day wondering why an http method in Angular did not work to send the data to the API. Finally noticed the missing "/" in the urlstring. Always check the strings...
