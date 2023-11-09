@@ -1,5 +1,8 @@
 <app-company-list-item [company]="company"></app-company-list-item>
 
+<div *ngIf="!this.loggedIn()" class="not-logged-in-notice">
+    <p>You have to be logged in to your account to comment on this company.</p>
+</div>
 <div *ngIf="this.loggedIn()" class="add-rating">
     <mat-accordion>
         <mat-expansion-panel hideToggle=true>

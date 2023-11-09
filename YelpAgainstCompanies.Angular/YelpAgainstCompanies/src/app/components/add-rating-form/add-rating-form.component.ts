@@ -3,6 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import Star from 'src/app/interfaces/star';
 import CompanyResponse from 'src/app/interfaces/company-response';
 import { CompanyServiceService } from 'src/app/services/company-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-rating-form',
@@ -10,7 +11,6 @@ import { CompanyServiceService } from 'src/app/services/company-service.service'
   styleUrls: ['./add-rating-form.component.scss']
 })
 
-//TODO once a comment has been made reload the page
 export class AddRatingFormComponent {
 
   stars: Star[] = [
@@ -29,7 +29,8 @@ export class AddRatingFormComponent {
   scoreFormControl = new FormControl('', Validators.required)
   commentFormControl = new FormControl('');
 
-  constructor(private companyService: CompanyServiceService) { }
+  constructor(private companyService: CompanyServiceService,
+    private router: Router) { }
 
   onSubmit(): void {
     if (this.scoreFormControl.valid) {
@@ -42,7 +43,10 @@ export class AddRatingFormComponent {
       }
 
       this.companyService.addRatingToCompany(this.companyId, score, comment)
-      .subscribe( x => this.addCompanyResponse = x, err => this.addCompanyResponse = err.error);
+      .subscribe( x => {
+        this.addCompanyResponse = x;
+        this.router.navigate(['/rating/' + this.companyId]).then(() => window.location.reload());
+      }, err => this.addCompanyResponse = err.error);
       } else {
       console.error("You did not select a score.");
     }
