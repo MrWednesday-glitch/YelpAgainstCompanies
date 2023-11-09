@@ -1,3 +1,5 @@
+[![YAC-Testing](https://github.com/MrWednesday-glitch/YelpAgainstCompanies/actions/workflows/dotnet.yml/badge.svg)](https://github.com/MrWednesday-glitch/YelpAgainstCompanies/actions/workflows/dotnet.yml)
+
 # Yelp Against Companies
 This is an webapp to judge how a company treated employees either in their employment or search for employment.
 

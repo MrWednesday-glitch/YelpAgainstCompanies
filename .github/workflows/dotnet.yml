@@ -4,6 +4,8 @@
 name: YAC-Testing
 
 on:
+  schedule:
+  - cron: '0 9 * * 1'
   push:
     branches: [ "development" ]
   pull_request:
@@ -19,7 +21,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: ${{ env.DOTNET_VERSION }}
     - name: Restore dependencies
       run: dotnet restore ./YelpAgainstCompanies.sln
     - name: Build
