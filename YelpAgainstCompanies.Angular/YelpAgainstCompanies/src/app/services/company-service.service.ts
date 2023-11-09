@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, catchError, of, throwError } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { CustomHttpClientService } from './custom-http-client.service';
 import Company from '../interfaces/company';
 import CompanyResponse from '../interfaces/company-response';
-import { LocalStorageService } from './local-storage.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
@@ -30,10 +29,24 @@ export class CompanyServiceService {
     const url: string = "/company/savecompanytodatabase";
 
     return this.customHttpClient.post<CompanyResponse>(url, {
-      name, address, postalcode, city, pictureUrl
+      name, 
+      address, 
+      postalcode, 
+      city, 
+      pictureUrl
     }).pipe(catchError(this.handleError));
   }
 
+  addRatingToCompany(companyId: number, score: number, comment: string | null): Observable<CompanyResponse> {
+    const url: string = "/company/attachratingtocompany/" + companyId;
+
+    return this.customHttpClient.post<CompanyResponse>(url, {
+      score,
+      comment
+    }).pipe(catchError(this.handleError));
+  }
+
+  //TODO Why is this crossed out
   handleError(error: HttpErrorResponse) {
     return throwError(error);
   }

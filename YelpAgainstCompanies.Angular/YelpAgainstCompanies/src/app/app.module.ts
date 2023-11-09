@@ -21,6 +21,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddCompanyFormComponent } from './components/add-company-form/add-company-form.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
+import { AddRatingFormComponent } from './components/add-rating-form/add-rating-form.component';
+import { MatSelectModule } from '@angular/material/select'; 
+import { MatExpansionModule } from '@angular/material/expansion'; 
 
 @NgModule({
   declarations: [
@@ -32,7 +35,8 @@ import { MatDividerModule } from '@angular/material/divider';
     RatingListItemComponent,
     RegisterFormComponent,
     LoginFormComponent,
-    AddCompanyFormComponent
+    AddCompanyFormComponent,
+    AddRatingFormComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +52,9 @@ import { MatDividerModule } from '@angular/material/divider';
     ReactiveFormsModule,
     MatInputModule,
     MatMenuModule,
-    MatDividerModule
+    MatDividerModule,
+    MatSelectModule,
+    MatExpansionModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

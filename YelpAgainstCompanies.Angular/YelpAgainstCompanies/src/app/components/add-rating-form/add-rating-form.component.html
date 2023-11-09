@@ -1,0 +1,29 @@
+<form class="form">
+    <h1 class="header">Give your score and additional comment:</h1>
+
+    <mat-form-field>
+        <mat-label>Pick a score</mat-label>
+        <mat-select [formControl]="scoreFormControl">
+          <mat-option *ngFor="let star of stars" [value]="star.value">
+            {{star.viewValue}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="scoreFormControl.hasError('required')">Please pick a score.</mat-error>
+      </mat-form-field>
+
+    <mat-form-field class="input-field">
+      <mat-label>Comment</mat-label>
+      <textarea matInput [formControl]="commentFormControl" id="comment" autocapitalize="on" autocomplete="off"></textarea>
+    </mat-form-field>
+
+    <div class="actions">
+        <button mat-flat-button color="primary" type="submit" (click)="onSubmit()">
+            Save comment
+        </button>
+    </div>
+</form>
+
+<div *ngIf="addCompanyResponse">
+    <h1>{{addCompanyResponse.message}}</h1>
+    <button class="button" type="button" routerLink="/companies">Go back!</button>
+</div>

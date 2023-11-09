@@ -6,6 +6,8 @@ import Rating from 'src/app/interfaces/rating';
   templateUrl: './rating-list-item.component.html',
   styleUrls: ['./rating-list-item.component.scss']
 })
+
 export class RatingListItemComponent {
+  
   @Input() rating: Rating | undefined;
 }

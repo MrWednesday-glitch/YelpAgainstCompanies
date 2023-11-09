@@ -21,4 +21,11 @@ public interface ICompanyService
     /// <param name="company">The company to be added.</param>
     /// <returns></returns>
     Task Create(Company company);
+
+    /// <summary>
+    /// This method will add a rating to a company.
+    /// </summary>
+    /// <param name="rating">The given rating to be added to the company.</param>
+    /// <returns></returns>
+    Task<Company> AddToCompany(Rating rating);
 }

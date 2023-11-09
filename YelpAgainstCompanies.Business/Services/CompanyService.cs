@@ -52,4 +52,25 @@ public class CompanyService : ICompanyService
             .SingleOrDefault(x =>
                 x.Name == company.Name &&
                 x.PostalCode == company.PostalCode);
+
+    public async Task<Company> AddToCompany(Rating rating)
+    {
+        if (rating.CompanyId <= 0)
+        {
+            throw new Exception("You tried to enter a comment to a company that does not exist.");
+        }
+
+        if (rating.Score < 1 || rating.Score > 5)
+        {
+            throw new Exception("You tried to enter an impossible score, or not score the company at all.");
+        }
+
+        var company = await Get(rating.CompanyId);
+
+        company.Ratings.Add(rating);
+        company.Score = company.Ratings.Average(x => x.Score);
+        await _companyRepository.SaveChanges();
+
+        return company;
+    }
 }

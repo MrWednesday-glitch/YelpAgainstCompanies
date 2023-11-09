@@ -8,4 +8,9 @@ public class UserService : IUserService
     {
         _userRepository = userRepository;
     }
+
+    public AppUser GetUser(string username)
+    {
+        return _userRepository.GetUser(username);
+    }
 }

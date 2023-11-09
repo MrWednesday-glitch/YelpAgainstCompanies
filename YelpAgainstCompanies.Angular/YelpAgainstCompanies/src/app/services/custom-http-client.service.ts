@@ -19,7 +19,9 @@ export class CustomHttpClientService {
   }
 
   post<T>(url: string, body: any): Observable<T> {
-    return this.httpClient.post<T>(this.baseUrl + url, body, {headers: this.getHeaders()});
+    return this.httpClient.post<T>(this.baseUrl + url, body, {
+      headers: this.getHeaders()
+    });
   }
 
   getHeaders(): any {

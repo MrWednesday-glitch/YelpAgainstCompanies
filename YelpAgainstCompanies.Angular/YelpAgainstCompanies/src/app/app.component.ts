@@ -6,14 +6,13 @@ import { LocalStorageService } from './services/local-storage.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent {
   title = 'Yelp Against Companies';
 
-  constructor(private localStorageService: LocalStorageService) {}
+  constructor(private localStorageService: LocalStorageService) { }
 
-  logOut(): void {
-    this.localStorageService.removeData("accessToken");
-  }
+  logOut = () => this.localStorageService.removeData("accessToken");
 
   loggedIn(): boolean {
     return this.localStorageService.getData("accessToken") != null;

@@ -25,7 +25,7 @@ public class RatingController : Controller
         }
         catch (Exception ex)
         {
-            return NotFound(ex.Message); 
+            return NotFound(ex.Message);
         }
     }
 }

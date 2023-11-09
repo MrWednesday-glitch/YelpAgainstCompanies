@@ -17,8 +17,6 @@ export class AddCompanyFormComponent {
   cityFormControl = new FormControl('', [Validators.required]);
   pictureUrlFormControl = new FormControl('');
   addCompanyResponse: CompanyResponse | undefined;
-  //message: string | undefined;
-  //success: boolean = false;
 
   constructor(private companyService: CompanyServiceService) {}
 
@@ -32,13 +30,10 @@ export class AddCompanyFormComponent {
       && this.cityFormControl.valid
       && this.nameFormControl.valid
       && this.postalCodeFormControl.valid) {
-        console.log(this.nameFormControl.value!, this.addressFormControl.value!, this.postalCodeFormControl.value!, this.cityFormControl.value!, pictureUrl)
         this.companyService.saveCompany(this.nameFormControl.value!, this.addressFormControl.value!, this.postalCodeFormControl.value!, this.cityFormControl.value!, pictureUrl)
           .subscribe(x => {
             this.addCompanyResponse = x;
-            //this.message = x.message;
-            //this.success = x.success;
-          }, y => this.addCompanyResponse = y.error);
+          }, err => this.addCompanyResponse = err.error);
     } else {
       console.error("You did not enter all the fields.")
     }

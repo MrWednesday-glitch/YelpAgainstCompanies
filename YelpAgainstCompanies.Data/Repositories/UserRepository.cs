@@ -9,4 +9,11 @@ public class UserRepository : IUserRepository
     {
         _dataContext = dataContext;
     }
+
+    public AppUser GetUser(string username)
+    {
+        return _dataContext.Set<AppUser>()
+            .SingleOrDefault(x => x.UserName == username)
+            ?? throw new Exception($"{username} is not a user on this site.");
+    }
 }
