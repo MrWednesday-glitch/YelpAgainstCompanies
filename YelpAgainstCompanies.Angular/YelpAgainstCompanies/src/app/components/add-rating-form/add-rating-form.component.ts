@@ -43,10 +43,15 @@ export class AddRatingFormComponent {
       }
 
       this.companyService.addRatingToCompany(this.companyId, score, comment)
-      .subscribe( x => {
-        this.addCompanyResponse = x;
-        this.router.navigate(['/rating/' + this.companyId]).then(() => window.location.reload());
-      }, err => this.addCompanyResponse = err.error);
+        .subscribe({
+          next: (x) => {
+            this.addCompanyResponse = x;
+            this.router.navigate(['/rating/' + this.companyId]).then(() => window.location.reload());
+          },
+          error: (err) => {
+            this.addCompanyResponse = err.error;
+          }
+        });
       } else {
       console.error("You did not select a score.");
     }
