@@ -46,8 +46,7 @@ export class CompanyServiceService {
     }).pipe(catchError(this.handleError));
   }
 
-  //TODO Why is this crossed out
   handleError(error: HttpErrorResponse) {
-    return throwError(error);
+    return throwError(() => error);
   }
 }
