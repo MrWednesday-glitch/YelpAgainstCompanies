@@ -1,7 +1,8 @@
-[![YAC-Testing](https://github.com/MrWednesday-glitch/YelpAgainstCompanies/actions/workflows/dotnet.yml/badge.svg)](https://github.com/MrWednesday-glitch/YelpAgainstCompanies/actions/workflows/dotnet.yml)
-
 # Yelp Against Companies
 This is an webapp to judge how a company treated employees either in their employment or search for employment.
+
+### Workflow/Action is currently:
+[![YAC-Testing](https://github.com/MrWednesday-glitch/YelpAgainstCompanies/actions/workflows/dotnet.yml/badge.svg)](https://github.com/MrWednesday-glitch/YelpAgainstCompanies/actions/workflows/dotnet.yml)
 
 ### Raison d être
 > This app is based on a recurring joke in unemployment circles on how employees should be able to judge employers/companies on how the former is treated by the latter.
