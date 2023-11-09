@@ -33,4 +33,4 @@ jobs:
       if: always()
       with:
         files: |
-          ./YelpAgainstCompanies.Business.Testing/TestTesults/**/xtests.trx
+          YelpAgainstCompanies.Business.Testing/TestTesults/xtests.trx
