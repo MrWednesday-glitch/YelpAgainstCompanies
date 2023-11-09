@@ -27,4 +27,10 @@ jobs:
     - name: Build
       run: dotnet build ./YelpAgainstCompanies.sln --no-restore
     - name: Test
-      run: dotnet test ./YelpAgainstCompanies.Business.Testing/YelpAgainstCompanies.Business.Testing.csproj --no-build --verbosity normal
+      run: dotnet test ./YelpAgainstCompanies.Business.Testing/YelpAgainstCompanies.Business.Testing.csproj --no-build --verbosity normal --logger "trx;LogFileName=xtests.trx"
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v2
+      if: always()
+      with:
+        files: |
+          ./YelpAgainstCompanies.Business.Testing/TestTesults/xtests.trx
