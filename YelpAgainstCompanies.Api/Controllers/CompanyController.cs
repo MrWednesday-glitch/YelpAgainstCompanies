@@ -87,7 +87,7 @@ public class CompanyController : Controller
 
             var rating = new Rating
             {
-                Comment = madeRating.Comment ?? "Rater did not add a comment.",
+                Comment = madeRating.Comment ?? "//The user did not add a comment to his score//.",
                 Date = DateTime.Now,
                 CompanyId = companyId,
                 Score = madeRating.Score,
