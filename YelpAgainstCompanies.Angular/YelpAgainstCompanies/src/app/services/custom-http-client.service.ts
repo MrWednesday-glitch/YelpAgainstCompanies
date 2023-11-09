@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 
 export class CustomHttpClientService {
+  
   private baseUrl: string = environment.apiUrl.valueOf();
 
   constructor(private httpClient: HttpClient) { }
