@@ -91,7 +91,6 @@ public class CompanyController : Controller
                 Date = DateTime.Now,
                 CompanyId = companyId,
                 Score = madeRating.Score,
-                //Maybe do this in the service?
                 User = user,
                 UserId = user.Id,
             };

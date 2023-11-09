@@ -8,5 +8,6 @@ import Company from 'src/app/interfaces/company';
 })
 
 export class CompanyListItemComponent {
+  
   @Input() company: Company | undefined;
 }

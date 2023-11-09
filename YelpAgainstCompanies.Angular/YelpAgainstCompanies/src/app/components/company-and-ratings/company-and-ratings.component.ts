@@ -12,6 +12,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 })
 
 export class CompanyAndRatingsComponent implements OnInit {
+
   company: Company | undefined;
   ratings: Rating[] | undefined = [];
   companyId: number = 0;
@@ -31,19 +32,5 @@ export class CompanyAndRatingsComponent implements OnInit {
 
   loggedIn(): boolean {
     return this.localStorageService.getData("accessToken") != null;
-  }
-
-  step = 0;
-
-  setStep(index: number) {
-    this.step = index;
-  }
-
-  nextStep() {
-    this.step++;
-  }
-
-  prevStep() {
-    this.step--;
   }
 }

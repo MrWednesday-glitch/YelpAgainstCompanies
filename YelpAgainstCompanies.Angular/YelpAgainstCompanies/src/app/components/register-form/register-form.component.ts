@@ -35,7 +35,7 @@ export class RegisterFormComponent implements OnInit {
           this.router.navigate(['/login']).then(() => window.location.reload())
         });
     } else {
-      
+      //TODO Find a way to get an error message here.
     }
   }
 }
