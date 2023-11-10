@@ -1,3 +1,6 @@
+using Hellang.Middleware.ProblemDetails;
+using YelpAgainstCompanies.Domain.Exceptions;
+
 namespace YelpAgainstCompanies.Api;
 
 public class Program
@@ -15,6 +18,21 @@ public class Program
 
         webAppBuilder.Services.AddControllers();
 
+        webAppBuilder.Services.AddProblemDetails(setup =>
+        {
+            //TODO Ask Wubbo why this does not work...
+            setup.IncludeExceptionDetails = (ctx, env) => CurrentEnvironment.IsDevelopment() || CurrentEnvironment.IsStaging();
+            setup.Map<ProductCustomException>(exception => new ProductCustomException
+            {
+                Title = exception.Title,
+                Detail = exception.Detail,
+                Status = StatusCodes.Status500InternalServerError,
+                Type = exception.Type,
+                Instance = exception.Instance,
+                AdditionalInfo = exception.AdditionalInfo
+            });
+        });
+
         webAppBuilder.Services.AddDbContext<DataContext>(options =>
         {
             options.UseSqlServer(configBuilder.GetConnectionString("DefaultConnection"));
@@ -31,7 +49,8 @@ public class Program
         webAppBuilder.Services.AddIdentity<AppUser, AppUserRole>(options =>
         {
             options.SignIn.RequireConfirmedAccount = false;
-        })  .AddRoles<AppUserRole>()
+        })
+            .AddRoles<AppUserRole>()
             .AddEntityFrameworkStores<DataContext>()
             .AddDefaultTokenProviders();
 
@@ -49,7 +68,8 @@ public class Program
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-        }).AddJwtBearer(bearerOptions =>
+        })
+            .AddJwtBearer(bearerOptions =>
             {
                 bearerOptions.RequireHttpsMetadata = true;
                 bearerOptions.SaveToken = false;
@@ -81,6 +101,8 @@ public class Program
         using var scope = app.Services.CreateScope();
         scope.ServiceProvider.GetRequiredService<DataContext>()
             .Database.Migrate(); //Migrate database when API runs
+
+        app.UseProblemDetails();
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
