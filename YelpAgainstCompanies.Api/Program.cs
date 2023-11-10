@@ -18,7 +18,8 @@ public class Program
         webAppBuilder.Services.AddDbContext<DataContext>(options =>
         {
             options.UseSqlServer(configBuilder.GetConnectionString("DefaultConnection"));
-        }, ServiceLifetime.Singleton);
+        }, 
+            ServiceLifetime.Singleton);
         webAppBuilder.Services.AddScoped<Transformations>();
         webAppBuilder.Services.AddScoped<IRatingRepository, RatingRepository>();
         webAppBuilder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
@@ -31,7 +32,8 @@ public class Program
         webAppBuilder.Services.AddIdentity<AppUser, AppUserRole>(options =>
         {
             options.SignIn.RequireConfirmedAccount = false;
-        })  .AddRoles<AppUserRole>()
+        })  
+            .AddRoles<AppUserRole>()
             .AddEntityFrameworkStores<DataContext>()
             .AddDefaultTokenProviders();
 
@@ -49,7 +51,8 @@ public class Program
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-        }).AddJwtBearer(bearerOptions =>
+        })
+            .AddJwtBearer(bearerOptions =>
             {
                 bearerOptions.RequireHttpsMetadata = true;
                 bearerOptions.SaveToken = false;
