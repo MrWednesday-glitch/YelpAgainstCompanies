@@ -1,3 +1,5 @@
+using Hellang.Middleware.ProblemDetails;
+
 namespace YelpAgainstCompanies.Api;
 
 public class Program
@@ -13,6 +15,16 @@ public class Program
 
         // Add services to the container.
 
+        webAppBuilder.Services.AddProblemDetails(opts =>
+        {
+            // Control when an exception is included
+            opts.IncludeExceptionDetails = (ctx, ex) =>
+            {
+                // Fetch services from HttpContext.RequestServices
+                var env = ctx.RequestServices.GetRequiredService<IHostEnvironment>();
+                return env.IsDevelopment() || env.IsStaging();
+            };
+        });
         webAppBuilder.Services.AddControllers();
 
         webAppBuilder.Services.AddDbContext<DataContext>(options =>
@@ -95,6 +107,8 @@ public class Program
         app.UseCors("myAllowSpecificOrigins");
 
         app.UseHttpsRedirection();
+
+        app.UseProblemDetails();
 
         app.UseAuthentication();
         app.UseAuthorization();

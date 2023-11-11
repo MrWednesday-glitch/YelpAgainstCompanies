@@ -27,18 +27,18 @@ public class CompanyController : Controller
     [HttpGet("{id}")]
     public async Task<IActionResult> GetCompany(int id)
     {
-        try
-        {
+        //try
+        //{
             var company = await _companyService.Get(id);
 
             var companyAndRatingsDTO = _transformations.Transform(company, company.Ratings);
 
             return Ok(companyAndRatingsDTO);
-        }
-        catch (Exception ex)
-        {
-            return NotFound(ex.Message);
-        }
+        //}
+        //catch (Exception ex)
+        //{
+        //    return NotFound(ex.Message);
+        //}
     }
 
     [Authorize]
