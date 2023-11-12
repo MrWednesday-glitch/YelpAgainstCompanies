@@ -27,18 +27,26 @@ public class CompanyController : Controller
     [HttpGet("{id}")]
     public async Task<IActionResult> GetCompany(int id)
     {
-        //try
-        //{
+        try
+        {
             var company = await _companyService.Get(id);
 
             var companyAndRatingsDTO = _transformations.Transform(company, company.Ratings);
 
             return Ok(companyAndRatingsDTO);
-        //}
-        //catch (Exception ex)
-        //{
-        //    return NotFound(ex.Message);
-        //}
+        }
+        catch (Exception ex)
+        {
+            var problemDetails = new ProblemDetails
+            {
+                Status = StatusCodes.Status404NotFound,
+                Type = "https://example.com/something/or/another",
+                Title = ex.Message,
+                Detail = ex.StackTrace,
+                Instance = HttpContext.Request.Path
+            };
+            return NotFound(problemDetails);
+        }
     }
 
     [Authorize]
@@ -67,11 +75,22 @@ public class CompanyController : Controller
         }
         catch (Exception ex)
         {
-            return BadRequest(new
+            var problemDetails = new ProblemDetails
             {
-                Message = ex.Message,
-                Success = false
-            });
+                Status = StatusCodes.Status403Forbidden,
+                Type = "a site",
+                Title = ex.Message,
+                Detail = ex.StackTrace,
+                Instance = HttpContext.Request.Path
+            };
+            //TODO Ensure Angular can take this.
+            //TODO Test this in postman
+            return BadRequest(problemDetails);
+            //return BadRequest(new
+            //{
+            //    Message = ex.Message,
+            //    Success = false
+            //});
         }
     }
 
@@ -106,11 +125,23 @@ public class CompanyController : Controller
         }
         catch (Exception ex)
         {
-            return BadRequest(new
+            var problemDetails = new ProblemDetails
             {
-                Message = ex.Message,
-                Success = false
-            });
+                Status = StatusCodes.Status403Forbidden,
+                Type = "a site",
+                Title = ex.Message,
+                Detail = ex.StackTrace,
+                Instance = HttpContext.Request.Path
+            };
+            //TODO Ensure Angular can take this.
+            //TODO Test this in postman
+            return BadRequest(problemDetails);
+
+            //return BadRequest(new
+            //{
+            //    Message = ex.Message,
+            //    Success = false
+            //});
         }
     }
 

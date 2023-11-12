@@ -63,8 +63,21 @@ public class AuthorityController : Controller
         }
         catch (Exception ex)
         {
-            ModelState.AddModelError(string.Empty, ex.Message);
-            return _apiBehaviorOptions.Value.InvalidModelStateResponseFactory(ControllerContext);
+            var problemDetails = new ProblemDetails
+            {
+                Status = StatusCodes.Status401Unauthorized,
+                Type = "a site",
+                Title = ex.Message,
+                Detail = ex.StackTrace,
+                Instance = HttpContext.Request.Path
+            };
+            //TODO Ensure Angular can take this.
+            //TODO Test this in postman
+            return Unauthorized(problemDetails);
+
+            //TODO Figure out what this is, and replace it with a failed to log in thing that can be caught by angular
+            //ModelState.AddModelError(string.Empty, ex.Message);
+            //return _apiBehaviorOptions.Value.InvalidModelStateResponseFactory(ControllerContext);
         }
     }
 
@@ -110,11 +123,22 @@ public class AuthorityController : Controller
         }
         catch (Exception ex)
         {
-            return BadRequest(new
+            var problemDetails = new ProblemDetails
             {
-                ex.Message,
-                InnerExceptionMessage = ex.InnerException?.Message
-            });
+                Status = StatusCodes.Status400BadRequest,
+                Type = "a site",
+                Title = ex.Message,
+                Detail = ex.StackTrace,
+                Instance = HttpContext.Request.Path
+            };
+            //TODO Ensure Angular can take this.
+            //TODO Test this in postman
+            return BadRequest(problemDetails);
+            //return BadRequest(new
+            //{
+            //    ex.Message,
+            //    InnerExceptionMessage = ex.InnerException?.Message
+            //});
         }
     }
 

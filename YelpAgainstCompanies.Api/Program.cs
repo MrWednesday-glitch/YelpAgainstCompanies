@@ -15,14 +15,14 @@ public class Program
 
         // Add services to the container.
 
-        webAppBuilder.Services.AddProblemDetails(opts =>
+        webAppBuilder.Services.AddProblemDetails(problemDetailsOptions =>
         {
             // Control when an exception is included
-            opts.IncludeExceptionDetails = (ctx, ex) =>
+            problemDetailsOptions.IncludeExceptionDetails = (httpContext, exception) =>
             {
                 // Fetch services from HttpContext.RequestServices
-                var env = ctx.RequestServices.GetRequiredService<IHostEnvironment>();
-                return env.IsDevelopment() || env.IsStaging();
+                var environment = httpContext.RequestServices.GetRequiredService<IHostEnvironment>();
+                return environment.IsDevelopment() || environment.IsStaging();
             };
         });
         webAppBuilder.Services.AddControllers();

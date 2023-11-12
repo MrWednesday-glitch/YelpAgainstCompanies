@@ -25,7 +25,19 @@ public class RatingController : Controller
         }
         catch (Exception ex)
         {
-            return NotFound(ex.Message);
+
+            var problemDetails = new ProblemDetails
+            {
+                Status = StatusCodes.Status404NotFound,
+                Type = "a site",
+                Title = ex.Message,
+                Detail = ex.StackTrace,
+                Instance = HttpContext.Request.Path
+            };
+            //TODO Ensure Angular can take this.
+            //TODO Test this in postman
+            return NotFound(problemDetails);
+            //return NotFound(ex.Message);
         }
     }
 }
