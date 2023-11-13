@@ -17,6 +17,7 @@ export class CompanyAndRatingsComponent implements OnInit {
   company: Company | undefined;
   ratings: Rating[] | undefined = [];
   companyId: number = 0;
+  //TODO Make a more pretty error response in html/css
   httpError: HttpErrorResponse | undefined;
 
   constructor(private route: ActivatedRoute, 
