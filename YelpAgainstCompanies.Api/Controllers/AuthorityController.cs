@@ -65,11 +65,11 @@ public class AuthorityController : Controller
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] LoginModel model, [FromQuery] string? returnUrl = null)
     {
-        try
-        {
+        //try
+        //{
             if (!model.Email.IsValidEmail())
             {
-                throw new Exception("You did not give a valid email.");
+                throw new StringNotValidException("email", HttpContext.Request.Path);
             }
 
             var user = new AppUser
@@ -82,7 +82,7 @@ public class AuthorityController : Controller
 
             if (!model.Password.IsValidPassword())
             {
-                throw new Exception("The password you entered does not qualify with the restrictions.");
+                throw new StringNotValidException("password", HttpContext.Request.Path);
             }
 
             var result = await _userManager.CreateAsync(user, model.Password);
@@ -94,32 +94,32 @@ public class AuthorityController : Controller
 
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-
+        
             return Ok(new
             {
                 Succes = true,
                 ConfirmationCode = code
             });
-        }
-        catch (Exception ex)
-        {
-            var problemDetails = new ProblemDetails
-            {
-                Status = StatusCodes.Status400BadRequest,
-                Type = "a site",
-                Title = ex.Message,
-                Detail = ex.StackTrace,
-                Instance = HttpContext.Request.Path
-            };
-            //TODO Ensure Angular can take this.
-            //TODO Test this in postman
-            return BadRequest(problemDetails);
-            //return BadRequest(new
-            //{
-            //    ex.Message,
-            //    InnerExceptionMessage = ex.InnerException?.Message
-            //});
-        }
+        //}
+        //catch (Exception ex)
+        //{
+        //    var problemDetails = new ProblemDetails
+        //    {
+        //        Status = StatusCodes.Status400BadRequest,
+        //        Type = "a site",
+        //        Title = ex.Message,
+        //        Detail = ex.StackTrace,
+        //        Instance = HttpContext.Request.Path
+        //    };
+        //    //TODO Ensure Angular can take this.
+        //    //TODO Test this in postman
+        //    return BadRequest(problemDetails);
+        //    //return BadRequest(new
+        //    //{
+        //    //    ex.Message,
+        //    //    InnerExceptionMessage = ex.InnerException?.Message
+        //    //});
+        //}
     }
 
     private IActionResult AddIdentityErrors(IdentityResult result)

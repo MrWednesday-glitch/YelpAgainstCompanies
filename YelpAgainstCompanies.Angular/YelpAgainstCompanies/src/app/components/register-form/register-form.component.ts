@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -16,6 +17,8 @@ export class RegisterFormComponent implements OnInit {
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
   passwordFormControl = new FormControl('', [Validators.required]);
   succesfullyRegistered: boolean | undefined;
+  //TODO Make a more pretty error response in html/css
+  httpError: HttpErrorResponse | undefined;
 
   constructor(private authService: AuthService,
     private router: Router) {}
@@ -30,9 +33,14 @@ export class RegisterFormComponent implements OnInit {
         this.passwordFormControl.value!, 
         this.firstnameFormControl.value!, 
         this.lastnameFormControl.value!)
-        .subscribe(registerResponse => {
-          this.succesfullyRegistered = registerResponse.succes;
-          this.router.navigate(['/login']).then(() => window.location.reload())
+        .subscribe({
+          next: (r) => {
+            this.succesfullyRegistered = r.succes;
+            this.router.navigate(['/login']).then(() => window.location.reload())  
+          },
+          error: (err) => {
+            this.httpError = err;
+          }
         });
     } else {
       //TODO Find a way to get an error message here.

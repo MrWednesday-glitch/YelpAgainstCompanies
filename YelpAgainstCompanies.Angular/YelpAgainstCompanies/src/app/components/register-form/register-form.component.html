@@ -46,6 +46,10 @@
       <button mat-flat-button color="primary" type="submit" (click)="onSubmit()">Register account</button>
     </div>
 
+    <div *ngIf="this.httpError">
+      <h1>You did not write down a valid password.</h1>
+    </div>
+
     <h3 *ngIf="succesfullyRegistered">You succesfully registered your account.</h3>
   
   </form>
