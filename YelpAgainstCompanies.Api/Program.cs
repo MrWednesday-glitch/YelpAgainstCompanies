@@ -37,6 +37,14 @@ public class Program
                 Instance = ex.Instance,
                 Status = StatusCodes.Status404NotFound
             });
+            options.Map<UserDoesNotExistException>((ex) => new ProblemDetails()
+            {
+                Type = ex.Type,
+                Title = ex.Title,
+                Detail = ex.Detail,
+                Instance = ex.Instance,
+                Status = StatusCodes.Status404NotFound
+            });
         });
         webAppBuilder.Services.AddControllers();
 

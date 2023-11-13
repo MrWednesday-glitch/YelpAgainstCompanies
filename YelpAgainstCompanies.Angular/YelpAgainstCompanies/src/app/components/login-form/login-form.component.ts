@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -14,6 +15,7 @@ export class LoginFormComponent {
 
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
   passwordFormControl = new FormControl('', [Validators.required]);
+  httpError: HttpErrorResponse | undefined;
 
   constructor(private authService: AuthService, 
     private localStorageService: LocalStorageService,
@@ -22,10 +24,15 @@ export class LoginFormComponent {
   onSubmit(): void {
     if (this.emailFormControl.valid && this.passwordFormControl.valid) {
       this.authService.login(this.emailFormControl.value!, this.passwordFormControl.value!, "ShouldNotBeRequired", "ShouldNotBeRequired")
-        .subscribe(loginResponse => {
-          this.localStorageService.saveData("accessToken", loginResponse.accessToken);
-          this.router.navigate(['/homepage']).then(() => window.location.reload());
-        });
+        .subscribe({
+          next: (r) => {
+            this.localStorageService.saveData("accessToken", r.accessToken);
+            this.router.navigate(['/homepage']).then(() => window.location.reload());
+          },
+          error: (err) => {
+            this.httpError = err;
+          }
+        })
     } else {
       console.error("Wrong password email combination.")
     }

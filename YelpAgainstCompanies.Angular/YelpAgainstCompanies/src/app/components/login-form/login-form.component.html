@@ -29,6 +29,10 @@
     </a>
     </div>
 
+    <div *ngIf="this.httpError">
+      <h1>Your email/password combination is wrong.</h1>
+    </div>
+
     <h3 *ngIf="this.loggedIn()">Logged in.</h3>
   
   </form>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.WebUtilities;
+using YelpAgainstCompanies.Domain.Exceptions;
 
 //TODO In angular => Have it send the user back to the mainscreen when jwt is no longer valid
 namespace YelpAgainstCompanies.Api.Controllers;
@@ -27,16 +28,14 @@ public class AuthorityController : Controller
     [HttpPost("token")]
     public async Task<IActionResult> Login([FromBody] LoginModel model)
     {
-        try
-        {
-            var result = await _signInManager
-                .PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: true);
+        var result = await _signInManager
+            .PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: true);
 
-            if (result.Succeeded)
+        if (result.Succeeded)
+        {
+            var user = await _userManager.FindByEmailAsync(model.Email) ?? throw new UserDoesNotExistException(HttpContext.Request.Path);
+            var claims = new[]
             {
-                var user = await _userManager.FindByEmailAsync(model.Email) ?? throw new Exception("No user found.");
-                var claims = new[]
-                {
                     new Claim("Username", user.UserName ?? "No username found."),
                     new Claim("Role", "guest"),
                     new Claim("Email", user.Email ?? "No email found."),
@@ -44,40 +43,21 @@ public class AuthorityController : Controller
                     new Claim("Lastname", user.LastName ?? "No last name found.")
                 };
 
-                var jwtResult = _jwtAuthorityManager.GenerateTokens(user.UserName ?? throw new Exception("No username found"), claims, DateTime.Now);
+            var jwtResult = _jwtAuthorityManager.GenerateTokens(user.UserName ?? throw new UserDoesNotExistException(HttpContext.Request.Path), claims, DateTime.Now);
 
-                return Ok(new
-                {
-                    FirstName = user.FirstName,
-                    LastName = user.LastName ?? "No lastname found.",
-                    UserName = user.UserName,
-                    Role = "guest",
-                    AccessToken = jwtResult.AccessToken,
-                    RefreshToken = jwtResult.RefreshToken.TokenString
-                });
-            }
-            else
+            return Ok(new
             {
-                return Unauthorized();
-            }
+                FirstName = user.FirstName,
+                LastName = user.LastName ?? "No lastname found.",
+                UserName = user.UserName,
+                Role = "guest",
+                AccessToken = jwtResult.AccessToken,
+                RefreshToken = jwtResult.RefreshToken.TokenString
+            });
         }
-        catch (Exception ex)
+        else
         {
-            var problemDetails = new ProblemDetails
-            {
-                Status = StatusCodes.Status401Unauthorized,
-                Type = "a site",
-                Title = ex.Message,
-                Detail = ex.StackTrace,
-                Instance = HttpContext.Request.Path
-            };
-            //TODO Ensure Angular can take this.
-            //TODO Test this in postman
-            return Unauthorized(problemDetails);
-
-            //TODO Figure out what this is, and replace it with a failed to log in thing that can be caught by angular
-            //ModelState.AddModelError(string.Empty, ex.Message);
-            //return _apiBehaviorOptions.Value.InvalidModelStateResponseFactory(ControllerContext);
+            return Unauthorized();
         }
     }
 

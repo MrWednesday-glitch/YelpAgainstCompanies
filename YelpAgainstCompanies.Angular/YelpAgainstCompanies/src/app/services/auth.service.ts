@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import LoginResponse from '../interfaces/login-response';
 import RegisterResponse from '../interfaces/register-response';
@@ -20,7 +20,8 @@ export class AuthService {
       firstname,
       lastname,
       password
-    });
+    })
+      .pipe(catchError(this.handleError));
   }
 
   register(username: string, password: string, firstname: string, lastname: string): Observable<RegisterResponse> {
@@ -29,6 +30,11 @@ export class AuthService {
      firstname,
      lastname,
      password 
-    });
+    })
+      .pipe(catchError(this.handleError));
+  }
+
+  handleError(error: HttpErrorResponse) {
+    return throwError(() => error);
   }
 }
