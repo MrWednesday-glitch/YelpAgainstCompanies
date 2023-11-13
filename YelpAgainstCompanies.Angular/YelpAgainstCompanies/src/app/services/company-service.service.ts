@@ -22,7 +22,8 @@ export class CompanyServiceService {
   getCompany(companyId: number): Observable<Company> {
     const url: string = "/company/" + companyId;
 
-    return this.customHttpClient.get<Company>(url);
+    return this.customHttpClient.get<Company>(url)
+      .pipe(catchError(this.handleError));
   }
 
   saveCompany(name: string, address: string, postalcode: string, city: string, pictureUrl: string): Observable<CompanyResponse> {
@@ -34,7 +35,8 @@ export class CompanyServiceService {
       postalcode, 
       city, 
       pictureUrl
-    }).pipe(catchError(this.handleError));
+    })
+      .pipe(catchError(this.handleError));
   }
 
   addRatingToCompany(companyId: number, score: number, comment: string | null): Observable<CompanyResponse> {
@@ -43,7 +45,8 @@ export class CompanyServiceService {
     return this.customHttpClient.post<CompanyResponse>(url, {
       score,
       comment
-    }).pipe(catchError(this.handleError));
+    })
+      .pipe(catchError(this.handleError));
   }
 
   handleError(error: HttpErrorResponse) {

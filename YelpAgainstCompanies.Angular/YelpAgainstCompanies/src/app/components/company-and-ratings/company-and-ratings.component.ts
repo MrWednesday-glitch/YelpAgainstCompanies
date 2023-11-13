@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import Company from 'src/app/interfaces/company';
@@ -16,6 +17,7 @@ export class CompanyAndRatingsComponent implements OnInit {
   company: Company | undefined;
   ratings: Rating[] | undefined = [];
   companyId: number = 0;
+  httpError: HttpErrorResponse | undefined;
 
   constructor(private route: ActivatedRoute, 
     private companyService: CompanyServiceService,
@@ -24,10 +26,16 @@ export class CompanyAndRatingsComponent implements OnInit {
   ngOnInit(): void {
     const companyId: number = Number(this.route.snapshot.paramMap.get("companyId"));
     this.companyId = companyId;
-    this.companyService.getCompany(companyId).subscribe(c => {
-      this.company = c;
-      this.ratings = c.ratings;
-    })         
+    this.companyService.getCompany(companyId)
+      .subscribe({
+        next: (c) => {
+          this.company = c;
+          this.ratings = c.ratings;
+        },
+        error: (err) => {
+          this.httpError = err;
+        }
+      });
   }
 
   loggedIn(): boolean {
