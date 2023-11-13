@@ -27,26 +27,11 @@ public class CompanyController : Controller
     [HttpGet("{id}")]
     public async Task<IActionResult> GetCompany(int id)
     {
-        try
-        {
             var company = await _companyService.Get(id);
 
             var companyAndRatingsDTO = _transformations.Transform(company, company.Ratings);
 
             return Ok(companyAndRatingsDTO);
-        }
-        catch (Exception ex)
-        {
-            var problemDetails = new ProblemDetails
-            {
-                Status = StatusCodes.Status404NotFound,
-                Type = "https://example.com/something/or/another",
-                Title = ex.Message,
-                Detail = ex.StackTrace,
-                Instance = HttpContext.Request.Path
-            };
-            return NotFound(problemDetails);
-        }
     }
 
     [Authorize]

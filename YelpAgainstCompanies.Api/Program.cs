@@ -1,4 +1,5 @@
 using Hellang.Middleware.ProblemDetails;
+using YelpAgainstCompanies.Domain.Exceptions;
 
 namespace YelpAgainstCompanies.Api;
 
@@ -24,6 +25,16 @@ public class Program
                 var environment = httpContext.RequestServices.GetRequiredService<IHostEnvironment>();
                 return environment.IsDevelopment() || environment.IsStaging();
             };
+
+            //Map custom exceptions to problemdetails to be output via the api
+            problemDetailsOptions.Map<CompanyDoesNotExistException>((ex) => new ProblemDetails()
+            {
+                Type = ex.Type,
+                Title = ex.Title,
+                Detail = ex.Detail,
+                Instance = ex.Instance,
+                Status = StatusCodes.Status404NotFound
+            });
         });
         webAppBuilder.Services.AddControllers();
 

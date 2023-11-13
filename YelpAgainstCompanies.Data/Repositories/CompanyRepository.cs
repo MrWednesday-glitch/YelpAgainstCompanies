@@ -1,4 +1,6 @@
-﻿namespace YelpAgainstCompanies.Data.Repositories;
+﻿using YelpAgainstCompanies.Domain.Exceptions;
+
+namespace YelpAgainstCompanies.Data.Repositories;
 
 [ExcludeFromCodeCoverage]
 public class CompanyRepository : EFRepository<Company>, ICompanyRepository
@@ -37,7 +39,7 @@ public class CompanyRepository : EFRepository<Company>, ICompanyRepository
     public override Company GetRecord(int id)
     {
         return GetRecords().SingleOrDefault(x => x.Id == id)
-            ?? throw new Exception("No record was found.");
+            ?? throw new CompanyDoesNotExistException($"/company/{id}");
     }
 
     public override async Task SaveChanges()
