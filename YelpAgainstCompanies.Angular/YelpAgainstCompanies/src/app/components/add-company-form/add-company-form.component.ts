@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import CompanyResponse from 'src/app/interfaces/company-response';
@@ -17,6 +18,7 @@ export class AddCompanyFormComponent {
   cityFormControl = new FormControl('', [Validators.required]);
   pictureUrlFormControl = new FormControl('');
   addCompanyResponse: CompanyResponse | undefined;
+  httpError: HttpErrorResponse | undefined;
 
   constructor(private companyService: CompanyServiceService) {}
 
@@ -36,7 +38,7 @@ export class AddCompanyFormComponent {
               this.addCompanyResponse = x;
             }, 
             error: (err) => {
-              this.addCompanyResponse = err.error;
+              this.httpError = err;
             }
           });
     } else {

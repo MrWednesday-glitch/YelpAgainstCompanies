@@ -1,4 +1,6 @@
-﻿namespace YelpAgainstCompanies.Business.Services;
+﻿using YelpAgainstCompanies.Domain.Exceptions;
+
+namespace YelpAgainstCompanies.Business.Services;
 
 public class CompanyService : ICompanyService
 {
@@ -29,17 +31,17 @@ public class CompanyService : ICompanyService
     {
         if (!company.Address.IsValidAddress())
         {
-            throw new Exception("The address is not properly entered.");
+            throw new StringNotValidException("address", "/company/savecompanytodatabase");
         }
 
         if (!company.PostalCode.IsValidPostalCode())
         {
-            throw new Exception("The postal code is not properly entered.");
+            throw new StringNotValidException("postal code", "/company/savecompanytodatabase");
         }
 
         if (await ExistingCompanyInDB(company) != null)
         {
-            throw new Exception("The company you tried to create already exists.");
+            throw new RecordExistsInDatabaseException("company", "/company/savecompanytodatabase");
         }
 
         await _companyRepository.CreateRecord(company);

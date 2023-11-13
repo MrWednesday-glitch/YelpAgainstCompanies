@@ -65,61 +65,39 @@ public class AuthorityController : Controller
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] LoginModel model, [FromQuery] string? returnUrl = null)
     {
-        //try
-        //{
-            if (!model.Email.IsValidEmail())
-            {
-                throw new StringNotValidException("email", HttpContext.Request.Path);
-            }
+        if (!model.Email.IsValidEmail())
+        {
+            throw new StringNotValidException("email", HttpContext.Request.Path);
+        }
 
-            var user = new AppUser
-            {
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                UserName = model.Email,
-                Email = model.Email
-            };
+        var user = new AppUser
+        {
+            FirstName = model.FirstName,
+            LastName = model.LastName,
+            UserName = model.Email,
+            Email = model.Email
+        };
 
-            if (!model.Password.IsValidPassword())
-            {
-                throw new StringNotValidException("password", HttpContext.Request.Path);
-            }
+        if (!model.Password.IsValidPassword())
+        {
+            throw new StringNotValidException("password", HttpContext.Request.Path);
+        }
 
-            var result = await _userManager.CreateAsync(user, model.Password);
+        var result = await _userManager.CreateAsync(user, model.Password);
 
-            if (!result.Succeeded)
-            {
-                return AddIdentityErrors(result);
-            }
+        if (!result.Succeeded)
+        {
+            return AddIdentityErrors(result);
+        }
 
-            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-        
-            return Ok(new
-            {
-                Succes = true,
-                ConfirmationCode = code
-            });
-        //}
-        //catch (Exception ex)
-        //{
-        //    var problemDetails = new ProblemDetails
-        //    {
-        //        Status = StatusCodes.Status400BadRequest,
-        //        Type = "a site",
-        //        Title = ex.Message,
-        //        Detail = ex.StackTrace,
-        //        Instance = HttpContext.Request.Path
-        //    };
-        //    //TODO Ensure Angular can take this.
-        //    //TODO Test this in postman
-        //    return BadRequest(problemDetails);
-        //    //return BadRequest(new
-        //    //{
-        //    //    ex.Message,
-        //    //    InnerExceptionMessage = ex.InnerException?.Message
-        //    //});
-        //}
+        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+
+        return Ok(new
+        {
+            Succes = true,
+            ConfirmationCode = code
+        });
     }
 
     private IActionResult AddIdentityErrors(IdentityResult result)

@@ -27,11 +27,11 @@ public class CompanyController : Controller
     [HttpGet("{id}")]
     public async Task<IActionResult> GetCompany(int id)
     {
-            var company = await _companyService.Get(id);
+        var company = await _companyService.Get(id);
 
-            var companyAndRatingsDTO = _transformations.Transform(company, company.Ratings);
+        var companyAndRatingsDTO = _transformations.Transform(company, company.Ratings);
 
-            return Ok(companyAndRatingsDTO);
+        return Ok(companyAndRatingsDTO);
     }
 
     [Authorize]
@@ -43,40 +43,18 @@ public class CompanyController : Controller
             Name = companyDTO.Name.Trim(),
             Address = companyDTO.Address.Trim(),
             City = companyDTO.City.Trim(),
-            PictureUrl = companyDTO.PictureUrl,
+            PictureUrl = companyDTO.PictureUrl, //TODO Add a picture here if the pictureURL equals null
             PostalCode = companyDTO.PostalCode.Trim(),
             Score = 0, //TODO Do something different here?
         };
 
-        try
-        {
-            await _companyService.Create(company);
+        await _companyService.Create(company);
 
-            return Ok(new
-            {
-                Message = $"The company {company.Name} has been saved to the database.",
-                Success = true
-            });
-        }
-        catch (Exception ex)
+        return Ok(new
         {
-            var problemDetails = new ProblemDetails
-            {
-                Status = StatusCodes.Status403Forbidden,
-                Type = "a site",
-                Title = ex.Message,
-                Detail = ex.StackTrace,
-                Instance = HttpContext.Request.Path
-            };
-            //TODO Ensure Angular can take this.
-            //TODO Test this in postman
-            return BadRequest(problemDetails);
-            //return BadRequest(new
-            //{
-            //    Message = ex.Message,
-            //    Success = false
-            //});
-        }
+            Message = $"The company {company.Name} has been saved to the database.",
+            Success = true
+        });
     }
 
     [Authorize]

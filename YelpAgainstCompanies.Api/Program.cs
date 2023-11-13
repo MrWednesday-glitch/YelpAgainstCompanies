@@ -53,13 +53,21 @@ public class Program
                 Instance = ex.Instance,
                 Status = StatusCodes.Status400BadRequest
             });
+            options.Map<RecordExistsInDatabaseException>((ex) => new ProblemDetails()
+            {
+                Type = ex.Type,
+                Title = ex.Title,
+                Detail = ex.Detail,
+                Instance = ex.Instance,
+                Status = StatusCodes.Status409Conflict
+            });
         });
         webAppBuilder.Services.AddControllers();
 
         webAppBuilder.Services.AddDbContext<DataContext>(options =>
         {
             options.UseSqlServer(configBuilder.GetConnectionString("DefaultConnection"));
-        }, 
+        },
             ServiceLifetime.Singleton);
         webAppBuilder.Services.AddScoped<Transformations>();
         webAppBuilder.Services.AddScoped<IRatingRepository, RatingRepository>();
@@ -73,7 +81,7 @@ public class Program
         webAppBuilder.Services.AddIdentity<AppUser, AppUserRole>(options =>
         {
             options.SignIn.RequireConfirmedAccount = false;
-        })  
+        })
             .AddRoles<AppUserRole>()
             .AddEntityFrameworkStores<DataContext>()
             .AddDefaultTokenProviders();
