@@ -16,18 +16,20 @@ public class Program
 
         // Add services to the container.
 
-        webAppBuilder.Services.AddProblemDetails(problemDetailsOptions =>
+        webAppBuilder.Services.AddProblemDetails(options =>
         {
             // Control when an exception is included
-            problemDetailsOptions.IncludeExceptionDetails = (httpContext, exception) =>
+            options.IncludeExceptionDetails = (context, ex) =>
             {
                 // Fetch services from HttpContext.RequestServices
-                var environment = httpContext.RequestServices.GetRequiredService<IHostEnvironment>();
+                var environment = context.RequestServices.GetRequiredService<IHostEnvironment>();
                 return environment.IsDevelopment() || environment.IsStaging();
             };
 
             //Map custom exceptions to problemdetails to be output via the api
-            problemDetailsOptions.Map<CompanyDoesNotExistException>((ex) => new ProblemDetails()
+            //TODO Ensure this is properly caught and handled in Angular.
+            //TODO Ensure tests still run
+            options.Map<CompanyDoesNotExistException>((ex) => new ProblemDetails()
             {
                 Type = ex.Type,
                 Title = ex.Title,
