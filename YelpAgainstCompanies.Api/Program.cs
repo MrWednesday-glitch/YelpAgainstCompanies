@@ -27,7 +27,6 @@ public class Program
             };
 
             //Map custom exceptions to problemdetails to be output via the api
-            //TODO Ensure this is properly caught and handled in Angular.
             //TODO Ensure tests still run
             options.Map<CompanyDoesNotExistException>((ex) => new ProblemDetails()
             {
@@ -60,6 +59,22 @@ public class Program
                 Detail = ex.Detail,
                 Instance = ex.Instance,
                 Status = StatusCodes.Status409Conflict
+            });
+            options.Map<NotLoggedInException>((ex) => new ProblemDetails()
+            {
+                Type = ex.Type,
+                Title = ex.Title,
+                Detail = ex.Detail,
+                Instance = ex.Instance,
+                Status = StatusCodes.Status401Unauthorized
+            });
+            options.Map<AttachWrongScoreToCompanyException>((ex) => new ProblemDetails()
+            {
+                Type = ex.Type,
+                Title = ex.Title,
+                Detail = ex.Detail,
+                Instance = ex.Instance,
+                Status = StatusCodes.Status400BadRequest
             });
         });
         webAppBuilder.Services.AddControllers();
