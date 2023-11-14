@@ -27,18 +27,11 @@ public class CompanyController : Controller
     [HttpGet("{id}")]
     public async Task<IActionResult> GetCompany(int id)
     {
-        try
-        {
-            var company = await _companyService.Get(id);
+        var company = await _companyService.Get(id);
 
-            var companyAndRatingsDTO = _transformations.Transform(company, company.Ratings);
+        var companyAndRatingsDTO = _transformations.Transform(company, company.Ratings);
 
-            return Ok(companyAndRatingsDTO);
-        }
-        catch (Exception ex)
-        {
-            return NotFound(ex.Message);
-        }
+        return Ok(companyAndRatingsDTO);
     }
 
     [Authorize]
@@ -50,68 +43,46 @@ public class CompanyController : Controller
             Name = companyDTO.Name.Trim(),
             Address = companyDTO.Address.Trim(),
             City = companyDTO.City.Trim(),
-            PictureUrl = companyDTO.PictureUrl,
+            PictureUrl = companyDTO.PictureUrl, //TODO Add a picture here if the pictureURL equals null
             PostalCode = companyDTO.PostalCode.Trim(),
             Score = 0, //TODO Do something different here?
         };
 
-        try
-        {
-            await _companyService.Create(company);
+        await _companyService.Create(company);
 
-            return Ok(new
-            {
-                Message = $"The company {company.Name} has been saved to the database.",
-                Success = true
-            });
-        }
-        catch (Exception ex)
+        return Ok(new
         {
-            return BadRequest(new
-            {
-                Message = ex.Message,
-                Success = false
-            });
-        }
+            Message = $"The company {company.Name} has been saved to the database.",
+            Success = true
+        });
     }
 
     [Authorize]
     [HttpPost("attachratingtocompany/{companyId}")]
     public async Task<IActionResult> AttachRatingToCompany([FromBody] MadeRating madeRating, int companyId)
     {
-        try
+        JwtSecurityToken bearerToken = GetBearerToken() ?? throw new NotLoggedInException(HttpContext.Request.Path);
+        string userName = bearerToken.Claims.Single(c => c.Type == "Username").Value;
+        var user = _userService.GetUser(userName);
+
+        var rating = new Rating
         {
-            JwtSecurityToken bearerToken = GetBearerToken() ?? throw new Exception("Cannot add comment when not logged in.");
-            string userName = bearerToken.Claims.Single(c => c.Type == "Username").Value;
-            var user = _userService.GetUser(userName);
+            Comment = madeRating.Comment ?? "//The user did not add a comment to their score//.",
+            Date = DateTime.Now,
+            CompanyId = companyId,
+            Score = madeRating.Score,
+            User = user,
+            UserId = user.Id,
+        };
 
-            var rating = new Rating
-            {
-                Comment = madeRating.Comment ?? "//The user did not add a comment to his score//.",
-                Date = DateTime.Now,
-                CompanyId = companyId,
-                Score = madeRating.Score,
-                User = user,
-                UserId = user.Id,
-            };
+        var updateCompany = await _companyService.AddToCompany(rating);
+        var companyAndRatingsDTO = _transformations.Transform(updateCompany, updateCompany.Ratings);
 
-            var updateCompany = await _companyService.AddToCompany(rating);
-            var companyAndRatingsDTO = _transformations.Transform(updateCompany, updateCompany.Ratings);
-
-            return Ok(new
-            {
-                Message = $"The rating to {companyAndRatingsDTO.Name} has been added.",
-                Success = true
-            });
-        }
-        catch (Exception ex)
+        return Ok(new
         {
-            return BadRequest(new
-            {
-                Message = ex.Message,
-                Success = false
-            });
-        }
+            Message = $"The rating to {companyAndRatingsDTO.Name} has been added.",
+            Success = true
+        });
     }
 
     private JwtSecurityToken? GetBearerToken()

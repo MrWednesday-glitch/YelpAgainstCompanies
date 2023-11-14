@@ -1,30 +1,37 @@
-<app-company-list-item [company]="company"></app-company-list-item>
-
-<div *ngIf="!this.loggedIn()" class="not-logged-in-notice">
-    <p>You have to be logged in to your account to comment on this company.</p>
+<div *ngIf="!this.problemDetails">
+    
+    <app-company-list-item [company]="company"></app-company-list-item>
+    
+    <div *ngIf="!this.loggedIn()" class="not-logged-in-notice">
+        <p>You have to be logged in to your account to comment on this company.</p>
+    </div>
+    <div *ngIf="this.loggedIn()" class="add-rating">
+        <mat-accordion>
+            <mat-expansion-panel hideToggle=true>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Add rating
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Give a rating and an additional comment.
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div *ngIf="companyId">
+                    <app-add-rating-form [companyId]="companyId"></app-add-rating-form>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+    
+    <div *ngIf="ratings">
+        <ul class="list">
+            <li *ngFor="let rating of ratings">
+                <app-rating-list-item [rating]="rating"></app-rating-list-item>
+            </li>
+        </ul>
+    </div>
 </div>
-<div *ngIf="this.loggedIn()" class="add-rating">
-    <mat-accordion>
-        <mat-expansion-panel hideToggle=true>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Add rating
-                </mat-panel-title>
-                <mat-panel-description>
-                    Give a rating and an additional comment.
-                </mat-panel-description>
-            </mat-expansion-panel-header>
-            <div *ngIf="companyId">
-                <app-add-rating-form [companyId]="companyId"></app-add-rating-form>
-            </div>
-        </mat-expansion-panel>
-    </mat-accordion>
-</div>
 
-<div *ngIf="ratings">
-    <ul class="list">
-        <li *ngFor="let rating of ratings">
-            <app-rating-list-item [rating]="rating"></app-rating-list-item>
-        </li>
-    </ul>
+<div *ngIf="this.problemDetails">
+    <h1>{{this.problemDetails.title}}. You should not be here. Please go back.</h1>
 </div>

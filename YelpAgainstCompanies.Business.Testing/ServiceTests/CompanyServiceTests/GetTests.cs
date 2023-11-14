@@ -74,6 +74,6 @@ public class GetTests : Base
     {
         Func<Task> sut = async () => await _companyService.Get(id);
 
-        await sut.Should().ThrowAsync<ArgumentNullException>();
+        await sut.Should().ThrowAsync<CompanyDoesNotExistException>();
     }
 }

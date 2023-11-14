@@ -13,7 +13,7 @@ public class RatingService : IRatingService
     {
         if (companyId <= 0)
         {
-            throw new ArgumentOutOfRangeException(nameof(companyId));
+            throw new CompanyDoesNotExistException($"/rating/{companyId}");
         }
 
         var ratings = _ratingRepository.GetRecords()

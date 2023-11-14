@@ -46,6 +46,10 @@
       <button mat-flat-button color="primary" type="submit" (click)="onSubmit()">Register account</button>
     </div>
 
+    <div *ngIf="this.problemDetails">
+      <h1>{{this.problemDetails.title}}</h1>
+    </div>
+
     <h3 *ngIf="succesfullyRegistered">You succesfully registered your account.</h3>
   
   </form>

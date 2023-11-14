@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import ProblemDetails from 'src/app/interfaces/problem-details';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -16,6 +17,8 @@ export class RegisterFormComponent implements OnInit {
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
   passwordFormControl = new FormControl('', [Validators.required]);
   succesfullyRegistered: boolean | undefined;
+  //TODO Make a more pretty error response in html/css
+  problemDetails: ProblemDetails | undefined;
 
   constructor(private authService: AuthService,
     private router: Router) {}
@@ -30,9 +33,14 @@ export class RegisterFormComponent implements OnInit {
         this.passwordFormControl.value!, 
         this.firstnameFormControl.value!, 
         this.lastnameFormControl.value!)
-        .subscribe(registerResponse => {
-          this.succesfullyRegistered = registerResponse.succes;
-          this.router.navigate(['/login']).then(() => window.location.reload())
+        .subscribe({
+          next: (r) => {
+            this.succesfullyRegistered = r.succes;
+            this.router.navigate(['/login']).then(() => window.location.reload())  
+          },
+          error: (err) => {
+            this.problemDetails = err.error;
+          }
         });
     } else {
       //TODO Find a way to get an error message here.

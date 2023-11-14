@@ -14,6 +14,6 @@ public class UserRepository : IUserRepository
     {
         return _dataContext.Set<AppUser>()
             .SingleOrDefault(x => x.UserName == username)
-            ?? throw new Exception($"{username} is not a user on this site.");
+            ?? throw new UserDoesNotExistException("/attachratingtocompany/companyId");
     }
 }

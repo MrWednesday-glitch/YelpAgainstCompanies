@@ -21,7 +21,7 @@ public class CompanyService : ICompanyService
     public async Task<Company> Get(int id)
     {
         var company = _companyRepository.GetRecord(id)
-            ?? throw new ArgumentNullException("No company was found with this id.");
+            ?? throw new CompanyDoesNotExistException($"/company/{id}");
 
         return company;
     }
@@ -30,17 +30,17 @@ public class CompanyService : ICompanyService
     {
         if (!company.Address.IsValidAddress())
         {
-            throw new Exception("The address is not properly entered.");
+            throw new StringNotValidException("address", "/company/savecompanytodatabase");
         }
 
         if (!company.PostalCode.IsValidPostalCode())
         {
-            throw new Exception("The postal code is not properly entered.");
+            throw new StringNotValidException("postal code", "/company/savecompanytodatabase");
         }
 
         if (await ExistingCompanyInDB(company) != null)
         {
-            throw new Exception("The company you tried to create already exists.");
+            throw new RecordExistsInDatabaseException("company", "/company/savecompanytodatabase");
         }
 
         await _companyRepository.CreateRecord(company);
@@ -57,12 +57,12 @@ public class CompanyService : ICompanyService
     {
         if (rating.CompanyId <= 0)
         {
-            throw new Exception("You tried to enter a comment to a company that does not exist.");
+            throw new CompanyDoesNotExistException($"/attachratingtocompany/{rating.CompanyId}");
         }
 
         if (rating.Score < 1 || rating.Score > 5)
         {
-            throw new Exception("You tried to enter an impossible score, or not score the company at all.");
+            throw new AttachWrongScoreToCompanyException("You tried to enter an impossible score, or not score the company at all.", $"/attachratingtocompany/{rating.CompanyId}");
         }
 
         var company = await Get(rating.CompanyId);

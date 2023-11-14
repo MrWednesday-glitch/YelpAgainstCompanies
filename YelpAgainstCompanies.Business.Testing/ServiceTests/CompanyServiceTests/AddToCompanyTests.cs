@@ -170,7 +170,7 @@ public class AddToCompanyTests : Base
 
         Func<Task<Company>> sut = async () => await _companyService.AddToCompany(newRating);
 
-        await sut.Should().ThrowAsync<Exception>().WithMessage("You tried to enter a comment to a company that does not exist.");
+        await sut.Should().ThrowAsync<CompanyDoesNotExistException>();
     }
 
     [Theory]
@@ -178,7 +178,7 @@ public class AddToCompanyTests : Base
     [InlineData(-2)]
     [InlineData(5.5)]
     [InlineData(7)]
-    public async Task SHould_HitException_When_ScoreIsLessThanOne_Or_MoreThanFive(int score)
+    public async Task Should_HitException_When_ScoreIsLessThanOne_Or_MoreThanFive(int score)
     {
         var newRating = new Rating
         {
@@ -207,6 +207,6 @@ public class AddToCompanyTests : Base
 
         Func<Task<Company>> sut = async () => await _companyService.AddToCompany(newRating);
 
-        await sut.Should().ThrowAsync<Exception>().WithMessage("You tried to enter an impossible score, or not score the company at all.");
+        await sut.Should().ThrowAsync<AttachWrongScoreToCompanyException>();
     }
 }

@@ -40,7 +40,7 @@ public class CreateTests : Base
 
         Func<Task> sut = async () => await _companyService.Create(company);
 
-        await sut.Should().ThrowAsync<Exception>().WithMessage("The company you tried to create already exists.");
+        await sut.Should().ThrowAsync<RecordExistsInDatabaseException>();
     }
 
     [Fact]
@@ -55,7 +55,7 @@ public class CreateTests : Base
 
         Func<Task> sut = async () => await _companyService.Create(company);
 
-        await sut.Should().ThrowAsync<Exception>().WithMessage("The postal code is not properly entered.");
+        await sut.Should().ThrowAsync<StringNotValidException>();
     }
 
     [Fact]
@@ -70,6 +70,6 @@ public class CreateTests : Base
 
         Func<Task> sut = async () => await _companyService.Create(company);
 
-        await sut.Should().ThrowAsync<Exception>().WithMessage("The address is not properly entered.");
+        await sut.Should().ThrowAsync<StringNotValidException>();
     }
 }

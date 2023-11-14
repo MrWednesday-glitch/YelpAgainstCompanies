@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using YelpAgainstCompanies.Domain.Exceptions;
 
 namespace YelpAgainstCompanies.Business.Testing.ServiceTests.RatingServiceTests;
 
@@ -93,7 +94,7 @@ public class GetTests : Base
             await _ratingService.Get(id);
         };
 
-        await sut.Should().ThrowAsync<ArgumentOutOfRangeException>();
+        await sut.Should().ThrowAsync<CompanyDoesNotExistException>();
     }
 
     [Fact]

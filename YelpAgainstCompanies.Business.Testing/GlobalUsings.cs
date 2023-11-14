@@ -5,4 +5,5 @@ global using Xunit;
 global using YelpAgainstCompanies.Business.Extensions;
 global using YelpAgainstCompanies.Business.Services;
 global using YelpAgainstCompanies.Domain.Entities;
+global using YelpAgainstCompanies.Domain.Exceptions;
 global using YelpAgainstCompanies.Domain.Interfaces;

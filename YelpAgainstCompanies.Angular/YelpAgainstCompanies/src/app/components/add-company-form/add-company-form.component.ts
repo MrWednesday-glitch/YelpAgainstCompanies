@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import CompanyResponse from 'src/app/interfaces/company-response';
+import ProblemDetails from 'src/app/interfaces/problem-details';
 import { CompanyServiceService } from 'src/app/services/company-service.service';
 
 @Component({
@@ -17,6 +18,7 @@ export class AddCompanyFormComponent {
   cityFormControl = new FormControl('', [Validators.required]);
   pictureUrlFormControl = new FormControl('');
   addCompanyResponse: CompanyResponse | undefined;
+  problemDetails: ProblemDetails | undefined;
 
   constructor(private companyService: CompanyServiceService) {}
 
@@ -36,7 +38,7 @@ export class AddCompanyFormComponent {
               this.addCompanyResponse = x;
             }, 
             error: (err) => {
-              this.addCompanyResponse = err.error;
+              this.problemDetails = err.error
             }
           });
     } else {

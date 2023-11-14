@@ -16,16 +16,9 @@ public class RatingController : Controller
     [HttpGet("{companyId}")]
     public async Task<IActionResult> GetRatingsForCompany(int companyId)
     {
-        try
-        {
-            var ratings = (await _ratingService.Get(companyId))
-                .Select(x => _transformations.Transform(x));
+        var ratings = (await _ratingService.Get(companyId))
+            .Select(x => _transformations.Transform(x));
 
-            return Ok(ratings);
-        }
-        catch (Exception ex)
-        {
-            return NotFound(ex.Message);
-        }
+        return Ok(ratings);
     }
 }

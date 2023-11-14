@@ -1,3 +1,5 @@
+using Hellang.Middleware.ProblemDetails;
+
 namespace YelpAgainstCompanies.Api;
 
 public class Program
@@ -13,12 +15,74 @@ public class Program
 
         // Add services to the container.
 
+        webAppBuilder.Services.AddProblemDetails(options =>
+        {
+            // Control when an exception is included
+            options.IncludeExceptionDetails = (context, ex) =>
+            {
+                // Fetch services from HttpContext.RequestServices
+                var environment = context.RequestServices.GetRequiredService<IHostEnvironment>();
+                return environment.IsDevelopment() || environment.IsStaging();
+            };
+
+            //Map custom exceptions to problemdetails to be output via the api
+            //TODO Ensure tests still run
+            options.Map<CompanyDoesNotExistException>((ex) => new ProblemDetails()
+            {
+                Type = ex.Type,
+                Title = ex.Title,
+                Detail = ex.Detail,
+                Instance = ex.Instance,
+                Status = StatusCodes.Status404NotFound
+            });
+            options.Map<UserDoesNotExistException>((ex) => new ProblemDetails()
+            {
+                Type = ex.Type,
+                Title = ex.Title,
+                Detail = ex.Detail,
+                Instance = ex.Instance,
+                Status = StatusCodes.Status404NotFound
+            });
+            options.Map<StringNotValidException>((ex) => new ProblemDetails()
+            {
+                Type = ex.Type,
+                Title = ex.Title,
+                Detail = ex.Detail,
+                Instance = ex.Instance,
+                Status = StatusCodes.Status400BadRequest
+            });
+            options.Map<RecordExistsInDatabaseException>((ex) => new ProblemDetails()
+            {
+                Type = ex.Type,
+                Title = ex.Title,
+                Detail = ex.Detail,
+                Instance = ex.Instance,
+                Status = StatusCodes.Status409Conflict
+            });
+            options.Map<NotLoggedInException>((ex) => new ProblemDetails()
+            {
+                Type = ex.Type,
+                Title = ex.Title,
+                Detail = ex.Detail,
+                Instance = ex.Instance,
+                Status = StatusCodes.Status401Unauthorized
+            });
+            options.Map<AttachWrongScoreToCompanyException>((ex) => new ProblemDetails()
+            {
+                Type = ex.Type,
+                Title = ex.Title,
+                Detail = ex.Detail,
+                Instance = ex.Instance,
+                Status = StatusCodes.Status400BadRequest
+            });
+        });
         webAppBuilder.Services.AddControllers();
 
         webAppBuilder.Services.AddDbContext<DataContext>(options =>
         {
             options.UseSqlServer(configBuilder.GetConnectionString("DefaultConnection"));
-        }, ServiceLifetime.Singleton);
+        },
+            ServiceLifetime.Singleton);
         webAppBuilder.Services.AddScoped<Transformations>();
         webAppBuilder.Services.AddScoped<IRatingRepository, RatingRepository>();
         webAppBuilder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
@@ -31,7 +95,8 @@ public class Program
         webAppBuilder.Services.AddIdentity<AppUser, AppUserRole>(options =>
         {
             options.SignIn.RequireConfirmedAccount = false;
-        })  .AddRoles<AppUserRole>()
+        })
+            .AddRoles<AppUserRole>()
             .AddEntityFrameworkStores<DataContext>()
             .AddDefaultTokenProviders();
 
@@ -49,7 +114,8 @@ public class Program
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-        }).AddJwtBearer(bearerOptions =>
+        })
+            .AddJwtBearer(bearerOptions =>
             {
                 bearerOptions.RequireHttpsMetadata = true;
                 bearerOptions.SaveToken = false;
@@ -92,6 +158,8 @@ public class Program
         app.UseCors("myAllowSpecificOrigins");
 
         app.UseHttpsRedirection();
+
+        app.UseProblemDetails();
 
         app.UseAuthentication();
         app.UseAuthorization();

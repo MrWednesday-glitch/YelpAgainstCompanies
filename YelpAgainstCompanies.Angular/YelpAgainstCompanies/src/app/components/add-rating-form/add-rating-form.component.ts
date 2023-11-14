@@ -4,6 +4,7 @@ import Star from 'src/app/interfaces/star';
 import CompanyResponse from 'src/app/interfaces/company-response';
 import { CompanyServiceService } from 'src/app/services/company-service.service';
 import { Router } from '@angular/router';
+import ProblemDetails from 'src/app/interfaces/problem-details';
 
 @Component({
   selector: 'app-add-rating-form',
@@ -28,6 +29,7 @@ export class AddRatingFormComponent {
   addCompanyResponse: CompanyResponse | undefined;
   scoreFormControl = new FormControl('', Validators.required)
   commentFormControl = new FormControl('');
+  problemDetails: ProblemDetails | undefined;
 
   constructor(private companyService: CompanyServiceService,
     private router: Router) { }
@@ -49,7 +51,7 @@ export class AddRatingFormComponent {
             this.router.navigate(['/rating/' + this.companyId]).then(() => window.location.reload());
           },
           error: (err) => {
-            this.addCompanyResponse = err.error;
+            this.problemDetails = err.error;
           }
         });
       } else {

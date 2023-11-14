@@ -8,4 +8,5 @@ global using System.Text;
 global using System.Text.RegularExpressions;
 global using YelpAgainstCompanies.Business.Extensions;
 global using YelpAgainstCompanies.Domain.Entities;
+global using YelpAgainstCompanies.Domain.Exceptions;
 global using YelpAgainstCompanies.Domain.Interfaces;
