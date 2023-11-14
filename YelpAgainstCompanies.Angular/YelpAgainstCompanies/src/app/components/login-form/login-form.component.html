@@ -29,8 +29,8 @@
     </a>
     </div>
 
-    <div *ngIf="this.httpError">
-      <h1>Your email/password combination is wrong.</h1>
+    <div *ngIf="this.problemDetails">
+      <h1>{{this.problemDetails.title}}</h1>
     </div>
 
     <h3 *ngIf="this.loggedIn()">Logged in.</h3>

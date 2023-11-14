@@ -1,7 +1,7 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import ProblemDetails from 'src/app/interfaces/problem-details';
 import { AuthService } from 'src/app/services/auth.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 
@@ -15,7 +15,7 @@ export class LoginFormComponent {
 
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
   passwordFormControl = new FormControl('', [Validators.required]);
-  httpError: HttpErrorResponse | undefined;
+  problemDetails: ProblemDetails | undefined;
 
   constructor(private authService: AuthService, 
     private localStorageService: LocalStorageService,
@@ -30,7 +30,7 @@ export class LoginFormComponent {
             this.router.navigate(['/homepage']).then(() => window.location.reload());
           },
           error: (err) => {
-            this.httpError = err;
+            this.problemDetails = err.error;
           }
         })
     } else {

@@ -1,4 +1,4 @@
-<div *ngIf="!this.httpError">
+<div *ngIf="!this.problemDetails">
     
     <app-company-list-item [company]="company"></app-company-list-item>
     
@@ -32,6 +32,6 @@
     </div>
 </div>
 
-<div *ngIf="this.httpError">
-    <h1>You should not be here. Please go back.</h1>
+<div *ngIf="this.problemDetails">
+    <h1>{{this.problemDetails.title}}. You should not be here. Please go back.</h1>
 </div>

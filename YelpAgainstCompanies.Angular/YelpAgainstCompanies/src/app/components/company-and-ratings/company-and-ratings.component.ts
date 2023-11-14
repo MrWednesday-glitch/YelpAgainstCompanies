@@ -1,7 +1,7 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import Company from 'src/app/interfaces/company';
+import ProblemDetails from 'src/app/interfaces/problem-details';
 import Rating from 'src/app/interfaces/rating';
 import { CompanyServiceService } from 'src/app/services/company-service.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
@@ -18,7 +18,7 @@ export class CompanyAndRatingsComponent implements OnInit {
   ratings: Rating[] | undefined = [];
   companyId: number = 0;
   //TODO Make a more pretty error response in html/css
-  httpError: HttpErrorResponse | undefined;
+  problemDetails: ProblemDetails | undefined;
 
   constructor(private route: ActivatedRoute, 
     private companyService: CompanyServiceService,
@@ -34,7 +34,7 @@ export class CompanyAndRatingsComponent implements OnInit {
           this.ratings = c.ratings;
         },
         error: (err) => {
-          this.httpError = err;
+          this.problemDetails = err.error;
         }
       });
   }

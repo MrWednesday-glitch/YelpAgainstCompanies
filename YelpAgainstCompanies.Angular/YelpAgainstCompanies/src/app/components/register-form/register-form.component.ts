@@ -1,7 +1,7 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import ProblemDetails from 'src/app/interfaces/problem-details';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class RegisterFormComponent implements OnInit {
   passwordFormControl = new FormControl('', [Validators.required]);
   succesfullyRegistered: boolean | undefined;
   //TODO Make a more pretty error response in html/css
-  httpError: HttpErrorResponse | undefined;
+  problemDetails: ProblemDetails | undefined;
 
   constructor(private authService: AuthService,
     private router: Router) {}
@@ -39,7 +39,7 @@ export class RegisterFormComponent implements OnInit {
             this.router.navigate(['/login']).then(() => window.location.reload())  
           },
           error: (err) => {
-            this.httpError = err;
+            this.problemDetails = err.error;
           }
         });
     } else {

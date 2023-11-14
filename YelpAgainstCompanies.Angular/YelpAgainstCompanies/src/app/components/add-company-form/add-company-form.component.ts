@@ -1,7 +1,7 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import CompanyResponse from 'src/app/interfaces/company-response';
+import ProblemDetails from 'src/app/interfaces/problem-details';
 import { CompanyServiceService } from 'src/app/services/company-service.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class AddCompanyFormComponent {
   cityFormControl = new FormControl('', [Validators.required]);
   pictureUrlFormControl = new FormControl('');
   addCompanyResponse: CompanyResponse | undefined;
-  httpError: HttpErrorResponse | undefined;
+  problemDetails: ProblemDetails | undefined;
 
   constructor(private companyService: CompanyServiceService) {}
 
@@ -38,7 +38,7 @@ export class AddCompanyFormComponent {
               this.addCompanyResponse = x;
             }, 
             error: (err) => {
-              this.httpError = err;
+              this.problemDetails = err.error
             }
           });
     } else {
