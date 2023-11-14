@@ -1,5 +1,4 @@
 using Hellang.Middleware.ProblemDetails;
-using YelpAgainstCompanies.Domain.Exceptions;
 
 namespace YelpAgainstCompanies.Api;
 

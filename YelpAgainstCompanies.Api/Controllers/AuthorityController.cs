@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.WebUtilities;
-using YelpAgainstCompanies.Domain.Exceptions;
-
-//TODO In angular => Have it send the user back to the mainscreen when jwt is no longer valid
+﻿//TODO In angular => Have it send the user back to the mainscreen when jwt is no longer valid
 namespace YelpAgainstCompanies.Api.Controllers;
 
 [ApiController]

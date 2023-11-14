@@ -1,6 +1,4 @@
-﻿using YelpAgainstCompanies.Domain.Exceptions;
-
-namespace YelpAgainstCompanies.Api.Controllers;
+﻿namespace YelpAgainstCompanies.Api.Controllers;
 
 [ApiController]
 [Route("company")]

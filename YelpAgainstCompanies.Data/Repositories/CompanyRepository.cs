@@ -1,6 +1,4 @@
-﻿using YelpAgainstCompanies.Domain.Exceptions;
-
-namespace YelpAgainstCompanies.Data.Repositories;
+﻿namespace YelpAgainstCompanies.Data.Repositories;
 
 [ExcludeFromCodeCoverage]
 public class CompanyRepository : EFRepository<Company>, ICompanyRepository

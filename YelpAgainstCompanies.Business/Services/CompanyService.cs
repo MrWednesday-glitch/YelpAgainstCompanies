@@ -1,6 +1,4 @@
-﻿using YelpAgainstCompanies.Domain.Exceptions;
-
-namespace YelpAgainstCompanies.Business.Services;
+﻿namespace YelpAgainstCompanies.Business.Services;
 
 public class CompanyService : ICompanyService
 {

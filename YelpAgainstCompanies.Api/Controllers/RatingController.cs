@@ -16,9 +16,9 @@ public class RatingController : Controller
     [HttpGet("{companyId}")]
     public async Task<IActionResult> GetRatingsForCompany(int companyId)
     {
-            var ratings = (await _ratingService.Get(companyId))
-                .Select(x => _transformations.Transform(x));
+        var ratings = (await _ratingService.Get(companyId))
+            .Select(x => _transformations.Transform(x));
 
-            return Ok(ratings);
+        return Ok(ratings);
     }
 }
