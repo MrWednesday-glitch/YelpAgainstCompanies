@@ -20,7 +20,8 @@ public class CompanyService : ICompanyService
 
     public async Task<Company> Get(int id)
     {
-        var company = _companyRepository.GetRecord(id);
+        var company = _companyRepository.GetRecord(id)
+            ?? throw new CompanyDoesNotExistException($"/company/{id}");
 
         return company;
     }
