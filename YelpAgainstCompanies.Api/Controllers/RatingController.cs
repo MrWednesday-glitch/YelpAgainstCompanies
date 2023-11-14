@@ -16,28 +16,9 @@ public class RatingController : Controller
     [HttpGet("{companyId}")]
     public async Task<IActionResult> GetRatingsForCompany(int companyId)
     {
-        try
-        {
             var ratings = (await _ratingService.Get(companyId))
                 .Select(x => _transformations.Transform(x));
 
             return Ok(ratings);
-        }
-        catch (Exception ex)
-        {
-
-            var problemDetails = new ProblemDetails
-            {
-                Status = StatusCodes.Status404NotFound,
-                Type = "a site",
-                Title = ex.Message,
-                Detail = ex.StackTrace,
-                Instance = HttpContext.Request.Path
-            };
-            //TODO Ensure Angular can take this.
-            //TODO Test this in postman
-            return NotFound(problemDetails);
-            //return NotFound(ex.Message);
-        }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace YelpAgainstCompanies.Business.Services;
+﻿using YelpAgainstCompanies.Domain.Exceptions;
+
+namespace YelpAgainstCompanies.Business.Services;
 
 public class RatingService : IRatingService
 {
@@ -13,7 +15,7 @@ public class RatingService : IRatingService
     {
         if (companyId <= 0)
         {
-            throw new ArgumentOutOfRangeException(nameof(companyId));
+            throw new CompanyDoesNotExistException($"/rating/{companyId}");
         }
 
         var ratings = _ratingRepository.GetRecords()
