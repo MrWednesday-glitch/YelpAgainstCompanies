@@ -5,6 +5,7 @@ import CompanyResponse from 'src/app/interfaces/company-response';
 import { CompanyServiceService } from 'src/app/services/company-service.service';
 import { Router } from '@angular/router';
 import ProblemDetails from 'src/app/interfaces/problem-details';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-add-rating-form',
@@ -32,7 +33,8 @@ export class AddRatingFormComponent {
   problemDetails: ProblemDetails | undefined;
 
   constructor(private companyService: CompanyServiceService,
-    private router: Router) { }
+    private router: Router,
+    private localStorageService: LocalStorageService) { }
 
   onSubmit(): void {
     if (this.scoreFormControl.valid) {
@@ -52,6 +54,10 @@ export class AddRatingFormComponent {
           },
           error: (err) => {
             this.problemDetails = err.error;
+            if (this.problemDetails?.status === 401){
+              this.localStorageService.clearData();
+              this.router.navigate(['/login']).then(() => window.location.reload());
+            }
           }
         });
       } else {

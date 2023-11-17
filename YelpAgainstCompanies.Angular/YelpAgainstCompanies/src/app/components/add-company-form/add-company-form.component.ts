@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import CompanyResponse from 'src/app/interfaces/company-response';
 import ProblemDetails from 'src/app/interfaces/problem-details';
 import { CompanyServiceService } from 'src/app/services/company-service.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-add-company-form',
@@ -20,7 +22,9 @@ export class AddCompanyFormComponent {
   addCompanyResponse: CompanyResponse | undefined;
   problemDetails: ProblemDetails | undefined;
 
-  constructor(private companyService: CompanyServiceService) {}
+  constructor(private companyService: CompanyServiceService,
+    private router: Router,
+    private localStorageService: LocalStorageService) {}
 
   onSubmit(): void {
     let pictureUrl: string = "https://www.fryskekrite.nl/wordpress/wp-content/uploads/2017/03/No-image-available.jpg"
@@ -39,6 +43,10 @@ export class AddCompanyFormComponent {
             }, 
             error: (err) => {
               this.problemDetails = err.error
+              if (this.problemDetails?.status === 401){
+                this.localStorageService.clearData();
+                this.router.navigate(['/login']).then(() => window.location.reload());
+              }
             }
           });
     } else {
