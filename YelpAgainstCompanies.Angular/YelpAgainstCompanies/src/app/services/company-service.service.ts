@@ -14,20 +14,20 @@ export class CompanyServiceService {
   constructor(private customHttpClient: CustomHttpClientService) { }
 
   getCompanies(): Observable<Company[]> {
-    const url: string = "/company/companies";
+    const url: string = "/companies";
 
     return this.customHttpClient.get<Company[]>(url);
   }
 
   getCompany(companyId: number): Observable<Company> {
-    const url: string = "/company/" + companyId;
+    const url: string = "/companies/" + companyId;
 
     return this.customHttpClient.get<Company>(url)
       .pipe(catchError(this.handleError));
   }
 
   saveCompany(name: string, address: string, postalcode: string, city: string, pictureUrl: string): Observable<CompanyResponse> {
-    const url: string = "/company/savecompanytodatabase";
+    const url: string = "/companies";
 
     return this.customHttpClient.post<CompanyResponse>(url, {
       name, 
@@ -40,7 +40,7 @@ export class CompanyServiceService {
   }
 
   addRatingToCompany(companyId: number, score: number, comment: string | null): Observable<CompanyResponse> {
-    const url: string = "/company/attachratingtocompany/" + companyId;
+    const url: string = "/companies/" + companyId + "/rating";
 
     return this.customHttpClient.post<CompanyResponse>(url, {
       score,

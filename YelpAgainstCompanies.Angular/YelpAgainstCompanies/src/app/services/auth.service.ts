@@ -15,7 +15,7 @@ export class AuthService {
   constructor(private httpClient: HttpClient) { }
 
   login(userName: string, password: string, firstname: string, lastname: string): Observable<LoginResponse> {
-    return this.httpClient.post<LoginResponse>(this.baseUrl + "/authority/token", {
+    return this.httpClient.post<LoginResponse>(this.baseUrl + "/authority-management/token", {
       email: userName, 
       firstname,
       lastname,
@@ -25,7 +25,7 @@ export class AuthService {
   }
 
   register(username: string, password: string, firstname: string, lastname: string): Observable<RegisterResponse> {
-    return this.httpClient.post<RegisterResponse>(this.baseUrl + "/authority/register", {
+    return this.httpClient.post<RegisterResponse>(this.baseUrl + "/authority-management/user", {
      email: username,
      firstname,
      lastname,
