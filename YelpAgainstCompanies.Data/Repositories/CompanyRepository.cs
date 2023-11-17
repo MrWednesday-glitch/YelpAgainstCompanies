@@ -24,19 +24,19 @@ public class CompanyRepository : EFRepository<Company>, ICompanyRepository
             throw new Exception("The Company you wish to delete does not exist.");
         }
 
-        await base.DeleteRecord(id);
+        var company = GetRecord(id);
+
+        await base.DeleteRecord(company.Id);
     }
 
     public override IQueryable<Company> GetRecords()
     {
-        return base.GetRecords()
-            .Include(x => x.Ratings)
-            .ThenInclude(y => y.User);
+        return base.GetRecords();
     }
 
     public override Company GetRecord(int id)
     {
-        return GetRecords().SingleOrDefault(x => x.Id == id)
+        return base.GetRecord(id)
             ?? throw new CompanyDoesNotExistException($"/company/{id}");
     }
 

@@ -26,7 +26,6 @@ public class Program
             };
 
             //Map custom exceptions to problemdetails to be output via the api
-            //TODO Ensure tests still run
             options.Map<CompanyDoesNotExistException>((ex) => new ProblemDetails()
             {
                 Type = ex.Type,
@@ -80,7 +79,9 @@ public class Program
 
         webAppBuilder.Services.AddDbContext<DataContext>(options =>
         {
-            options.UseSqlServer(configBuilder.GetConnectionString("DefaultConnection"));
+            options
+                .UseLazyLoadingProxies()
+                .UseSqlServer(configBuilder.GetConnectionString("DefaultConnection"));
         },
             ServiceLifetime.Singleton);
         webAppBuilder.Services.AddScoped<Transformations>();

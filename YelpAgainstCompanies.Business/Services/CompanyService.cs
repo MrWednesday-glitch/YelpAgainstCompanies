@@ -13,7 +13,7 @@ public class CompanyService : ICompanyService
     {
         var companies = _companyRepository.GetRecords()
             .OrderBy(x => x.Name)
-            .ThenBy(y => y.City);
+            .ThenBy(y => y.City).ToList();
 
         return companies;
     }
