@@ -13,7 +13,7 @@ export class RatingService {
   constructor(private customHttpClient: CustomHttpClientService) { }
 
   getRatingsPerCompany(companyId: number): Observable<Rating[]> {
-    const url: string = "/rating/" + companyId;
+    const url: string = "/ratings/" + companyId;
 
     return this.customHttpClient.get<Rating[]>(url)
       .pipe(catchError(this.handleError));
