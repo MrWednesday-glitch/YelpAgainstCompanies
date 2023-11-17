@@ -1,11 +1,12 @@
 # Yelp Against Companies
-This is an webapp to judge how a company treated employees either in their employment or search for employment.
+This is a joke webapp that makes fun of the whole employment situation..
 
 ### Workflow/Action is currently:
 [![YAC-Testing](https://github.com/MrWednesday-glitch/YelpAgainstCompanies/actions/workflows/dotnet.yml/badge.svg)](https://github.com/MrWednesday-glitch/YelpAgainstCompanies/actions/workflows/dotnet.yml)
 
 ### Raison d être
 > This app is based on a recurring joke in unemployment circles on how employees should be able to judge employers/companies on how the former is treated by the latter.
+> Apparently I was not the only one to think of this as sites like glassdoor.com already exist.
 > By doing so employees would warn each other not to waste time with certain employers and or companies.
 
 ### Functionality
