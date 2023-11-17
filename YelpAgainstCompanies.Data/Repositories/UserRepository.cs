@@ -14,6 +14,7 @@ public class UserRepository : IUserRepository
     {
         return _dataContext.Set<AppUser>()
             .SingleOrDefault(x => x.UserName == username)
+            //TODO Place this exception in the service so that they can be tested.
             ?? throw new UserDoesNotExistException("/attachratingtocompany/companyId");
     }
 }

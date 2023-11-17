@@ -44,4 +44,14 @@ public class Transformations
             Ratings = ratingsDTO,
         };
     }
+
+    public UserDTO Transform(AppUser user)
+    {
+        return new UserDTO
+        {
+            FirstName = user.FirstName,
+            LastName = user.LastName ?? "",
+            Email = user.UserName ?? ""
+        };
+    }
 }
