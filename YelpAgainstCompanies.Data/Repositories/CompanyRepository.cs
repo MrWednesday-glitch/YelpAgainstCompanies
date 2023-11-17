@@ -19,11 +19,6 @@ public class CompanyRepository : EFRepository<Company>, ICompanyRepository
 
     public override async Task DeleteRecord(int id)
     {
-        if (GetRecords().SingleOrDefault(x => x.Id == id) == null)
-        {
-            throw new Exception("The Company you wish to delete does not exist.");
-        }
-
         var company = GetRecord(id);
 
         await base.DeleteRecord(company.Id);
