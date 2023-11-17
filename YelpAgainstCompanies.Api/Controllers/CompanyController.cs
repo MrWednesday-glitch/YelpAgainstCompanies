@@ -1,7 +1,7 @@
 ﻿namespace YelpAgainstCompanies.Api.Controllers;
 
 [ApiController]
-[Route("company")]
+[Route("companies")]
 public class CompanyController : Controller
 {
     private readonly ICompanyService _companyService;
@@ -15,7 +15,7 @@ public class CompanyController : Controller
         _userService = userService;
     }
 
-    [HttpGet("companies")]
+    [HttpGet]
     public async Task<IActionResult> GetCompanies()
     {
         var companies = (await _companyService.Get())
@@ -35,7 +35,7 @@ public class CompanyController : Controller
     }
 
     [Authorize]
-    [HttpPost("savecompanytodatabase")]
+    [HttpPost]
     public async Task<IActionResult> SaveCompanyToDatabase([FromBody] CompanyDTO companyDTO)
     {
         var company = new Company
@@ -57,8 +57,9 @@ public class CompanyController : Controller
         });
     }
 
+    //TODO Maybe move this back to the ratingcontroller?
     [Authorize]
-    [HttpPost("attachratingtocompany/{companyId}")]
+    [HttpPost("{companyId}/rating")]
     public async Task<IActionResult> AttachRatingToCompany([FromBody] MadeRating madeRating, int companyId)
     {
         JwtSecurityToken bearerToken = GetBearerToken() ?? throw new NotLoggedInException(HttpContext.Request.Path);

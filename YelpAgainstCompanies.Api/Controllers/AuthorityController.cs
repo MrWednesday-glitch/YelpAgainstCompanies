@@ -1,8 +1,7 @@
-﻿//TODO In angular => Have it send the user back to the mainscreen when jwt is no longer valid
-namespace YelpAgainstCompanies.Api.Controllers;
+﻿namespace YelpAgainstCompanies.Api.Controllers;
 
 [ApiController]
-[Route("authority")]
+[Route("authority-management")]
 public class AuthorityController : Controller
 {
     private readonly IJwtAuthorityManager _jwtAuthorityManager;
@@ -59,7 +58,7 @@ public class AuthorityController : Controller
     }
 
     //TODO Seperate the loginModel into a seperate registermodel so that the loginmodel does not need superfluous data
-    [HttpPost("register")]
+    [HttpPost("user")]
     public async Task<IActionResult> Register([FromBody] LoginModel model, [FromQuery] string? returnUrl = null)
     {
         if (!model.Email.IsValidEmail())

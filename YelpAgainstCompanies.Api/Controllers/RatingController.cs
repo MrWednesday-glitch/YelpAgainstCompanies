@@ -1,7 +1,7 @@
 ﻿namespace YelpAgainstCompanies.Api.Controllers;
 
 [ApiController]
-[Route("rating")]
+[Route("ratings")]
 public class RatingController : Controller
 {
     private readonly IRatingService _ratingService;
