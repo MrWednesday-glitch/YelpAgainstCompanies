@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LocalStorageService } from './services/local-storage.service';
 import { UserService } from './services/user.service';
 import User from './interfaces/user';
+import ProblemDetails from './interfaces/problem-details';
 
 @Component({
   selector: 'app-root',
@@ -13,14 +14,21 @@ export class AppComponent implements OnInit{
 
   title = 'Yelp Against Companies';
   user: User | undefined;
+  problemDetails: ProblemDetails | undefined
 
   constructor(private localStorageService: LocalStorageService,
     private userService: UserService) { }
 
   ngOnInit(): void {
-    this.userService.getUser().subscribe(u =>{
-      this.user = u;
-    })
+    this.userService.getUser()
+      .subscribe({
+        next: (u) => {
+          this.user = u;
+        },
+        error: (err) => {
+          this.problemDetails = err.error;
+        }
+      })
   }
 
   logOut = () => this.localStorageService.removeData("accessToken");
