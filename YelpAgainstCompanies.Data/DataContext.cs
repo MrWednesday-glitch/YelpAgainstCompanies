@@ -26,7 +26,9 @@ public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
 
         if (!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseSqlServer(configBuilder.GetConnectionString("DefaultConnection"));
+            optionsBuilder
+                .UseLazyLoadingProxies()
+                .UseSqlServer(configBuilder.GetConnectionString("DefaultConnection"));
         }
 
         base.OnConfiguring(optionsBuilder);
@@ -34,12 +36,6 @@ public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        //builder.Entity<Rating>()
-        //    .HasOne(e => e.Company)
-        //    .WithMany(e => e.Ratings)
-        //    .HasForeignKey(e => e.CompanyId)
-        //    .IsRequired();
-
         var guidStringRowan = Guid.NewGuid().ToString();
         var guidStringWednesday = Guid.NewGuid().ToString();
 

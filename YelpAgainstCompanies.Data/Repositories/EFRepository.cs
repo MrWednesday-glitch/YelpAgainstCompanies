@@ -27,8 +27,7 @@ public class EFRepository<TEntity> : IRepository<TEntity> where TEntity : Entity
 
     public virtual TEntity GetRecord(int id)
     {
-        return _dataContext.Set<TEntity>().SingleOrDefault(x => x.Id == id)
-            ?? throw new Exception("No record was found.");
+        return _dataContext.Set<TEntity>().SingleOrDefault(x => x.Id == id)!;
     }
 
     public virtual async Task SaveChanges()
