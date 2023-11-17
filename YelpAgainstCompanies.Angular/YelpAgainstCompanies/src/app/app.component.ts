@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LocalStorageService } from './services/local-storage.service';
+import { UserService } from './services/user.service';
+import User from './interfaces/user';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +9,19 @@ import { LocalStorageService } from './services/local-storage.service';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent {
-  title = 'Yelp Against Companies';
+export class AppComponent implements OnInit{
 
-  constructor(private localStorageService: LocalStorageService) { }
+  title = 'Yelp Against Companies';
+  user: User | undefined;
+
+  constructor(private localStorageService: LocalStorageService,
+    private userService: UserService) { }
+
+  ngOnInit(): void {
+    this.userService.getUser().subscribe(u =>{
+      this.user = u;
+    })
+  }
 
   logOut = () => this.localStorageService.removeData("accessToken");
 
