@@ -17,14 +17,14 @@ public class RatingRepository : EFRepository<Rating>, IRatingRepository
         return base.DeleteRecord(id);
     }
 
-    public override Rating GetRecord(int id)
+    public override async  Task<Rating> GetRecord(int id)
     {
-        return base.GetRecord(id);
+        return await  base.GetRecord(id);
     }
 
-    public override IQueryable<Rating> GetRecords()
+    public override async Task<IQueryable<Rating>> GetRecords()
     {
-        return base.GetRecords()
+        return (await base.GetRecords())
             .Include(x => x.User);
     }
 

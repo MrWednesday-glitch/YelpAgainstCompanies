@@ -17,14 +17,14 @@ public interface IRepository<TEntity> where TEntity : EntityBase
     /// Retrieves all the records from the database of type TEntity.
     /// </summary>
     /// <returns>A collection of entities.</returns>
-    IQueryable<TEntity> GetRecords();
+    Task<IQueryable<TEntity>> GetRecords();
 
     /// <summary>
     /// Retrieves an existing record from the database as an entity object.
     /// </summary>
     /// <param name="id">the id that corresponds with a record.</param>
     /// <returns>The record as an object of type TEntity.</returns>
-    TEntity GetRecord(int id);
+    Task<TEntity> GetRecord(int id);
 
     /// <summary>
     /// Adds a created TEntity object as a records in the database.

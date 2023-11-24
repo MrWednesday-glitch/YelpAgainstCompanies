@@ -16,7 +16,7 @@ public class RatingService : IRatingService
             throw new CompanyDoesNotExistException($"/rating/{companyId}");
         }
 
-        var ratings = _ratingRepository.GetRecords()
+        var ratings = (await _ratingRepository.GetRecords())
             .Where(x => x.CompanyId == companyId)
             .OrderByDescending(x => x.Date);
 

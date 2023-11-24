@@ -4,7 +4,11 @@
   </button>
   <span class="toolbar-words">{{title}}</span>
   <span class="example-spacer"></span>
-  <span class="toolbar-words" *ngIf="this.loggedIn()">Hello {{this.user?.firstName}} {{this.user?.lastName}}</span>
+  <!--
+
+    <span class="toolbar-words" *ngIf="this.loggedIn()">Hello {{this.user?.firstName}} {{this.user?.lastName}}</span>
+  -->
+  <span class="toolbar-words" *ngIf="this.loggedIn()">Hello logged in user.</span>
   <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
     <img src="{{this.showLoggedInImage()}}" alt="Something" class="toolbar-image">
   </button>
