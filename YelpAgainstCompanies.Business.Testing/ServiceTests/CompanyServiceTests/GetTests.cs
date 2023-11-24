@@ -29,7 +29,7 @@ public class GetTests : Base
     public async Task Should_ReturnCorrectAmountOfCompanies()
     {
         // -- Arrange
-        _mockedCompanyRepository.Setup(x => x.GetRecords()).Returns(_mockedCompanies.AsQueryable);
+        _mockedCompanyRepository.Setup(x => x.GetRecords()).ReturnsAsync(_mockedCompanies.AsQueryable);
 
         // -- Act
         var companies = await _companyService.Get();
@@ -42,7 +42,7 @@ public class GetTests : Base
     public async Task Should_BeSorted()
     {
         // -- Arrange
-        _mockedCompanyRepository.Setup(x => x.GetRecords()).Returns(_mockedCompanies.AsQueryable);
+        _mockedCompanyRepository.Setup(x => x.GetRecords()).ReturnsAsync(_mockedCompanies.AsQueryable);
 
         // -- Act
         var companies = await _companyService.Get();
@@ -59,7 +59,7 @@ public class GetTests : Base
             Id = 1,
             Name = "Dead Cells"
         };
-        _mockedCompanyRepository.Setup(x => x.GetRecord(It.IsAny<int>())).Returns(mockedCompany);
+        _mockedCompanyRepository.Setup(x => x.GetRecord(It.IsAny<int>())).ReturnsAsync(mockedCompany);
 
         var company = await _companyService.Get(1);
 

@@ -30,7 +30,7 @@ public class AddToCompanyTests : Base
                 }
             }
         };
-        _mockedCompanyRepository.Setup(x => x.GetRecord(1)).Returns(company);
+        _mockedCompanyRepository.Setup(x => x.GetRecord(1)).Returns(Task.FromResult(company));
 
         // -- Act
         var updatedCompany = await _companyService.AddToCompany(newRating);
@@ -66,7 +66,7 @@ public class AddToCompanyTests : Base
                 }
             }
         };
-        _mockedCompanyRepository.Setup(x => x.GetRecord(1)).Returns(company);
+        _mockedCompanyRepository.Setup(x => x.GetRecord(1)).Returns(Task.FromResult(company));
 
         // -- Act
         var updatedCompany = await _companyService.AddToCompany(newRating);
@@ -93,7 +93,7 @@ public class AddToCompanyTests : Base
             Score = 4,
             Ratings = new List<Rating>()
         };
-        _mockedCompanyRepository.Setup(x => x.GetRecord(1)).Returns(company);
+        _mockedCompanyRepository.Setup(x => x.GetRecord(1)).Returns(Task.FromResult(company));
 
         // -- Act
         var updatedCompany = await _companyService.AddToCompany(newRating);
@@ -129,7 +129,7 @@ public class AddToCompanyTests : Base
                 }
             }
         };
-        _mockedCompanyRepository.Setup(x => x.GetRecord(1)).Returns(company);
+        _mockedCompanyRepository.Setup(x => x.GetRecord(1)).Returns(Task.FromResult(company));
 
         // -- Act
         var updatedCompany = await _companyService.AddToCompany(newRating);
@@ -166,7 +166,7 @@ public class AddToCompanyTests : Base
                 }
             }
         };
-        _mockedCompanyRepository.Setup(x => x.GetRecord(1)).Returns(company);
+        _mockedCompanyRepository.Setup(x => x.GetRecord(1)).Returns(Task.FromResult(company));
 
         Func<Task<Company>> sut = async () => await _companyService.AddToCompany(newRating);
 
@@ -203,7 +203,7 @@ public class AddToCompanyTests : Base
                 }
             }
         };
-        _mockedCompanyRepository.Setup(x => x.GetRecord(1)).Returns(company);
+        _mockedCompanyRepository.Setup(x => x.GetRecord(1)).Returns(Task.FromResult(company));
 
         Func<Task<Company>> sut = async () => await _companyService.AddToCompany(newRating);
 
