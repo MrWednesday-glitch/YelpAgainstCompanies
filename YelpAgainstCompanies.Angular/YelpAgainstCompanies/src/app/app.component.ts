@@ -10,7 +10,7 @@ import ProblemDetails from './interfaces/problem-details';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent implements OnInit{
+export class AppComponent /*implements OnInit*/ {
 
   title = 'Yelp Against Companies';
   user: User | undefined;
@@ -18,23 +18,25 @@ export class AppComponent implements OnInit{
 
   constructor(private localStorageService: LocalStorageService, private userService: UserService) { }
 
-  ngOnInit(): void {
-    if (this.localStorageService.getData("accessToken") != null) {
-      this.userService.getUser()
-        .subscribe({
-          next: (u) => {
-            this.user = u;
-          },
-          error: (err) => {
-            this.problemDetails = err.error;
+  //If Angular the browser keeps throwing 500 errors relating to the getUser() look here.
+  // ngOnInit(): void {
+  //   if (this.localStorageService.getData("accessToken") != null) {
+  //     this.userService.getUser()
+  //       .subscribe({
+  //         next: (u) => {
+  //           this.user = u;
+  //         },
+  //         error: (err) => {
+  //           this.problemDetails = err.error;
 
-            if (this.problemDetails) {
-              this.localStorageService.clearData();
-            }
-          }
-        })
-    }
-  }
+  //           if (this.problemDetails) {
+  //            this.localStorageService.clearData();
+  //            window.location.reload()
+  //           }
+  //         }
+  //       })
+  //   }
+  // }
 
   logOut = () => this.localStorageService.removeData("accessToken");
 
