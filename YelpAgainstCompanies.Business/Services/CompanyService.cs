@@ -48,7 +48,7 @@ public class CompanyService : ICompanyService
     }
 
     private async Task<Company?> ExistingCompanyInDB(Company company) =>
-      ( await _companyRepository.GetRecords())
+      (await _companyRepository.GetRecords())
             .SingleOrDefault(x =>
                 x.Name == company.Name &&
                 x.PostalCode == company.PostalCode);

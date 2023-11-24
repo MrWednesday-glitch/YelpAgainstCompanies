@@ -25,7 +25,7 @@ public class EFRepository<TEntity> : IRepository<TEntity> where TEntity : Entity
         return _dataContext.Set<TEntity>().AsQueryable();
     }
 
-    public virtual async  Task<TEntity> GetRecord(int id)
+    public virtual async Task<TEntity> GetRecord(int id)
     {
         return _dataContext.Set<TEntity>().SingleOrDefault(x => x.Id == id)!;
     }
