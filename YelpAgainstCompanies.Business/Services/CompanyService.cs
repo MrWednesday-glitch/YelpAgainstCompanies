@@ -11,7 +11,7 @@ public class CompanyService : ICompanyService
 
     public async Task<IEnumerable<Company>> Get()
     {
-        var companies = _companyRepository.GetRecords()
+        var companies = (await _companyRepository.GetRecords())
             .OrderBy(x => x.Name)
             .ThenBy(y => y.City).ToList();
 
@@ -20,7 +20,7 @@ public class CompanyService : ICompanyService
 
     public async Task<Company> Get(int id)
     {
-        var company = _companyRepository.GetRecord(id)
+        var company = await _companyRepository.GetRecord(id)
             ?? throw new CompanyDoesNotExistException($"/company/{id}");
 
         return company;
@@ -48,7 +48,7 @@ public class CompanyService : ICompanyService
     }
 
     private async Task<Company?> ExistingCompanyInDB(Company company) =>
-        _companyRepository.GetRecords()
+      (await _companyRepository.GetRecords())
             .SingleOrDefault(x =>
                 x.Name == company.Name &&
                 x.PostalCode == company.PostalCode);

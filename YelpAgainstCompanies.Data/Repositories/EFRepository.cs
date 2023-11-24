@@ -17,15 +17,15 @@ public class EFRepository<TEntity> : IRepository<TEntity> where TEntity : Entity
 
     public virtual async Task DeleteRecord(int id)
     {
-        _dataContext.Set<TEntity>().Remove(GetRecord(id));
+        _dataContext.Set<TEntity>().Remove(await GetRecord(id));
     }
 
-    public virtual IQueryable<TEntity> GetRecords()
+    public virtual async Task<IQueryable<TEntity>> GetRecords()
     {
         return _dataContext.Set<TEntity>().AsQueryable();
     }
 
-    public virtual TEntity GetRecord(int id)
+    public virtual async Task<TEntity> GetRecord(int id)
     {
         return _dataContext.Set<TEntity>().SingleOrDefault(x => x.Id == id)!;
     }

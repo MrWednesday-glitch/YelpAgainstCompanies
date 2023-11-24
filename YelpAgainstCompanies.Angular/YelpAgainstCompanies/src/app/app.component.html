@@ -2,9 +2,13 @@
   <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="drawer.toggle()" type="button">
     <mat-icon>menu</mat-icon>
   </button>
+  <span class="toolbar-words">{{title}}</span>
   <span class="example-spacer"></span>
-  <span>{{title}}</span>
-  <span class="example-spacer"></span>
+  <!--
+
+    <span class="toolbar-words" *ngIf="this.loggedIn()">Hello {{this.user?.firstName}} {{this.user?.lastName}}</span>
+  -->
+  <span class="toolbar-words" *ngIf="this.loggedIn()">Hello logged in user.</span>
   <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
     <img src="{{this.showLoggedInImage()}}" alt="Something" class="toolbar-image">
   </button>

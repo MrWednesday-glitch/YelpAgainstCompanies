@@ -8,7 +8,7 @@ public class CreateTests : Base
     {
         // -- Arrange
         var companies = new List<Company>();
-        _mockedCompanyRepository.Setup(x => x.GetRecords()).Returns(companies.AsQueryable);
+        _mockedCompanyRepository.Setup(x => x.GetRecords()).ReturnsAsync(companies.AsQueryable);
         var company = new Company
         {
             Name = "Test company",
@@ -36,7 +36,7 @@ public class CreateTests : Base
         {
             company
         };
-        _mockedCompanyRepository.Setup(x => x.GetRecords()).Returns(companies.AsQueryable);
+        _mockedCompanyRepository.Setup(x => x.GetRecords()).ReturnsAsync(companies.AsQueryable);
 
         Func<Task> sut = async () => await _companyService.Create(company);
 

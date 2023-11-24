@@ -24,12 +24,12 @@ public class CompanyRepository : EFRepository<Company>, ICompanyRepository
         await base.DeleteRecord(company.Id);
     }
 
-    public override IQueryable<Company> GetRecords()
+    public override Task<IQueryable<Company>> GetRecords()
     {
         return base.GetRecords();
     }
 
-    public override Company GetRecord(int id)
+    public override Task<Company> GetRecord(int id)
     {
         return base.GetRecord(id)
             ?? throw new CompanyDoesNotExistException($"/company/{id}");

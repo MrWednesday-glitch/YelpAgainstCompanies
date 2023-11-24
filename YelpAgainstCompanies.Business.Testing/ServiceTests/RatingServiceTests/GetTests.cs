@@ -38,7 +38,7 @@ public class GetTests : Base
                 CompanyId = 2
             },
         };
-        _mockedRatingRepository.Setup(x => x.GetRecords()).Returns(mockedRatings.AsQueryable);
+        _mockedRatingRepository.Setup(x => x.GetRecords()).ReturnsAsync(mockedRatings.AsQueryable);
 
         // -- Act
         var ratings = await _ratingService.Get(1);
@@ -77,7 +77,7 @@ public class GetTests : Base
                 Comment = "last",
             },
         };
-        _mockedRatingRepository.Setup(x => x.GetRecords()).Returns(mockedRatings.AsQueryable);
+        _mockedRatingRepository.Setup(x => x.GetRecords()).ReturnsAsync(mockedRatings.AsQueryable);
 
         var ratings = await _ratingService.Get(1);
 
@@ -127,7 +127,7 @@ public class GetTests : Base
                 Comment = "last",
             },
         };
-        _mockedRatingRepository.Setup(x => x.GetRecords()).Returns(mockedRatings.AsQueryable);
+        _mockedRatingRepository.Setup(x => x.GetRecords()).ReturnsAsync(mockedRatings.AsQueryable);
 
         var ratings = await _ratingService.Get(999);
 

@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LocalStorageService } from './services/local-storage.service';
+import { UserService } from './services/user.service';
+import User from './interfaces/user';
+import ProblemDetails from './interfaces/problem-details';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +10,34 @@ import { LocalStorageService } from './services/local-storage.service';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent {
-  title = 'Yelp Against Companies';
+export class AppComponent implements OnInit {
 
-  constructor(private localStorageService: LocalStorageService) { }
+  title = 'Yelp Against Companies';
+  user: User | undefined;
+  problemDetails: ProblemDetails | undefined
+
+  constructor(private localStorageService: LocalStorageService, private userService: UserService) { }
+
+  //TODO FIX THIS!
+  //If Angular the browser keeps throwing 500 errors relating to the getUser() look here.
+  ngOnInit(): void {
+    // if (this.localStorageService.getData("accessToken") != null) {
+    //   this.userService.getUser()
+    //     .subscribe({
+    //       next: (u) => {
+    //         this.user = u;
+    //       },
+    //       error: (err) => {
+    //         this.problemDetails = err.error;
+
+    //         if (this.problemDetails) {
+    //          this.localStorageService.clearData();
+    //          window.location.reload()
+    //         }
+    //       }
+    //     })
+    // }
+  }
 
   logOut = () => this.localStorageService.removeData("accessToken");
 
