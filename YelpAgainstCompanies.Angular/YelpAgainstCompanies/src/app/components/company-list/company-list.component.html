@@ -1,10 +1,14 @@
 <h2 class="title">Hereby the list of companies in our database</h2>
-<div class="button" *ngIf="this.loggedIn()">
-    <button mat-raised-button color="primary" type="button" routerLink="/addcompany">Add company</button>
-</div>
 
-<ul class="company-list">
-    <li *ngFor="let company of companies">
-        <app-company-list-item [company]="company"></app-company-list-item>
-    </li>
-</ul>
+<div class="content">
+    
+    <ul class="company-list">
+        <li *ngFor="let company of companies">
+            <app-company-list-item [company]="company"></app-company-list-item>
+        </li>
+    </ul>
+
+    <div *ngIf="this.loggedIn()">
+        <button mat-raised-button color="primary" type="button" routerLink="/addcompany" class="button">Add company</button>
+    </div>
+</div>

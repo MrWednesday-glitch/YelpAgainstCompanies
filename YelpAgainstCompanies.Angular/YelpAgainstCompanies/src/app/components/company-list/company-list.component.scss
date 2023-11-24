@@ -2,10 +2,16 @@
     text-align: center;
 }
 
-.button {
-    
-}
+.content {
+    display: flex;
 
-.company-list {
-    list-style-type: none;
+    .button {
+        margin: 15px;
+        width: 100px;
+        height: 100px;
+    }
+    
+    .company-list {
+        list-style-type: none;
+    }
 }
