@@ -16,19 +16,24 @@ export class AppComponent implements OnInit{
   user: User | undefined;
   problemDetails: ProblemDetails | undefined
 
-  constructor(private localStorageService: LocalStorageService,
-    private userService: UserService) { }
+  constructor(private localStorageService: LocalStorageService, private userService: UserService) { }
 
   ngOnInit(): void {
-    this.userService.getUser()
-      .subscribe({
-        next: (u) => {
-          this.user = u;
-        },
-        error: (err) => {
-          this.problemDetails = err.error;
-        }
-      })
+    if (this.localStorageService.getData("accessToken") != null) {
+      this.userService.getUser()
+        .subscribe({
+          next: (u) => {
+            this.user = u;
+          },
+          error: (err) => {
+            this.problemDetails = err.error;
+
+            if (this.problemDetails) {
+              this.localStorageService.clearData();
+            }
+          }
+        })
+    }
   }
 
   logOut = () => this.localStorageService.removeData("accessToken");
