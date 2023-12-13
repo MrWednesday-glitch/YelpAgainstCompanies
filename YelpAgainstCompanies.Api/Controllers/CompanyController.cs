@@ -1,4 +1,6 @@
-﻿namespace YelpAgainstCompanies.Api.Controllers;
+﻿using System.Text.Json;
+
+namespace YelpAgainstCompanies.Api.Controllers;
 
 [ApiController]
 [Route("companies")]
@@ -24,10 +26,12 @@ public class CompanyController : Controller
             pageSize = MaxCompanyPageSize;
         }
 
-        var companies = (await _companyService.Get(pageNumber, pageSize))
-            .Select(x => _transformations.Transform(x));
+        var (companies, paginationMetadata) = (await _companyService.Get(pageNumber, pageSize));
+        var companiesDTO = companies.Select(x => _transformations.Transform(x));
 
-        return Ok(companies);
+        Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
+
+        return Ok(companiesDTO);
     }
 
     [HttpGet("{id}")]

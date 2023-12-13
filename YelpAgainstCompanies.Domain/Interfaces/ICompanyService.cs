@@ -16,7 +16,7 @@ public interface ICompanyService
     Task<IEnumerable<Company>> Get();
 
     //TODO Documentation
-    Task<IEnumerable<Company>> Get(int pageNumber, int pageSize);
+    Task<(IEnumerable<Company>, PaginationMetadata)> Get(int pageNumber, int pageSize);
 
     /// <summary>
     /// A method to give the company data to be added into a database.

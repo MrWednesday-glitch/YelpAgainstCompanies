@@ -1,4 +1,7 @@
-﻿namespace YelpAgainstCompanies.Business.Services;
+﻿using Microsoft.EntityFrameworkCore;
+using YelpAgainstCompanies.Domain;
+
+namespace YelpAgainstCompanies.Business.Services;
 
 public class CompanyService : ICompanyService
 {
@@ -18,15 +21,20 @@ public class CompanyService : ICompanyService
         return companies;
     }
 
-    public async Task<IEnumerable<Company>> Get(int pageNumber, int pageSize)
+    public async Task<(IEnumerable<Company>, PaginationMetadata)> Get(int pageNumber, int pageSize)
     {
-        var companies = (await _companyRepository.GetRecords())
-            .OrderBy(x => x.Name).ThenBy(y => y.City)
+        var companyCollection = _companyRepository.GetRecords();
+
+        var totalItemCount = (await companyCollection).CountAsync();
+        var paginationMetadata = new PaginationMetadata(await totalItemCount, pageSize, pageNumber);
+
+        var companies = (await companyCollection)
+            .OrderBy(c => c.Name).ThenBy(c => c.City)
             .Skip(pageSize * (pageNumber - 1))
             .Take(pageSize)
             .ToList();
 
-        return companies;
+        return (companies, paginationMetadata);
     }
 
     public async Task<Company> Get(int id)
