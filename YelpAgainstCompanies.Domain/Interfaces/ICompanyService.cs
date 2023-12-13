@@ -15,6 +15,9 @@ public interface ICompanyService
     /// <returns>A collection of company entities from the database.</returns>
     Task<IEnumerable<Company>> Get();
 
+    //TODO Documentation
+    Task<IEnumerable<Company>> Get(int pageNumber, int pageSize);
+
     /// <summary>
     /// A method to give the company data to be added into a database.
     /// </summary>
