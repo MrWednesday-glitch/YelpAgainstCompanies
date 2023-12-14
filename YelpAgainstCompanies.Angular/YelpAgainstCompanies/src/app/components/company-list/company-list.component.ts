@@ -17,8 +17,18 @@ export class CompanyListComponent implements OnInit {
     private localStorageService: LocalStorageService) { }
   
   ngOnInit(): void {
-    this.companyService.getCompanies().subscribe(c => {
-      this.companies = c
+    // this.companyService.getCompanies().subscribe(c => {
+    //   this.companies = c
+    // });
+
+    //TODO Continue working from this point
+    //TODO Make a pagination interface to catch c.headers.get('X-Pagination') and insert that into the paginator element
+    //TODO If no page and pagesize given => default numbers (1, 10)
+    this.companyService.getCompanies(1, 10).subscribe(c => {
+      console.log(c.headers.get('X-Pagination'))
+
+      this.companies = c.body;
+      console.log(c);
     });
   }
 

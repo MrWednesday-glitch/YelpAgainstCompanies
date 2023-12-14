@@ -139,7 +139,7 @@ public class Program
 
         webAppBuilder.Services.AddCors(o => o.AddPolicy("myAllowSpecificOrigins", b =>
         {
-            b.AllowAnyOrigin()
+            b.AllowAnyOrigin().WithExposedHeaders("X-Pagination")
              .AllowAnyMethod()
              .AllowAnyHeader();
         }));
