@@ -25,6 +25,7 @@ import { AddRatingFormComponent } from './components/add-rating-form/add-rating-
 import { MatSelectModule } from '@angular/material/select'; 
 import { MatExpansionModule } from '@angular/material/expansion'; 
 import {MatButtonModule} from '@angular/material/button';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import {MatButtonModule} from '@angular/material/button';
     MatDividerModule,
     MatSelectModule,
     MatExpansionModule,
-    MatButtonModule
+    MatButtonModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
