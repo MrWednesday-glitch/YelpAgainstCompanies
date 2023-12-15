@@ -17,17 +17,17 @@ export class CompanyServiceService {
   constructor(private customHttpClient: CustomHttpClientService,
     private httpClient: HttpClient) { }
 
-  getCompanies(pageNumber: number, pageSize: number): Observable<any> { //Any is the HttpResponse
+  getCompaniesWithPagination(pageNumber: number, pageSize: number): Observable<any> { //Any is the HttpResponse
     const url: string = `${this.baseUrl}/companies?pageSize=${pageSize}&pageNumber=${pageNumber}`;
 
     return this.httpClient.get<any>(url, {observe: 'response'});
   }
 
-  // getCompanies(): Observable<Company[]> {
-  //   const url: string = "/companies";
+  getCompanies(): Observable<Company[]> {
+    const url: string = "/companies";
 
-  //   return this.customHttpClient.get<Company[]>(url);
-  // }
+    return this.customHttpClient.get<Company[]>(url);
+  }
 
   getCompany(companyId: number): Observable<Company> {
     const url: string = "/companies/" + companyId;

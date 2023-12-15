@@ -15,7 +15,12 @@ public interface ICompanyService
     /// <returns>A collection of company entities from the database.</returns>
     Task<IEnumerable<Company>> Get();
 
-    //TODO Documentation
+    /// <summary>
+    /// This method retrieves a set of companies from the repository. It applies pagination.
+    /// </summary>
+    /// <param name="pageNumber">The page that selects which set of company entities needs to be retrieved.</param>
+    /// <param name="pageSize">The amount of company entities that will be contained in the collection.</param>
+    /// <returns>A task that contains a selection of company entities.</returns>
     Task<(IEnumerable<Company>, PaginationMetadata)> Get(int pageNumber, int pageSize);
 
     /// <summary>

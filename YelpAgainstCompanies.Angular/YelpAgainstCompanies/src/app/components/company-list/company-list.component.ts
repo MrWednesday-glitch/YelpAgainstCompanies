@@ -21,7 +21,7 @@ export class CompanyListComponent implements OnInit {
     private localStorageService: LocalStorageService) { }
   
   ngOnInit(): void {
-    this.companyService.getCompanies(this.pageIndex, this.length).subscribe(c => {
+    this.companyService.getCompaniesWithPagination(this.pageIndex, this.length).subscribe(c => {
       this.companies = c.body;
       this.length = JSON.parse(c.headers.get('X-Pagination')).TotalItemCount;
     });
@@ -32,7 +32,7 @@ export class CompanyListComponent implements OnInit {
   }
 
   handlePageEvent(pageEvent: PageEvent) {
-    this.companyService.getCompanies(pageEvent.pageIndex + 1, pageEvent.pageSize).subscribe(c => {
+    this.companyService.getCompaniesWithPagination(pageEvent.pageIndex + 1, pageEvent.pageSize).subscribe(c => {
       this.companies = c.body;
     });
   }
