@@ -12,10 +12,26 @@ public class CompanyService : ICompanyService
     public async Task<IEnumerable<Company>> Get()
     {
         var companies = (await _companyRepository.GetRecords())
-            .OrderBy(x => x.Name)
-            .ThenBy(y => y.City).ToList();
+                    .OrderBy(x => x.Name).ThenBy(y => y.City)
+                    .ToList();
 
         return companies;
+    }
+
+    public async Task<(IEnumerable<Company>, PaginationMetadata)> Get(int pageNumber, int pageSize)
+    {
+        var companyCollection = await _companyRepository.GetRecords();
+
+        var totalItemCount = companyCollection.Count();
+        var paginationMetadata = new PaginationMetadata(totalItemCount, pageSize, pageNumber);
+
+        var companies = companyCollection
+            .OrderBy(c => c.Name).ThenBy(c => c.City)
+            .Skip(pageSize * (pageNumber - 1))
+            .Take(pageSize)
+            .ToList();
+
+        return (companies, paginationMetadata);
     }
 
     public async Task<Company> Get(int id)

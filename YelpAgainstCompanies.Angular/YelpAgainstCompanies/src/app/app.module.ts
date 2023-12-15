@@ -24,7 +24,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { AddRatingFormComponent } from './components/add-rating-form/add-rating-form.component';
 import { MatSelectModule } from '@angular/material/select'; 
 import { MatExpansionModule } from '@angular/material/expansion'; 
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,6 @@ import {MatButtonModule} from '@angular/material/button';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule,
-    BrowserAnimationsModule,
     MatIconModule,
     MatSidenavModule,
     HttpClientModule,
@@ -56,7 +56,8 @@ import {MatButtonModule} from '@angular/material/button';
     MatDividerModule,
     MatSelectModule,
     MatExpansionModule,
-    MatButtonModule
+    MatButtonModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

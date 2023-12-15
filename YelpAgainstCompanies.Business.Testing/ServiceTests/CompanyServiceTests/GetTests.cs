@@ -76,4 +76,43 @@ public class GetTests : Base
 
         await sut.Should().ThrowAsync<CompanyDoesNotExistException>();
     }
+
+    [Theory]
+    [InlineData(1, 1)]
+    [InlineData(2, 2)]
+    [InlineData(3, 3)]
+    [InlineData(4, 3)]
+    public async Task Should_ReturnALimitedCollection(int pageSize, int expectedCollectionSize)
+    {
+        _mockedCompanyRepository.Setup(x => x.GetRecords()).ReturnsAsync(_mockedCompanies.AsQueryable);
+
+        var (companies, paginationMetadata) = await _companyService.Get(1, pageSize);
+
+        companies.ToList().Should().HaveCount(expectedCollectionSize);
+    }
+
+
+    [Fact]
+    public async Task Should_ReturnTheCorrectSortedCollection()
+    {
+        _mockedCompanyRepository.Setup(x => x.GetRecords()).ReturnsAsync(_mockedCompanies.AsQueryable);
+
+        var (companies, paginationMetadata) = await _companyService.Get(1, 2);
+
+        companies.ToList()[0].Name.Should().BeEquivalentTo("Alex");
+        companies.ToList()[1].Name.Should().BeEquivalentTo("Charles");
+    }
+
+    [Fact]
+    public async Task Should_HaveCorrectPaginationMetadata()
+    {
+        _mockedCompanyRepository.Setup(x => x.GetRecords()).ReturnsAsync(_mockedCompanies.AsQueryable);
+
+        var (companies, paginationMetadata) = await _companyService.Get(1, 2);
+
+        paginationMetadata.PageSize.Should().Be(2);
+        paginationMetadata.CurrentPage.Should().Be(1);
+        paginationMetadata.TotalItemCount.Should().Be(3);
+        paginationMetadata.TotalPageCount.Should().Be(2);
+    }
 }

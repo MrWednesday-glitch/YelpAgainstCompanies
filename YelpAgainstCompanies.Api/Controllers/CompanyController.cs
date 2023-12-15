@@ -7,6 +7,7 @@ public class CompanyController : Controller
     private readonly ICompanyService _companyService;
     private readonly Transformations _transformations;
     private readonly IUserService _userService;
+    private const int MaxCompanyPageSize = 20;
 
     public CompanyController(ICompanyService companyService, Transformations transformations, IUserService userService)
     {
@@ -16,12 +17,19 @@ public class CompanyController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetCompanies()
+    public async Task<IActionResult> GetCompanies(int pageNumber = 1, int pageSize = 10)
     {
-        var companies = (await _companyService.Get())
-            .Select(x => _transformations.Transform(x));
+        if (pageSize > MaxCompanyPageSize)
+        {
+            pageSize = MaxCompanyPageSize;
+        }
 
-        return Ok(companies);
+        var (companies, paginationMetadata) = (await _companyService.Get(pageNumber, pageSize));
+        var companiesDTO = companies.Select(x => _transformations.Transform(x));
+
+        Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
+
+        return Ok(companiesDTO);
     }
 
     [HttpGet("{id}")]

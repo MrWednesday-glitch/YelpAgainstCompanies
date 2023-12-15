@@ -1,5 +1,6 @@
 ﻿namespace YelpAgainstCompanies.Domain.Exceptions;
 
+[ExcludeFromCodeCoverage]
 public class StringNotValidException : ProblemDetailsException
 {
     public StringNotValidException(string textType, string instance)
