@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Company from 'src/app/interfaces/company';
+import XPagination from 'src/app/interfaces/x-pagination';
 import { CompanyServiceService } from 'src/app/services/company-service.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 
@@ -12,6 +13,9 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 export class CompanyListComponent implements OnInit {
   
   companies: Company[] = [];
+  xPagination: XPagination | undefined;
+  length: number | undefined;
+
 
   constructor(private companyService: CompanyServiceService, 
     private localStorageService: LocalStorageService) { }
@@ -25,10 +29,11 @@ export class CompanyListComponent implements OnInit {
     //TODO Make a pagination interface to catch c.headers.get('X-Pagination') and insert that into the paginator element
     //TODO If no page and pagesize given => default numbers (1, 10)
     this.companyService.getCompanies(1, 10).subscribe(c => {
-      console.log(c.headers.get('X-Pagination'))
-
-      this.companies = c.body;
       console.log(c);
+      console.log(c.headers.get('X-Pagination'))
+      this.companies = c.body;
+      this.xPagination = c.headers.get('X-Pagination');
+      this.length = this.xPagination?.totalItemCount;
     });
   }
 

@@ -12,3 +12,8 @@
         <button mat-raised-button color="primary" type="button" routerLink="/addcompany" class="button">Add company</button>
     </div>
 </div>
+
+<mat-paginator  [length]="length" 
+                [pageSizeOptions]="[5, 10, 20]" 
+                aria-label="Select page">
+</mat-paginator>
