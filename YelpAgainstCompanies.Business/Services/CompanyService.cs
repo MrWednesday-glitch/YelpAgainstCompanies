@@ -21,15 +21,14 @@ public class CompanyService : ICompanyService
         return companies;
     }
 
-    //TODO Unit test this method
     public async Task<(IEnumerable<Company>, PaginationMetadata)> Get(int pageNumber, int pageSize)
     {
-        var companyCollection = _companyRepository.GetRecords();
+        var companyCollection = await _companyRepository.GetRecords();
 
-        var totalItemCount = (await companyCollection).CountAsync();
-        var paginationMetadata = new PaginationMetadata(await totalItemCount, pageSize, pageNumber);
+        var totalItemCount = companyCollection.Count();
+        var paginationMetadata = new PaginationMetadata(totalItemCount, pageSize, pageNumber);
 
-        var companies = (await companyCollection)
+        var companies = companyCollection
             .OrderBy(c => c.Name).ThenBy(c => c.City)
             .Skip(pageSize * (pageNumber - 1))
             .Take(pageSize)
