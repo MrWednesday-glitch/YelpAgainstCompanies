@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import Company from 'src/app/interfaces/company';
-import XPagination from 'src/app/interfaces/x-pagination';
 import { CompanyServiceService } from 'src/app/services/company-service.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 
@@ -13,31 +13,27 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 export class CompanyListComponent implements OnInit {
   
   companies: Company[] = [];
-  xPagination: XPagination | undefined;
-  length: number | undefined;
+  length: number = 10;
+  pageIndex: number = 1;
 
 
   constructor(private companyService: CompanyServiceService, 
     private localStorageService: LocalStorageService) { }
   
   ngOnInit(): void {
-    // this.companyService.getCompanies().subscribe(c => {
-    //   this.companies = c
-    // });
-
-    //TODO Continue working from this point
-    //TODO Make a pagination interface to catch c.headers.get('X-Pagination') and insert that into the paginator element
-    //TODO If no page and pagesize given => default numbers (1, 10)
-    this.companyService.getCompanies(1, 10).subscribe(c => {
-      console.log(c);
-      console.log(c.headers.get('X-Pagination'))
+    this.companyService.getCompanies(this.pageIndex, this.length).subscribe(c => {
       this.companies = c.body;
-      this.xPagination = c.headers.get('X-Pagination');
-      this.length = this.xPagination?.totalItemCount;
+      this.length = JSON.parse(c.headers.get('X-Pagination')).TotalItemCount;
     });
   }
 
   loggedIn(): boolean {
     return this.localStorageService.getData("accessToken") != null;
+  }
+
+  handlePageEvent(pageEvent: PageEvent) {
+    this.companyService.getCompanies(pageEvent.pageIndex + 1, pageEvent.pageSize).subscribe(c => {
+      this.companies = c.body;
+    });
   }
 }
