@@ -1,7 +1,4 @@
-﻿using System.Drawing.Printing;
-using YelpAgainstCompanies.Domain;
-
-namespace YelpAgainstCompanies.Business.Testing.ServiceTests.CompanyServiceTests;
+﻿namespace YelpAgainstCompanies.Business.Testing.ServiceTests.CompanyServiceTests;
 
 [ExcludeFromCodeCoverage]
 public class GetTests : Base
@@ -89,7 +86,7 @@ public class GetTests : Base
     {
         _mockedCompanyRepository.Setup(x => x.GetRecords()).ReturnsAsync(_mockedCompanies.AsQueryable);
 
-        var (companies, paginationMetadata) = await _companyService.Get(1,pageSize);
+        var (companies, paginationMetadata) = await _companyService.Get(1, pageSize);
 
         companies.ToList().Should().HaveCount(expectedCollectionSize);
     }

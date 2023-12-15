@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using YelpAgainstCompanies.Domain;
-
-namespace YelpAgainstCompanies.Business.Services;
+﻿namespace YelpAgainstCompanies.Business.Services;
 
 public class CompanyService : ICompanyService
 {

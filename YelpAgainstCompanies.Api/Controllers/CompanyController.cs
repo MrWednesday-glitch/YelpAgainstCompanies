@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-
-namespace YelpAgainstCompanies.Api.Controllers;
+﻿namespace YelpAgainstCompanies.Api.Controllers;
 
 [ApiController]
 [Route("companies")]

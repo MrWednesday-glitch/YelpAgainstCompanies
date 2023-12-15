@@ -10,6 +10,7 @@ global using System.ComponentModel.DataAnnotations;
 global using System.IdentityModel.Tokens.Jwt;
 global using System.Security.Claims;
 global using System.Text;
+global using System.Text.Json;
 global using YelpAgainstCompanies.Api.Helpers;
 global using YelpAgainstCompanies.Api.Models;
 global using YelpAgainstCompanies.Business.Extensions;
