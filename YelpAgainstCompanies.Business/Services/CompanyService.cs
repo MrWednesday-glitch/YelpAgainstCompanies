@@ -21,6 +21,7 @@ public class CompanyService : ICompanyService
         return companies;
     }
 
+    //TODO Unit test this method
     public async Task<(IEnumerable<Company>, PaginationMetadata)> Get(int pageNumber, int pageSize)
     {
         var companyCollection = _companyRepository.GetRecords();
