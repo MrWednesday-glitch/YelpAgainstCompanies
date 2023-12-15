@@ -25,7 +25,6 @@ import { AddRatingFormComponent } from './components/add-rating-form/add-rating-
 import { MatSelectModule } from '@angular/material/select'; 
 import { MatExpansionModule } from '@angular/material/expansion'; 
 import { MatButtonModule } from '@angular/material/button';
-import { NgxPaginationModule } from 'ngx-pagination';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
@@ -46,7 +45,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule,
-    BrowserAnimationsModule,
     MatIconModule,
     MatSidenavModule,
     HttpClientModule,
@@ -59,7 +57,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatSelectModule,
     MatExpansionModule,
     MatButtonModule,
-    NgxPaginationModule,
     MatPaginatorModule
   ],
   providers: [],
