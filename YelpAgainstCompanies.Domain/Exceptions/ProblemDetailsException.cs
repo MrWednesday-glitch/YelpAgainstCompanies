@@ -1,5 +1,6 @@
 ﻿namespace YelpAgainstCompanies.Domain.Exceptions;
 
+[ExcludeFromCodeCoverage]
 public class ProblemDetailsException : Exception
 {
     public string Type { get; set; }

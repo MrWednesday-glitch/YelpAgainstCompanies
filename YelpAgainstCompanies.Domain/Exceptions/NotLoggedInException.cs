@@ -1,5 +1,6 @@
 ﻿namespace YelpAgainstCompanies.Domain.Exceptions;
 
+[ExcludeFromCodeCoverage]
 public class NotLoggedInException : ProblemDetailsException
 {
     public NotLoggedInException(string instance)

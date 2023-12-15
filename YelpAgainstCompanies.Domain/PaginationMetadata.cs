@@ -1,5 +1,6 @@
 ﻿namespace YelpAgainstCompanies.Domain;
 
+[ExcludeFromCodeCoverage]
 public class PaginationMetadata
 {
     public int TotalItemCount { get; set; }

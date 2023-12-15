@@ -1,5 +1,6 @@
 ﻿namespace YelpAgainstCompanies.Domain.Exceptions;
 
+[ExcludeFromCodeCoverage]
 public class CompanyDoesNotExistException : ProblemDetailsException
 {
     public CompanyDoesNotExistException(string instance)

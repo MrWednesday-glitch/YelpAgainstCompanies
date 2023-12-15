@@ -1,5 +1,6 @@
 ﻿namespace YelpAgainstCompanies.Domain.Exceptions;
 
+[ExcludeFromCodeCoverage]
 public class RecordExistsInDatabaseException : ProblemDetailsException
 {
     public RecordExistsInDatabaseException(string entityType, string instance)
