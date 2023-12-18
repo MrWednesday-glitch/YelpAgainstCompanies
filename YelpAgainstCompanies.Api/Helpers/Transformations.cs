@@ -24,9 +24,12 @@ public class Transformations
 
     public CompanyAndRatingsDTO Transform(Company company, ICollection<Rating> ratings)
     {
-        ratings = ratings.OrderByDescending(x => x.Date).ToList();
+        var sortedRatings = ratings
+            .OrderByDescending(x => x.Date)
+            .ToList();
         var ratingsDTO = new List<RatingDTO>();
-        foreach (var rating in ratings)
+
+        foreach (var rating in sortedRatings)
         {
             ratingsDTO.Add(Transform(rating));
         }
