@@ -10,4 +10,15 @@ import Company from 'src/app/interfaces/company';
 export class CompanyListItemComponent {
   
   @Input() company: Company | undefined;
+
+  getReviewNumberString(reviewNumber: number): string {
+    switch(reviewNumber) {
+      case 1:
+        return "1 review";
+      case 0:
+        return "no reviews";
+      default:
+        return `${reviewNumber} reviews`
+    }
+  }
 }
