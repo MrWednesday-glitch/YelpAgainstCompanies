@@ -11,7 +11,9 @@ public class Transformations
         PostalCode = company.PostalCode,
         City = company.City,
         NumberOfRatings = company.Ratings.Count,
-        PictureUrl = company.PictureUrl,
+        PictureUrl = company.PictureUrl == string.Empty
+            ? "https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled-1150x647.png"
+            : company.PictureUrl,
     };
 
     public RatingDTO Transform(Rating rating) => new()
@@ -43,7 +45,9 @@ public class Transformations
             PostalCode = company.PostalCode,
             City = company.City,
             NumberOfRatings = company.Ratings.Count,
-            PictureUrl = company.PictureUrl,
+            PictureUrl = company.PictureUrl == string.Empty
+                ? "https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled-1150x647.png"
+                : company.PictureUrl,
             Ratings = ratingsDTO,
         };
     }
