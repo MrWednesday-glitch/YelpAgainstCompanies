@@ -2,8 +2,9 @@ $border-colour: #621458;
 
 .company-block {
     border: 5px solid $border-colour;
+    border-radius:15px;
     margin: 5px;
-    width: 60%;
+    width: 95%;
     height: auto;
     display: flex;
     justify-content: space-between;
