@@ -2,11 +2,14 @@ $border-colour: #621458;
 
 .company-block {
     border: 5px solid $border-colour;
+    border-radius:15px;
     margin: 5px;
-    width: 60%;
+    width: 95%;
     height: auto;
     display: flex;
     justify-content: space-between;
+    background-color: plum;
+    align-items: center;
     
     .picture-box {
         border: 5px solid $border-colour;
@@ -17,16 +20,19 @@ $border-colour: #621458;
     }
 
     .name-and-score-block {
-        margin: 5px;
+        margin: 10px;
         display: flex;
         flex-direction: column;
         align-items: center;
+        font-family: Georgia, 'Times New Roman', Times, serif;
     }
 
     .address-block {
-        margin: 5px;
+        margin: 15px;
         display: flex;
         flex-direction: column;
         align-items: flex-end;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-size: large;
     }
 }

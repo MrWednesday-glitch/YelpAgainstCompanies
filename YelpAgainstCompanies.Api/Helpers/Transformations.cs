@@ -11,7 +11,9 @@ public class Transformations
         PostalCode = company.PostalCode,
         City = company.City,
         NumberOfRatings = company.Ratings.Count,
-        PictureUrl = company.PictureUrl,
+        PictureUrl = company.PictureUrl == string.Empty
+            ? "https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled-1150x647.png"
+            : company.PictureUrl,
     };
 
     public RatingDTO Transform(Rating rating) => new()
@@ -24,9 +26,12 @@ public class Transformations
 
     public CompanyAndRatingsDTO Transform(Company company, ICollection<Rating> ratings)
     {
-        ratings = ratings.OrderByDescending(x => x.Date).ToList();
+        var sortedRatings = ratings
+            .OrderByDescending(x => x.Date)
+            .ToList();
         var ratingsDTO = new List<RatingDTO>();
-        foreach (var rating in ratings)
+
+        foreach (var rating in sortedRatings)
         {
             ratingsDTO.Add(Transform(rating));
         }
@@ -40,7 +45,9 @@ public class Transformations
             PostalCode = company.PostalCode,
             City = company.City,
             NumberOfRatings = company.Ratings.Count,
-            PictureUrl = company.PictureUrl,
+            PictureUrl = company.PictureUrl == string.Empty
+                ? "https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled-1150x647.png"
+                : company.PictureUrl,
             Ratings = ratingsDTO,
         };
     }

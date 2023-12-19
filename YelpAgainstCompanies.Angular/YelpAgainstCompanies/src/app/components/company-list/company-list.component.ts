@@ -1,13 +1,23 @@
+import { animate, animation, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import Company from 'src/app/interfaces/company';
 import { CompanyServiceService } from 'src/app/services/company-service.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 
+const enterTransition = transition(':enter', [
+  style({
+    opacity: 0
+  }),
+  animate('1s ease-in', style({opacity: 1})),
+]);
+const fadeIn = trigger('fadeIn', [enterTransition]);
+
 @Component({
   selector: 'app-company-list',
   templateUrl: './company-list.component.html',
-  styleUrls: ['./company-list.component.scss']
+  styleUrls: ['./company-list.component.scss'],
+  animations: [fadeIn],
 })
 
 export class CompanyListComponent implements OnInit {

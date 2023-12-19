@@ -83,7 +83,7 @@ public class Program
                 .UseLazyLoadingProxies()
                 .UseSqlServer(configBuilder.GetConnectionString("DefaultConnection"));
         },
-            ServiceLifetime.Singleton);
+            ServiceLifetime.Scoped);
         webAppBuilder.Services.AddScoped<Transformations>();
         webAppBuilder.Services.AddScoped<IRatingRepository, RatingRepository>();
         webAppBuilder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
