@@ -1,4 +1,4 @@
-﻿namespace YelpAgainstCompanies.Domain;
+﻿namespace YelpAgainstCompanies.Domain.Interfaces;
 
 [ExcludeFromCodeCoverage]
 public class PaginationMetadata

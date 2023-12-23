@@ -18,9 +18,18 @@ public class CompanyService : ICompanyService
         return companies;
     }
 
-    public async Task<(IEnumerable<Company>, PaginationMetadata)> Get(int pageNumber, int pageSize)
+    public async Task<(IEnumerable<Company>, PaginationMetadata)> Get(int pageNumber, int pageSize, string? searchTerm = "")
     {
         var companyCollection = await _companyRepository.GetRecords();
+
+        if (!searchTerm.IsNullOrEmpty())
+        {
+            searchTerm = searchTerm!.ToLower();
+
+            companyCollection = companyCollection.Where(c =>
+                c.Name.ToLower().Contains(searchTerm) ||
+                c.City.ToLower().Contains(searchTerm));
+        }
 
         var totalItemCount = companyCollection.Count();
         var paginationMetadata = new PaginationMetadata(totalItemCount, pageSize, pageNumber);

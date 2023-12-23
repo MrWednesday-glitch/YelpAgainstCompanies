@@ -10,18 +10,21 @@ public class GetTests : Base
             Id = 1,
             Name = "Charles",
             Score = 4.44,
+             City = "Den Haag",
         },
         new Company()
         {
             Id = 2,
             Name = "Dave",
             Score = 2.22,
+             City = "Den Haag",
         },
         new Company()
         {
             Id = 3,
             Name = "Alex",
             Score = 1.11,
+            City = "Zoetermeer",
         },
     };
 
@@ -114,5 +117,28 @@ public class GetTests : Base
         paginationMetadata.CurrentPage.Should().Be(1);
         paginationMetadata.TotalItemCount.Should().Be(3);
         paginationMetadata.TotalPageCount.Should().Be(2);
+    }
+
+    [Fact]
+    public async Task Should_ChangeTheSearchTermToLower()
+    {
+        _mockedCompanyRepository.Setup(x => x.GetRecords()).ReturnsAsync(_mockedCompanies.AsQueryable);
+
+        var (companies, paginationMetadata) = await _companyService.Get(1, 10, "ChaRlES");
+
+        companies.ToList().Count.Should().Be(1);
+    }
+
+    [Theory]
+    [InlineData("lex", 1)]
+    [InlineData("den haag", 2)]
+    [InlineData("da", 1)]
+    public async Task Should_FindCorrectAmountOfCompanies(string searchTerm, int collectionSize)
+    {
+        _mockedCompanyRepository.Setup(x => x.GetRecords()).ReturnsAsync(_mockedCompanies.AsQueryable);
+
+        var (companies, paginationMetadata) = await _companyService.Get(1, 10, searchTerm);
+
+        companies.ToList().Count.Should().Be(collectionSize);
     }
 }
