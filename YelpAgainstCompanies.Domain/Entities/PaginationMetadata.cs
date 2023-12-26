@@ -1,5 +1,4 @@
-//Todo oops. this file should not be in the interfaces, but in the entities folder.
-﻿namespace YelpAgainstCompanies.Domain.Interfaces;
+﻿namespace YelpAgainstCompanies.Domain.Entities;
 
 [ExcludeFromCodeCoverage]
 public class PaginationMetadata

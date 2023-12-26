@@ -10,15 +10,14 @@ public class GetTests : Base
             Id = 1,
             Name = "Charles",
             Score = 4.44,
-//Todo run codemaid
-             City = "Den Haag",
+            City = "Den Haag",
         },
         new Company()
         {
             Id = 2,
             Name = "Dave",
             Score = 2.22,
-             City = "Den Haag",
+            City = "Den Haag",
         },
         new Company()
         {
