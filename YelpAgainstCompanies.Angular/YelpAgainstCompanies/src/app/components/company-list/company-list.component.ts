@@ -43,15 +43,21 @@ export class CompanyListComponent implements OnInit {
     return this.localStorageService.getData("accessToken") != null;
   }
 
-  handlePageEvent(pageEvent: PageEvent) {
-    this.companyService.getCompaniesWithPagination(pageEvent.pageIndex + 1, pageEvent.pageSize).subscribe(c => {
+  //TODO How to put the search query into the page event?
+  handlePageEvent(pageEvent: PageEvent): void {
+    this.companyService.getCompaniesWithPagination(pageEvent.pageIndex + 1, pageEvent.pageSize, this.searchFormControl.value!).subscribe(c => {
       this.companies = c.body;
     });
   }
 
+  //TODO Make this obsolete...
   search(): void {
-    if (this.searchFormControl.valid && this.searchFormControl.value != "") {
+    if (this.searchFormControl.valid && this.searchFormControl.value !== "") {
       console.log(this.searchFormControl.value);
+      this.companyService.getCompaniesWithPagination(1, 10, this.searchFormControl.value!).subscribe(c => {
+        console.log(c);
+        this.companies = c.body;
+      });
     }
   }
 }

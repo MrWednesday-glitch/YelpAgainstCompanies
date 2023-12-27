@@ -17,8 +17,13 @@ export class CompanyServiceService {
   constructor(private customHttpClient: CustomHttpClientService,
     private httpClient: HttpClient) { }
 
-  getCompaniesWithPagination(pageNumber: number, pageSize: number): Observable<any> { //Any is the HttpResponse
-    const url: string = `${this.baseUrl}/companies?pageSize=${pageSize}&pageNumber=${pageNumber}`;
+  getCompaniesWithPagination(pageNumber: number, pageSize: number, searchTerm: string = ""): Observable<any> { //Any is the HttpResponse
+    let url: string = `${this.baseUrl}/companies?pageSize=${pageSize}&pageNumber=${pageNumber}`;
+
+    if (searchTerm !== "") {
+      console.log(searchTerm);
+      url = url + `&searchTerm=${searchTerm}`;
+    }
 
     return this.httpClient.get<any>(url, {observe: 'response'});
   }
