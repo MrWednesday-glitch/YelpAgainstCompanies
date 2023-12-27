@@ -1,5 +1,6 @@
-import { animate, animation, style, transition, trigger } from '@angular/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import Company from 'src/app/interfaces/company';
 import { CompanyServiceService } from 'src/app/services/company-service.service';
@@ -25,6 +26,7 @@ export class CompanyListComponent implements OnInit {
   companies: Company[] = [];
   length: number = 10;
   pageIndex: number = 1;
+  searchFormControl = new FormControl('', [Validators.minLength(3)]);
 
 
   constructor(private companyService: CompanyServiceService, 
@@ -45,5 +47,11 @@ export class CompanyListComponent implements OnInit {
     this.companyService.getCompaniesWithPagination(pageEvent.pageIndex + 1, pageEvent.pageSize).subscribe(c => {
       this.companies = c.body;
     });
+  }
+
+  search(): void {
+    if (this.searchFormControl.valid && this.searchFormControl.value != "") {
+      console.log(this.searchFormControl.value);
+    }
   }
 }
