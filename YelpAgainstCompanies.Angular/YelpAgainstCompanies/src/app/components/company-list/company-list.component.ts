@@ -44,6 +44,7 @@ export class CompanyListComponent implements OnInit {
   }
 
   //TODO How to put the search query into the page event?
+  //TODO Found the way to do it maybe: https://www.learmoreseekmore.com/2023/03/angular15-sorting-search-pagination-on-material-card-items.html 
   handlePageEvent(pageEvent: PageEvent): void {
     this.companyService.getCompaniesWithPagination(pageEvent.pageIndex + 1, pageEvent.pageSize, this.searchFormControl.value!).subscribe(c => {
       this.companies = c.body;
