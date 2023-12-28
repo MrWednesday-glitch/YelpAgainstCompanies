@@ -10,14 +10,15 @@
         
         <form class="search-box">
             <mat-form-field class="search-input">
-              <mat-label>Search...</mat-label>
-              <input type="search" matInput [formControl]="searchFormControl" placeholder="Pizza Hut">
-              <!-- <mat-error *ngIf="searchFormControl.hasError('minLength')">
-                TODO Why does this not show up?
-                Your search term needs to be at least 3 characters.
-              </mat-error> -->
+              <mat-label>Search company...</mat-label>
+              <input matInput type="text" [formControl]="searchFormControl" placeholder="Pizza Hut" />
+              <mat-error *ngIf="searchFormControl.value?.length! < 3">
+                At least three characters.
+              </mat-error>
             </mat-form-field>
-            <button mat-flat-button color="primary" type="submit" class="button" (click)="search()">Search</button>
+            <button matSuffix mat-icon-button aria-label="Clear" (click)="search()" minlength="3">
+                <mat-icon>search</mat-icon>
+            </button>
         </form>
 
         <div *ngIf="this.loggedIn()">
@@ -26,11 +27,11 @@
     </div>
     
     <mat-paginator  #paginator
-                    [length]="length" 
-                    [pageSize]="10"
+                    [length]="totalRecords" 
+                    [pageSize]="length"
                     [pageSizeOptions]="[5, 10, 20]" 
                     [showFirstLastButtons]="true"
-                    [pageIndex]="pageIndex-1"
+                    [pageIndex]="pageIndex"
                     (page)="handlePageEvent($event)"
                     aria-label="Select page">
     </mat-paginator>

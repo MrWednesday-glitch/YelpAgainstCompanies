@@ -25,40 +25,46 @@ export class CompanyListComponent implements OnInit {
   
   companies: Company[] = [];
   length: number = 10;
-  pageIndex: number = 1;
-  searchFormControl = new FormControl('', [Validators.minLength(3)]);
+  pageIndex: number = 0;
+  searchFormControl = new FormControl('', [Validators.minLength(3)]); //the minLength validator does not work?
+  totalRecords: number = 0;
 
 
   constructor(private companyService: CompanyServiceService, 
     private localStorageService: LocalStorageService) { }
   
   ngOnInit(): void {
-    this.companyService.getCompaniesWithPagination(this.pageIndex, this.length).subscribe(c => {
-      this.companies = c.body;
-      this.length = JSON.parse(c.headers.get('X-Pagination')).TotalItemCount;
-    });
+    this.getCompanies('', this.pageIndex, this.length);
   }
 
   loggedIn(): boolean {
     return this.localStorageService.getData("accessToken") != null;
   }
 
-  //TODO How to put the search query into the page event?
-  //TODO Found the way to do it maybe: https://www.learmoreseekmore.com/2023/03/angular15-sorting-search-pagination-on-material-card-items.html 
-  handlePageEvent(pageEvent: PageEvent): void {
-    this.companyService.getCompaniesWithPagination(pageEvent.pageIndex + 1, pageEvent.pageSize, this.searchFormControl.value!).subscribe(c => {
-      this.companies = c.body;
-    });
+  getCompanies(searchTerm: string, currentPage: number, pageSize: number): void {
+    this.companyService.getCompaniesWithPagination(currentPage + 1, pageSize, searchTerm)
+      .subscribe(response => {
+        this.companies = response.body as Company[];
+        this.totalRecords = JSON.parse(response.headers.get('X-Pagination')!).TotalItemCount
+          ? Number(JSON.parse(response.headers.get('X-Pagination')!).TotalItemCount)
+          : 0;
+        console.log(this.totalRecords);
+      })
   }
 
-  //TODO Make this obsolete...
+  handlePageEvent(pageEvent: PageEvent): void {
+    this.pageIndex = pageEvent.pageIndex;
+    this.length = pageEvent.pageSize;
+    this.getCompanies(this.searchFormControl.value ?? '', this.pageIndex, this.length);
+  }
+
   search(): void {
-    if (this.searchFormControl.valid && this.searchFormControl.value !== "") {
-      console.log(this.searchFormControl.value);
-      this.companyService.getCompaniesWithPagination(1, 10, this.searchFormControl.value!).subscribe(c => {
-        console.log(c);
-        this.companies = c.body;
-      });
+    if (this.searchFormControl.value?.length! >= 3) {
+      this.pageIndex = 0;
+      this.length = 10;
+      this.getCompanies(this.searchFormControl.value ?? '', this.pageIndex, this.length);
+    } else {
+      console.log(`${this.searchFormControl.value} was less than three characters.`)
     }
   }
 }

@@ -3,7 +3,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { CustomHttpClientService } from './custom-http-client.service';
 import Company from '../interfaces/company';
 import CompanyResponse from '../interfaces/company-response';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -17,15 +17,18 @@ export class CompanyServiceService {
   constructor(private customHttpClient: CustomHttpClientService,
     private httpClient: HttpClient) { }
 
-  getCompaniesWithPagination(pageNumber: number, pageSize: number, searchTerm: string = ""): Observable<any> { //Any is the HttpResponse
+  getCompaniesWithPagination(pageNumber: number, pageSize: number, searchTerm: string): Observable<HttpResponse<any>> {
     let url: string = `${this.baseUrl}/companies?pageSize=${pageSize}&pageNumber=${pageNumber}`;
 
-    if (searchTerm !== "") {
-      console.log(searchTerm);
-      url = url + `&searchTerm=${searchTerm}`;
+    if (searchTerm) {
+      if (url.indexOf('&') > -1) {
+        url = url + `&searchTerm=${searchTerm}`;
+      } else {
+        url = url + `searchTerm=${searchTerm}`;
+      }
     }
 
-    return this.httpClient.get<any>(url, {observe: 'response'});
+    return this.httpClient.get<HttpResponse<any>>(url, {observe: 'response'});
   }
 
   getCompanies(): Observable<Company[]> {
