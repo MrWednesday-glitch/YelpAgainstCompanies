@@ -19,6 +19,9 @@
             <button matSuffix mat-icon-button aria-label="Clear" (click)="search()" minlength="3">
                 <mat-icon>search</mat-icon>
             </button>
+            <button *ngIf="this.searchFormControl.value" matSuffix mat-icon-button aria-label="Clear" (click)="resetSearchField()">
+                <mat-icon>close</mat-icon>
+              </button>
         </form>
 
         <div *ngIf="this.loggedIn()">
@@ -28,7 +31,7 @@
     
     <mat-paginator  #paginator
                     [length]="totalRecords" 
-                    [pageSize]="length"
+                    [pageSize]="pageSize"
                     [pageSizeOptions]="[5, 10, 20]" 
                     [showFirstLastButtons]="true"
                     [pageIndex]="pageIndex"

@@ -24,7 +24,7 @@ const fadeIn = trigger('fadeIn', [enterTransition]);
 export class CompanyListComponent implements OnInit {
   
   companies: Company[] = [];
-  length: number = 10;
+  pageSize: number = 10;
   pageIndex: number = 0;
   searchFormControl = new FormControl('', [Validators.minLength(3)]); //the minLength validator does not work?
   totalRecords: number = 0;
@@ -34,7 +34,7 @@ export class CompanyListComponent implements OnInit {
     private localStorageService: LocalStorageService) { }
   
   ngOnInit(): void {
-    this.getCompanies('', this.pageIndex, this.length);
+    this.getCompanies('', this.pageIndex, this.pageSize);
   }
 
   loggedIn(): boolean {
@@ -48,23 +48,27 @@ export class CompanyListComponent implements OnInit {
         this.totalRecords = JSON.parse(response.headers.get('X-Pagination')!).TotalItemCount
           ? Number(JSON.parse(response.headers.get('X-Pagination')!).TotalItemCount)
           : 0;
-        console.log(this.totalRecords);
       })
   }
 
   handlePageEvent(pageEvent: PageEvent): void {
     this.pageIndex = pageEvent.pageIndex;
-    this.length = pageEvent.pageSize;
-    this.getCompanies(this.searchFormControl.value ?? '', this.pageIndex, this.length);
+    this.pageSize = pageEvent.pageSize;
+    this.getCompanies(this.searchFormControl.value ?? '', this.pageIndex, this.pageSize);
   }
 
   search(): void {
-    if (this.searchFormControl.value?.length! >= 3) {
+    if (this.searchFormControl.value?.length! >= 3 || this.searchFormControl.value?.length! === 0) {
       this.pageIndex = 0;
-      this.length = 10;
-      this.getCompanies(this.searchFormControl.value ?? '', this.pageIndex, this.length);
+      this.pageSize = 10;
+      this.getCompanies(this.searchFormControl.value ?? '', this.pageIndex, this.pageSize);
     } else {
       console.log(`${this.searchFormControl.value} was less than three characters.`)
     }
+  }
+
+  resetSearchField(): void {
+    this.getCompanies('', this.pageIndex, this.pageSize);
+    this.searchFormControl.reset();
   }
 }
