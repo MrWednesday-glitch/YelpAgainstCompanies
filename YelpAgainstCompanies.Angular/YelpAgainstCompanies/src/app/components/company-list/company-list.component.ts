@@ -1,5 +1,6 @@
-import { animate, animation, style, transition, trigger } from '@angular/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import Company from 'src/app/interfaces/company';
 import { CompanyServiceService } from 'src/app/services/company-service.service';
@@ -24,26 +25,46 @@ export class CompanyListComponent implements OnInit {
   
   companies: Company[] = [];
   length: number = 10;
-  pageIndex: number = 1;
+  pageIndex: number = 0;
+  searchFormControl = new FormControl('', [Validators.minLength(3)]); //the minLength validator does not work?
+  totalRecords: number = 0;
 
 
   constructor(private companyService: CompanyServiceService, 
     private localStorageService: LocalStorageService) { }
   
   ngOnInit(): void {
-    this.companyService.getCompaniesWithPagination(this.pageIndex, this.length).subscribe(c => {
-      this.companies = c.body;
-      this.length = JSON.parse(c.headers.get('X-Pagination')).TotalItemCount;
-    });
+    this.getCompanies('', this.pageIndex, this.length);
   }
 
   loggedIn(): boolean {
     return this.localStorageService.getData("accessToken") != null;
   }
 
-  handlePageEvent(pageEvent: PageEvent) {
-    this.companyService.getCompaniesWithPagination(pageEvent.pageIndex + 1, pageEvent.pageSize).subscribe(c => {
-      this.companies = c.body;
-    });
+  getCompanies(searchTerm: string, currentPage: number, pageSize: number): void {
+    this.companyService.getCompaniesWithPagination(currentPage + 1, pageSize, searchTerm)
+      .subscribe(response => {
+        this.companies = response.body as Company[];
+        this.totalRecords = JSON.parse(response.headers.get('X-Pagination')!).TotalItemCount
+          ? Number(JSON.parse(response.headers.get('X-Pagination')!).TotalItemCount)
+          : 0;
+        console.log(this.totalRecords);
+      })
+  }
+
+  handlePageEvent(pageEvent: PageEvent): void {
+    this.pageIndex = pageEvent.pageIndex;
+    this.length = pageEvent.pageSize;
+    this.getCompanies(this.searchFormControl.value ?? '', this.pageIndex, this.length);
+  }
+
+  search(): void {
+    if (this.searchFormControl.value?.length! >= 3) {
+      this.pageIndex = 0;
+      this.length = 10;
+      this.getCompanies(this.searchFormControl.value ?? '', this.pageIndex, this.length);
+    } else {
+      console.log(`${this.searchFormControl.value} was less than three characters.`)
+    }
   }
 }

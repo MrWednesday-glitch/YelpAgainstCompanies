@@ -2,24 +2,36 @@
     <h2 class="title">Hereby the list of companies in our database</h2>
     
     <div class="content" @fadeIn>
-        
         <ul class="company-list">
             <li *ngFor="let company of companies">
                 <app-company-list-item [company]="company"></app-company-list-item>
             </li>
         </ul>
-    
+        
+        <form class="search-box">
+            <mat-form-field class="search-input">
+              <mat-label>Search company...</mat-label>
+              <input matInput type="text" [formControl]="searchFormControl" placeholder="Pizza Hut" />
+              <mat-error *ngIf="searchFormControl.value?.length! < 3">
+                At least three characters.
+              </mat-error>
+            </mat-form-field>
+            <button matSuffix mat-icon-button aria-label="Clear" (click)="search()" minlength="3">
+                <mat-icon>search</mat-icon>
+            </button>
+        </form>
+
         <div *ngIf="this.loggedIn()">
             <button mat-raised-button color="primary" type="button" routerLink="/addcompany" class="button">Add company</button>
         </div>
     </div>
     
     <mat-paginator  #paginator
-                    [length]="length" 
-                    [pageSize]="10"
+                    [length]="totalRecords" 
+                    [pageSize]="length"
                     [pageSizeOptions]="[5, 10, 20]" 
                     [showFirstLastButtons]="true"
-                    [pageIndex]="pageIndex-1"
+                    [pageIndex]="pageIndex"
                     (page)="handlePageEvent($event)"
                     aria-label="Select page">
     </mat-paginator>
