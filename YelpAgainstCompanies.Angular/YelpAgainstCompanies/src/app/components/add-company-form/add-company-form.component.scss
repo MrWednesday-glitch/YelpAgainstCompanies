@@ -8,4 +8,13 @@
         margin-top: 2%;
         width: 50%;
     }
+
+    .preview-image {
+        width: 50%;
+        height: auto;
+
+        .picture {
+            width: 100%;
+        }
+    }
 }

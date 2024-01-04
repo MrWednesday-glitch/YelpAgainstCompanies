@@ -5,6 +5,10 @@
 .content {
     display: flex;
 
+    .search-and-buttons {
+        display: flex;
+    }
+    
     .search-box {
         width: 500px;
 

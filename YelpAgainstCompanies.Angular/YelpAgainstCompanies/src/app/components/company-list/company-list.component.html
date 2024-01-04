@@ -8,24 +8,26 @@
             </li>
         </ul>
         
-        <form class="search-box">
-            <mat-form-field class="search-input">
-              <mat-label>Search company...</mat-label>
-              <input matInput type="text" [formControl]="searchFormControl" placeholder="Pizza Hut" />
-              <mat-error *ngIf="searchFormControl.value?.length! < 3">
-                At least three characters.
-              </mat-error>
-            </mat-form-field>
-            <button matSuffix mat-icon-button aria-label="Clear" (click)="search()" minlength="3">
-                <mat-icon>search</mat-icon>
-            </button>
-            <button *ngIf="this.searchFormControl.value" matSuffix mat-icon-button aria-label="Clear" (click)="resetSearchField()">
-                <mat-icon>close</mat-icon>
-              </button>
-        </form>
-
-        <div *ngIf="this.loggedIn()">
-            <button mat-raised-button color="primary" type="button" routerLink="/addcompany" class="button">Add company</button>
+        <div class="seach-and-buttons">
+            <form class="search-box">
+                <mat-form-field class="search-input">
+                  <mat-label>Search company...</mat-label>
+                  <input matInput type="text" [formControl]="searchFormControl" placeholder="Pizza Hut" />
+                  <mat-error *ngIf="searchFormControl.value?.length! < 3">
+                    At least three characters.
+                  </mat-error>
+                </mat-form-field>
+                <button matSuffix mat-icon-button aria-label="Clear" (click)="search()" minlength="3">
+                    <mat-icon>search</mat-icon>
+                </button>
+                <button *ngIf="this.searchFormControl.value" matSuffix mat-icon-button aria-label="Clear" (click)="resetSearchField()">
+                    <mat-icon>close</mat-icon>
+                  </button>
+            </form>
+    
+            <div *ngIf="this.loggedIn()">
+                <button mat-raised-button color="primary" type="button" routerLink="/addcompany" class="button">Add company</button>
+            </div>
         </div>
     </div>
     

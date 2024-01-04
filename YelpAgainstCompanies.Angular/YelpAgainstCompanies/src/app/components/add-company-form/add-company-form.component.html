@@ -38,6 +38,10 @@
         <input matInput [formControl]="pictureUrlFormControl" type="pictureUrl" id="pictureUrl" placeholder="The url to a picture of the company" autocapitalize="off" autocomplete="off">
     </mat-form-field>
 
+    <div class="preview-image" *ngIf="pictureUrlFormControl.value">
+        <img [src]="pictureUrlFormControl.value" class="picture"/>
+    </div>
+
     <div class="actions">
         <button mat-flat-button color="primary" type="submit" (click)="onSubmit()">
             Save company
