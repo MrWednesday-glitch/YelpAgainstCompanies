@@ -1,4 +1,6 @@
-﻿namespace YelpAgainstCompanies.Business.Services;
+﻿using System.Data.Entity;
+
+namespace YelpAgainstCompanies.Business.Services;
 
 public class CompanyService : ICompanyService
 {
@@ -18,9 +20,17 @@ public class CompanyService : ICompanyService
         return companies;
     }
 
-    public async Task<(IEnumerable<Company>, PaginationMetadata)> Get(int pageNumber, int pageSize, string? searchTerm = "")
+    public async Task<(IEnumerable<Company>, PaginationMetadata)> Get(int pageNumber, int pageSize, string? searchTerm = "", string? cityName = "")
     {
         var companyCollection = await _companyRepository.GetRecords();
+
+        //TODO Return a collection of all cities specifically to put into a list in the front end to select from
+        //TODO Write unit tests
+        if (!cityName.IsNullOrEmpty())
+        {
+            companyCollection = companyCollection.Where(c =>
+                c.City == cityName);
+        }
 
         if (!searchTerm.IsNullOrEmpty())
         {
