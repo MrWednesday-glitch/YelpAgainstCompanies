@@ -23,6 +23,7 @@ public class CompanyService : ICompanyService
     public async Task<(IEnumerable<Company>, PaginationMetadata)> Get(int pageNumber, int pageSize, string? searchTerm = "", string? cityName = "")
     {
         var companyCollection = await _companyRepository.GetRecords();
+        var cities = companyCollection.Select(c => c.City).Distinct().ToList();
 
         //TODO Return a collection of all cities specifically to put into a list in the front end to select from
         if (!cityName.IsNullOrEmpty())
@@ -41,7 +42,7 @@ public class CompanyService : ICompanyService
         }
 
         var totalItemCount = companyCollection.Count();
-        var paginationMetadata = new PaginationMetadata(totalItemCount, pageSize, pageNumber);
+        var paginationMetadata = new PaginationMetadata(totalItemCount, pageSize, pageNumber, cities);
 
         var companies = companyCollection
             .OrderBy(c => c.Name).ThenBy(c => c.City)
