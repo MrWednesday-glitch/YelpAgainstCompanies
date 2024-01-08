@@ -28,7 +28,8 @@ export class CompanyListComponent implements OnInit {
   pageIndex: number = 0;
   searchFormControl = new FormControl('', [Validators.minLength(3)]); //the minLength validator does not work?
   totalRecords: number = 0;
-
+  cities: string[] = [];
+  selectedCity: string | undefined;
 
   constructor(private companyService: CompanyServiceService, 
     private localStorageService: LocalStorageService) { }
@@ -45,9 +46,13 @@ export class CompanyListComponent implements OnInit {
     this.companyService.getCompaniesWithPagination(currentPage + 1, pageSize, searchTerm)
       .subscribe(response => {
         this.companies = response.body as Company[];
-        this.totalRecords = JSON.parse(response.headers.get('X-Pagination')!).TotalItemCount
-          ? Number(JSON.parse(response.headers.get('X-Pagination')!).TotalItemCount)
-          : 0;
+        this.totalRecords = JSON.parse(response.headers.get('X-Pagination')!).TotalItemCount;
+        
+        this.cities = JSON.parse(response.headers.get('X-Pagination')!).Cities;
+          //console.log(this.cities);
+          // for (let city of this.cities) {
+          //   //console.log (city);
+          // }
       })
   }
 
