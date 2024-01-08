@@ -141,4 +141,26 @@ public class GetTests : Base
 
         companies.ToList().Count.Should().Be(collectionSize);
     }
+
+    [Theory]
+    [InlineData("Den Haag", 2)]
+    [InlineData("Zoetermeer", 1)]
+    public async Task Should_FilterCorrectAmountOfCompanies(string cityName, int collectionSize)
+    {
+        _mockedCompanyRepository.Setup(x => x.GetRecords()).ReturnsAsync(_mockedCompanies.AsQueryable);
+
+        var (companies, paginationMetadata) = await _companyService.Get(1, 10, "", cityName);
+
+        companies.ToList().Count.Should().Be(collectionSize);
+    }
+
+    [Fact]
+    public async Task Should_FilterAndSearchCorrectly()
+    {
+        _mockedCompanyRepository.Setup(x => x.GetRecords()).ReturnsAsync(_mockedCompanies.AsQueryable);
+
+        var (companies, paginationMetadata) = await _companyService.Get(1, 10, "dave", "Den Haag");
+
+        companies.ToList().Count.Should().Be(1);
+    }
 }

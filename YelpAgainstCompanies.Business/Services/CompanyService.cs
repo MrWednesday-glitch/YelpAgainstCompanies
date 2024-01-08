@@ -25,7 +25,6 @@ public class CompanyService : ICompanyService
         var companyCollection = await _companyRepository.GetRecords();
 
         //TODO Return a collection of all cities specifically to put into a list in the front end to select from
-        //TODO Write unit tests
         if (!cityName.IsNullOrEmpty())
         {
             companyCollection = companyCollection.Where(c =>
