@@ -1,15 +1,5 @@
 <div>
     <h2 class="title">Hereby the list of companies in our database</h2>
-
-    <mat-form-field appearance="fill">
-        <mat-label>Filter on city</mat-label>
-        <mat-select [(ngModel)]="selectedCity" name="city">
-          <mat-option *ngFor="let city of cities" [value]="city">
-            {{city}}
-          </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <p *ngIf="selectedCity">You are filtering on: {{selectedCity}}</p>
     
     <div class="content" @fadeIn>
         <ul class="company-list">
@@ -34,6 +24,20 @@
                     <mat-icon>close</mat-icon>
                   </button>
             </form>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Filter on city</mat-label>
+              <mat-select [(ngModel)]="selectedCity" name="city">
+                <mat-option *ngFor="let city of cities" [value]="city">
+                  {{city}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div *ngIf="selectedCity">
+              <button mat-raised-button color="primary" type="button" class="button" (click)="filterOnSelectedCity()">Filter</button>
+              <button mat-raised-button color="primary" type="button" class="button" (click)="clearSelectedCity()">Clear filter</button>
+              <p>You are filtering on: {{selectedCity}}</p>
+            </div>
     
             <div *ngIf="this.loggedIn()">
                 <button mat-raised-button color="primary" type="button" routerLink="/addcompany" class="button">Add company</button>

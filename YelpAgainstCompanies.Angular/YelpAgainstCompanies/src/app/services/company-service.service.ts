@@ -17,7 +17,7 @@ export class CompanyServiceService {
   constructor(private customHttpClient: CustomHttpClientService,
     private httpClient: HttpClient) { }
 
-  getCompaniesWithPagination(pageNumber: number, pageSize: number, searchTerm: string): Observable<HttpResponse<any>> {
+  getCompaniesWithPagination(pageNumber: number, pageSize: number, searchTerm: string, cityName: string): Observable<HttpResponse<any>> {
     let url: string = `${this.baseUrl}/companies?pageSize=${pageSize}&pageNumber=${pageNumber}`;
 
     if (searchTerm) {
@@ -25,6 +25,14 @@ export class CompanyServiceService {
         url = url + `&searchTerm=${searchTerm}`;
       } else {
         url = url + `searchTerm=${searchTerm}`;
+      }
+    }
+
+    if (cityName) {
+      if (url.indexOf('&') > -1) {
+        url = url + `&cityName=${cityName}`;
+      } else {
+        url = url + `cityName=${cityName}`;
       }
     }
 
