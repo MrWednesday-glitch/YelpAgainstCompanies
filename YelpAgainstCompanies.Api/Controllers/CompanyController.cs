@@ -17,14 +17,14 @@ public class CompanyController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetCompanies(int pageNumber = 1, int pageSize = 10, string? searchTerm = "")
+    public async Task<IActionResult> GetCompanies(int pageNumber = 1, int pageSize = 10, string? searchTerm = "", string? cityName = "")
     {
         if (pageSize > MaxCompanyPageSize)
         {
             pageSize = MaxCompanyPageSize;
         }
 
-        var (companies, paginationMetadata) = (await _companyService.Get(pageNumber, pageSize, searchTerm));
+        var (companies, paginationMetadata) = (await _companyService.Get(pageNumber, pageSize, searchTerm, cityName));
         var companiesDTO = companies.Select(x => _transformations.Transform(x));
 
         Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));

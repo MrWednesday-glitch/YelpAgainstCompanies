@@ -11,11 +11,14 @@ public class PaginationMetadata
 
     public int CurrentPage { get; set; }
 
-    public PaginationMetadata(int totalItemCount, int pageSize, int currentPage)
+    public List<string> Cities { get; set; }
+
+    public PaginationMetadata(int totalItemCount, int pageSize, int currentPage, List<string> cities)
     {
         TotalItemCount = totalItemCount;
         PageSize = pageSize;
         CurrentPage = currentPage;
         TotalPageCount = (int)Math.Ceiling(totalItemCount / (double)PageSize);
+        Cities = cities;
     }
 }

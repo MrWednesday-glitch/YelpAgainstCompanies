@@ -28,47 +28,65 @@ export class CompanyListComponent implements OnInit {
   pageIndex: number = 0;
   searchFormControl = new FormControl('', [Validators.minLength(3)]); //the minLength validator does not work?
   totalRecords: number = 0;
-
+  cities: string[] = [];
+  selectedCity: string | undefined;
 
   constructor(private companyService: CompanyServiceService, 
     private localStorageService: LocalStorageService) { }
   
   ngOnInit(): void {
-    this.getCompanies('', this.pageIndex, this.pageSize);
+    this.getCompanies('', this.pageIndex, this.pageSize, this.selectedCity ?? '');
   }
 
   loggedIn(): boolean {
     return this.localStorageService.getData("accessToken") != null;
   }
 
-  getCompanies(searchTerm: string, currentPage: number, pageSize: number): void {
-    this.companyService.getCompaniesWithPagination(currentPage + 1, pageSize, searchTerm)
+  getCompanies(searchTerm: string, currentPage: number, pageSize: number, cityName: string): void {
+    this.companyService.getCompaniesWithPagination(currentPage + 1, pageSize, searchTerm, this.selectedCity ?? '')
       .subscribe(response => {
         this.companies = response.body as Company[];
-        this.totalRecords = JSON.parse(response.headers.get('X-Pagination')!).TotalItemCount
-          ? Number(JSON.parse(response.headers.get('X-Pagination')!).TotalItemCount)
-          : 0;
+        this.totalRecords = JSON.parse(response.headers.get('X-Pagination')!).TotalItemCount;
+        
+        this.cities = JSON.parse(response.headers.get('X-Pagination')!).Cities;
       })
   }
 
   handlePageEvent(pageEvent: PageEvent): void {
     this.pageIndex = pageEvent.pageIndex;
     this.pageSize = pageEvent.pageSize;
-    this.getCompanies(this.searchFormControl.value ?? '', this.pageIndex, this.pageSize);
+    this.getCompanies(this.searchFormControl.value ?? '', this.pageIndex, this.pageSize, this.selectedCity ?? '');
   }
 
   search(): void {
     if (this.searchFormControl.value?.length! >= 3 || this.searchFormControl.value?.length! === 0) {
       this.pageIndex = 0;
       this.pageSize = 10;
-      this.getCompanies(this.searchFormControl.value ?? '', this.pageIndex, this.pageSize);
+      this.getCompanies(this.searchFormControl.value ?? '', this.pageIndex, this.pageSize, this.selectedCity ?? '');
     } else {
       console.log(`${this.searchFormControl.value} was less than three characters.`)
     }
   }
 
   resetSearchField(): void {
-    this.getCompanies('', this.pageIndex, this.pageSize);
+    this.getCompanies('', this.pageIndex, this.pageSize, this.selectedCity ?? '');
     this.searchFormControl.reset();
+  }
+
+  clearSelectedCity(): void {
+    this.selectedCity = undefined;
+    this.pageIndex = 0;
+    this.pageSize = 10;
+    this.getCompanies(this.searchFormControl.value ?? '', this.pageIndex, this.pageSize, this.selectedCity ?? '');
+  }
+
+  filterOnSelectedCity(): void {
+    if (this.selectedCity) {
+      this.pageIndex = 0;
+      this.pageSize = 10;
+      this.getCompanies(this.searchFormControl.value ?? '', this.pageIndex, this.pageSize, this.selectedCity ?? '');
+    } else {
+      console.log(`No filter was selected.`)
+    }
   }
 }
