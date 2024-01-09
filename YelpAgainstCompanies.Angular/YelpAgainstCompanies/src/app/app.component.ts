@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalStorageService } from './services/local-storage.service';
-import { UserService } from './services/user.service';
 import User from './interfaces/user';
 import ProblemDetails from './interfaces/problem-details';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -16,27 +18,30 @@ export class AppComponent implements OnInit {
   user: User | undefined;
   problemDetails: ProblemDetails | undefined
 
-  constructor(private localStorageService: LocalStorageService, private userService: UserService) { }
+  constructor(private localStorageService: LocalStorageService, 
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private titleService: Title) { }
 
-  //TODO FIX THIS!
-  //If Angular the browser keeps throwing 500 errors relating to the getUser() look here.
   ngOnInit(): void {
-    // if (this.localStorageService.getData("accessToken") != null) {
-    //   this.userService.getUser()
-    //     .subscribe({
-    //       next: (u) => {
-    //         this.user = u;
-    //       },
-    //       error: (err) => {
-    //         this.problemDetails = err.error;
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+    ).subscribe(() => {
+      var rt = this.getChild(this.activatedRoute);
 
-    //         if (this.problemDetails) {
-    //          this.localStorageService.clearData();
-    //          window.location.reload()
-    //         }
-    //       }
-    //     })
-    // }
+      rt.data.subscribe(data => {
+        console.log(data);
+        this.titleService.setTitle(data['title']);
+      })
+    })
+  }
+
+  getChild(activatedRoute: ActivatedRoute): ActivatedRoute {
+    if (activatedRoute.firstChild) {
+      return this.getChild(activatedRoute.firstChild);
+    } else {
+      return activatedRoute;
+    }
   }
 
   logOut = () => this.localStorageService.removeData("accessToken");
