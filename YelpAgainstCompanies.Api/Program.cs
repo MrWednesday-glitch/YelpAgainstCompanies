@@ -145,9 +145,11 @@ public class Program
         }));
 
         var app = webAppBuilder.Build();
+        
         using var scope = app.Services.CreateScope();
+        //Migrate database when API runs
         scope.ServiceProvider.GetRequiredService<DataContext>()
-            .Database.Migrate(); //Migrate database when API runs
+            .Database.Migrate(); 
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())

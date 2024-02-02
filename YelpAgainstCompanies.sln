@@ -26,6 +26,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YelpAgainstCompanies.Busine
 		{A30B2581-0192-4804-9F0B-2F1B562127D8} = {A30B2581-0192-4804-9F0B-2F1B562127D8}
 	EndProjectSection
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{AF34F21E-6604-4453-A2C8-5935992F89F0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +54,10 @@ Global
 		{1AF8BE5E-E190-47CB-9F89-4CDAD6390BB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AF8BE5E-E190-47CB-9F89-4CDAD6390BB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AF8BE5E-E190-47CB-9F89-4CDAD6390BB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF34F21E-6604-4453-A2C8-5935992F89F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF34F21E-6604-4453-A2C8-5935992F89F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF34F21E-6604-4453-A2C8-5935992F89F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF34F21E-6604-4453-A2C8-5935992F89F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
