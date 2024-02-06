@@ -17,3 +17,5 @@ services:
     build:
       context: .
       dockerfile: YelpAgainstCompanies.Api/Dockerfile
+    ports:
+        - 443:80
