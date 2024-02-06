@@ -1,21 +1,19 @@
 version: '3.4'
 
 services:
+
+  yelpagainstcompaniessqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+        - 1450:1433
+    environment:
+        SA_PASSWORD: "P@ssw0rd"
+        ACCEPT_EULA: "Y"
+
   yelpagainstcompanies.api:
+    depends_on:
+      - yelpagainstcompaniessqlserver
     image: ${DOCKER_REGISTRY-}yelpagainstcompaniesapi
     build:
       context: .
       dockerfile: YelpAgainstCompanies.Api/Dockerfile
-
-  yelpagainstcompaniessqlserver:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: yapmssql
-    networks:
-        database:
-            aliases:
-                - yapmssql
-    ports:
-        - 1433:1433
-    environment:
-        SA_PASSWORD: "P@ssw0rd"
-        ACCEPT_EULA: "Y"

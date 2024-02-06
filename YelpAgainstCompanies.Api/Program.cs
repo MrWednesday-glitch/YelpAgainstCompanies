@@ -137,19 +137,21 @@ public class Program
         webAppBuilder.Services.AddEndpointsApiExplorer();
         webAppBuilder.Services.AddSwaggerGen();
 
-        webAppBuilder.Services.AddCors(o => o.AddPolicy("myAllowSpecificOrigins", b =>
+        webAppBuilder.Services.AddCors(corsOptions => corsOptions.AddPolicy("myAllowSpecificOrigins", 
+            corsPolicyBuilder =>
         {
-            b.AllowAnyOrigin().WithExposedHeaders("X-Pagination")
-             .AllowAnyMethod()
-             .AllowAnyHeader();
+            corsPolicyBuilder
+                .AllowAnyOrigin().WithExposedHeaders("X-Pagination")
+                .AllowAnyMethod()
+                .AllowAnyHeader();
         }));
 
         var app = webAppBuilder.Build();
-        
+
         using var scope = app.Services.CreateScope();
         //Migrate database when API runs
         scope.ServiceProvider.GetRequiredService<DataContext>()
-            .Database.Migrate(); 
+            .Database.Migrate();
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
