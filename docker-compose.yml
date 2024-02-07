@@ -17,3 +17,13 @@ services:
     build:
       context: .
       dockerfile: YelpAgainstCompanies.Api/Dockerfile
+
+  yelpagainstcompanies.angular:
+   depends_on:
+    -  yelpagainstcompanies.api
+   image: ${DOCKER_REGISTRY-}yelpagainstcompaniesangular
+   build:
+    context: .
+    dockerfile: YelpAgainstCompanies.Angular/YelpAgainstCompanies/Dockerfile
+   ports:
+    - "4200:4200"
