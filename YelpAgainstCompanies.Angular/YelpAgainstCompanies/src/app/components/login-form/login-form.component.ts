@@ -25,8 +25,9 @@ export class LoginFormComponent {
     if (this.emailFormControl.valid && this.passwordFormControl.valid) {
       this.authService.login(this.emailFormControl.value!, this.passwordFormControl.value!, "ShouldNotBeRequired", "ShouldNotBeRequired")
         .subscribe({
-          next: (r) => {
-            this.localStorageService.saveData("accessToken", r.accessToken);
+          next: (loginResponse) => {
+            this.localStorageService.saveData("accessToken", loginResponse.accessToken);
+            this.localStorageService.saveData("firstName", loginResponse.firstName)
             this.router.navigate(['/homepage']).then(() => window.location.reload());
           },
           error: (err) => {
