@@ -15,7 +15,7 @@ import { filter } from 'rxjs';
 export class AppComponent implements OnInit {
 
   title = 'Yelp Against Companies';
-  user: User | undefined;
+  firstNameUser: string | undefined;
   problemDetails: ProblemDetails | undefined
 
   constructor(private localStorageService: LocalStorageService, 
@@ -26,14 +26,17 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),
-    ).subscribe(() => {
-      var rt = this.getChild(this.activatedRoute);
+      ).subscribe(() => {
+        var rt = this.getChild(this.activatedRoute);
 
-      rt.data.subscribe(data => {
-        console.log(data);
-        this.titleService.setTitle(data['title']);
+        rt.data.subscribe(data => {
+          this.titleService.setTitle(data['title']);
+        })
       })
-    })
+    
+      if (this.loggedIn()) {
+        this.firstNameUser = this.localStorageService.getData("firstName")!;
+      }
   }
 
   getChild(activatedRoute: ActivatedRoute): ActivatedRoute {
@@ -44,7 +47,10 @@ export class AppComponent implements OnInit {
     }
   }
 
-  logOut = () => this.localStorageService.removeData("accessToken");
+  logOut = () =>{
+    this.localStorageService.removeData("accessToken");
+    this.localStorageService.removeData("firstName");
+  } 
 
   loggedIn(): boolean {
     return this.localStorageService.getData("accessToken") != null;
