@@ -19,7 +19,7 @@ public class UserController : Controller
     {
         JwtSecurityToken bearerToken = GetBearerToken() ?? throw new NotLoggedInException(HttpContext.Request.Path);
         string userName = bearerToken.Claims.Single(c => c.Type == "Username").Value;
-        var user = _userService.GetUser(userName)
+        var user = await _userService.GetUser(userName)
             ?? throw new UserDoesNotExistException($"/user-management/{userName}");
         var userDTO = _transformations.Transform(user);
 

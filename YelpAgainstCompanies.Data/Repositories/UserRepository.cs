@@ -10,7 +10,7 @@ public class UserRepository : IUserRepository
         _dataContext = dataContext;
     }
 
-    public AppUser GetUser(string username)
+    public async Task<AppUser> GetUser(string username)
     {
         return _dataContext.Set<AppUser>()
             .SingleOrDefault(x => x.UserName == username)
