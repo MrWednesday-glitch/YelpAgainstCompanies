@@ -6,6 +6,7 @@ import { CompanyAndRatingsComponent } from './components/company-and-ratings/com
 import { RegisterFormComponent } from './components/register-form/register-form.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { AddCompanyFormComponent } from './components/add-company-form/add-company-form.component';
+import { ProfilePageComponent } from './components/profile-page/profile-page.component';
 
 const routes: Routes = [
   {path: "homepage", component: HomepageComponent, data: {title: "Homepage - Yelp Against Companies"}},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: "register", component: RegisterFormComponent, data: {title: "Account registration - Yelp Against Companies"}},
   {path: "login", component: LoginFormComponent, data: {title: "Login - Yelp Against Companies"}},
   {path: "addcompany", component: AddCompanyFormComponent, data: {title: "Add a company - Yelp Against Companies"}},
+  {path: "profilepage", component: ProfilePageComponent, data: {title: "Profile page - Yelp Against Companies"}},
 ];
 
 @NgModule({

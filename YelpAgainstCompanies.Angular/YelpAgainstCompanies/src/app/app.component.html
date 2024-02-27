@@ -12,7 +12,7 @@
     <div *ngIf="this.loggedIn()">
       <button mat-menu-item>
         <img src="{{this.showLoggedInImage()}}" alt="Something" class="menu-image">
-        <span>Profile page</span>
+        <span><a routerLink="/profilepage">Profile page</a></span>
       </button>
       <mat-divider></mat-divider>
       <button mat-menu-item (click)="logOut()">
