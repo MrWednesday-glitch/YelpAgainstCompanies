@@ -26,6 +26,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion'; 
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { ProfilePageComponent } from './components/profile-page/profile-page.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     RegisterFormComponent,
     LoginFormComponent,
     AddCompanyFormComponent,
-    AddRatingFormComponent
+    AddRatingFormComponent,
+    ProfilePageComponent
   ],
   imports: [
     BrowserModule,
