@@ -69,7 +69,7 @@ public class CompanyService : ICompanyService
         }
 
         company.PostalCode = company.PostalCode.ToLower();
-        if (company.PostalCode.Length == 7)
+        if (company.PostalCode.Length == 7 && company.PostalCode[4] == ' ')
         {
             company.PostalCode = company.PostalCode.Remove(4, 1);
         }
