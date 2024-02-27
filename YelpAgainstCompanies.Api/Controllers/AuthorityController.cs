@@ -53,7 +53,7 @@ public class AuthorityController : Controller
         }
         else
         {
-            return Unauthorized();
+            return Unauthorized("An incorrect account/password combination. Check if your account exists or enter the correct password.");
         }
     }
 
