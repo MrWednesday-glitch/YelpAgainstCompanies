@@ -27,7 +27,8 @@ export class LoginFormComponent {
         .subscribe({
           next: (loginResponse) => {
             this.localStorageService.saveData("accessToken", loginResponse.accessToken);
-            this.localStorageService.saveData("firstName", loginResponse.firstName)
+            this.localStorageService.saveData("firstName", loginResponse.firstName);
+            this.localStorageService.saveData("userName", loginResponse.userName);
             this.router.navigate(['/homepage']).then(() => window.location.reload());
           },
           error: (err) => {

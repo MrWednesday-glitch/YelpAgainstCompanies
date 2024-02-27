@@ -36,6 +36,8 @@ export class AppComponent implements OnInit {
     
       if (this.loggedIn()) {
         this.firstNameUser = this.localStorageService.getData("firstName")!;
+        //TODO make a profile page that gets the necessary stuff via an api call with the username
+        console.log(this.localStorageService.getData("userName"));
       }
   }
 
