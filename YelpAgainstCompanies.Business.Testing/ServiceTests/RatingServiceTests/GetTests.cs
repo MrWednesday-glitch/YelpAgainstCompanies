@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using YelpAgainstCompanies.Domain.Exceptions;
-
-namespace YelpAgainstCompanies.Business.Testing.ServiceTests.RatingServiceTests;
+﻿namespace YelpAgainstCompanies.Business.Testing.ServiceTests.RatingServiceTests;
 
 [ExcludeFromCodeCoverage]
 public class GetTests : Base
@@ -16,21 +9,21 @@ public class GetTests : Base
         // -- Arrange
         var mockedRatings = new List<Rating>()
         {
-            new Rating()
+            new()
             {
                 Id = 1,
                 Score = 3,
                 CompanyId = 1,
                 Date = new DateTime(2022, 4, 1),
             },
-            new Rating()
+            new()
             {
                 Id = 2,
                 Score = 4,
                 Date = new DateTime(2022, 4, 1),
                 CompanyId = 1
             },
-            new Rating()
+            new()
             {
                 Id = 2,
                 Score = 1,
@@ -52,7 +45,7 @@ public class GetTests : Base
     {
         var mockedRatings = new List<Rating>()
         {
-            new Rating()
+            new()
             {
                 Id = 1,
                 Score = 3,
@@ -60,7 +53,7 @@ public class GetTests : Base
                 Date = new DateTime(2022, 5, 1),
                 Comment = "middle",
             },
-            new Rating()
+            new()
             {
                 Id = 2,
                 Score = 4,
@@ -68,7 +61,7 @@ public class GetTests : Base
                 CompanyId = 1,
                 Comment = "first",
             },
-            new Rating()
+            new()
             {
                 Id = 2,
                 Score = 1,
@@ -102,7 +95,7 @@ public class GetTests : Base
     {
         var mockedRatings = new List<Rating>()
         {
-            new Rating()
+            new()
             {
                 Id = 1,
                 Score = 3,
@@ -110,7 +103,7 @@ public class GetTests : Base
                 Date = new DateTime(2022, 5, 1),
                 Comment = "middle",
             },
-            new Rating()
+            new()
             {
                 Id = 2,
                 Score = 4,
@@ -118,7 +111,7 @@ public class GetTests : Base
                 CompanyId = 1,
                 Comment = "first",
             },
-            new Rating()
+            new()
             {
                 Id = 2,
                 Score = 1,
