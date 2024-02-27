@@ -52,13 +52,14 @@ public class Transformations
         };
     }
 
-    public UserDTO Transform(AppUser user)
+    public UserDTO Transform(AppUser user, IEnumerable<RatingDTO> ratings)
     {
         return new UserDTO
         {
             FirstName = user.FirstName,
             LastName = user.LastName ?? "",
-            Email = user.UserName ?? ""
+            Email = user.UserName ?? "",
+            Ratings = ratings.ToList(),
         };
     }
 }

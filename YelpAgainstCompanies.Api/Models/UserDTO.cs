@@ -8,5 +8,5 @@ public class UserDTO
 
     public string Email { get; set; } = string.Empty;
 
-    //TODO Comments made by user
+    public List<RatingDTO> Ratings { get; set; } = new List<RatingDTO>();
 }

@@ -6,11 +6,13 @@ public class UserController : Controller
 {
     private readonly IUserService _userService;
     private readonly Transformations _transformations;
+    private readonly IRatingService _ratingService;
 
-    public UserController(IUserService userService, Transformations transformations)
+    public UserController(IUserService userService, Transformations transformations, IRatingService ratingService)
     {
         _userService = userService;
         _transformations = transformations;
+        _ratingService = ratingService;
     }
 
     [Authorize]
@@ -21,7 +23,11 @@ public class UserController : Controller
         string userName = bearerToken.Claims.Single(c => c.Type == "Username").Value;
         var user = await _userService.GetUser(userName)
             ?? throw new UserDoesNotExistException($"/user-management/{userName}");
-        var userDTO = _transformations.Transform(user);
+
+        var userRatings = await _ratingService.Get(user);
+        var userRatingsDTO = userRatings.Select(x => _transformations.Transform(x));
+
+        var userDTO = _transformations.Transform(user, userRatingsDTO);
 
         return Ok(userDTO);
     }

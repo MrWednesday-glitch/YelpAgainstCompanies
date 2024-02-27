@@ -72,7 +72,7 @@ public class CompanyController : Controller
     {
         JwtSecurityToken bearerToken = GetBearerToken() ?? throw new NotLoggedInException(HttpContext.Request.Path);
         string userName = bearerToken.Claims.Single(c => c.Type == "Username").Value;
-        var user = _userService.GetUser(userName);
+        var user = await _userService.GetUser(userName);
 
         var rating = new Rating
         {

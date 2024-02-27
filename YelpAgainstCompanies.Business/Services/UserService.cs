@@ -9,10 +9,5 @@ public class UserService : IUserService
         _userRepository = userRepository;
     }
 
-    public async Task<AppUser> GetUser(string username)
-    {
-        var user = await _userRepository.GetUser(username);
-
-        return user;
-    }
+    public async Task<AppUser> GetUser(string username) => await _userRepository.GetUser(username);
 }

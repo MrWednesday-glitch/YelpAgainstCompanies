@@ -27,4 +27,8 @@ public class RatingService : IRatingService
 
         return ratings;
     }
+
+    public async Task<IEnumerable<Rating>> Get(AppUser user) =>
+        (await _ratingRepository.GetRecords()).Where(x => x.User == user).OrderByDescending(x => x.Date);
+
 }
