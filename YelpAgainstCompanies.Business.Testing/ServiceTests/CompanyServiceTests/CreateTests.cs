@@ -72,4 +72,23 @@ public class CreateTests : Base
 
         await sut.Should().ThrowAsync<StringNotValidException>();
     }
+
+    [Theory]
+    [InlineData("2345ab")]
+    [InlineData("2345AB")]
+    [InlineData("2345 ab")]
+    [InlineData("2345 aB")]
+    public async Task Should_AcceptThesePostalCodes(string postalCode)
+    {
+        var company = new Company
+        {
+            Name = "Test Company",
+            PostalCode = postalCode,
+            Address = "Ergens 4"
+        };
+
+        await _companyService.Create(company);
+
+        _mockedCompanyRepository.Verify(x => x.CreateRecord(It.IsAny<Company>()), Times.Once);
+    }
 }

@@ -68,6 +68,12 @@ public class CompanyService : ICompanyService
             throw new StringNotValidException("address", "/company/savecompanytodatabase");
         }
 
+        company.PostalCode = company.PostalCode.ToLower();
+        if (company.PostalCode.Length == 7)
+        {
+            company.PostalCode = company.PostalCode.Remove(4, 1);
+        }
+
         if (!company.PostalCode.IsValidPostalCode())
         {
             throw new StringNotValidException("postal code", "/company/savecompanytodatabase");
