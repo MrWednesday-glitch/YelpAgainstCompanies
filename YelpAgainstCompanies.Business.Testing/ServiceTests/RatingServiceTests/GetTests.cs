@@ -133,4 +133,107 @@ public class GetTests : Base
 
         ratings.Should().BeEmpty();
     }
+
+    [Fact]
+    public async Task Should_ReturnRatingsBelongingToCorrectUser()
+    {
+        var userHenk = new AppUser
+        {
+            FirstName = "Henk",
+            UserName = "henk@email.com"
+        };
+        var userBen = new AppUser
+        {
+            FirstName = "Ben",
+            UserName = "ben@email.com"
+        };
+
+        var mockedRatings = new List<Rating>()
+        {
+            new()
+            {
+                Id = 1,
+                Score = 3,
+                CompanyId = 1,
+                Date = new DateTime(2022, 5, 1),
+                Comment = "middle",
+                User = userHenk,
+            },
+            new()
+            {
+                Id = 2,
+                Score = 4,
+                Date = new DateTime(2022, 4, 1),
+                CompanyId = 1,
+                Comment = "first",
+                User = userBen,
+            },
+            new()
+            {
+                Id = 2,
+                Score = 1,
+                Date = new DateTime(2022, 8, 1),
+                CompanyId = 1,
+                Comment = "last",
+                User = userHenk,
+            },
+        };
+        _mockedRatingRepository.Setup(x => x.GetRecords()).ReturnsAsync(mockedRatings.AsQueryable);
+
+        var ratings = await _ratingService.Get(userHenk);
+
+        ratings.ToList().Count.Should().Be(2);
+    }
+
+    [Fact]
+    public async Task Should_ReturnRatingsBelongingToCorrectUserAndProperlySorted()
+    {
+        var userHenk = new AppUser
+        {
+            FirstName = "Henk",
+            UserName = "henk@email.com"
+        };
+        var userBen = new AppUser
+        {
+            FirstName = "Ben",
+            UserName = "ben@email.com"
+        };
+
+        var mockedRatings = new List<Rating>()
+        {
+            new()
+            {
+                Id = 1,
+                Score = 3,
+                CompanyId = 1,
+                Date = new DateTime(2022, 5, 1),
+                Comment = "middle",
+                User = userHenk,
+            },
+            new()
+            {
+                Id = 2,
+                Score = 4,
+                Date = new DateTime(2022, 4, 1),
+                CompanyId = 1,
+                Comment = "first",
+                User = userBen,
+            },
+            new()
+            {
+                Id = 2,
+                Score = 1,
+                Date = new DateTime(2022, 8, 1),
+                CompanyId = 1,
+                Comment = "last",
+                User = userHenk,
+            },
+        };
+        _mockedRatingRepository.Setup(x => x.GetRecords()).ReturnsAsync(mockedRatings.AsQueryable);
+
+        var ratings = await _ratingService.Get(userHenk);
+
+        ratings.ToList().Count.Should().Be(2);
+        ratings.ToList().Should().BeInDescendingOrder(x => x.Date);
+    }
 }
