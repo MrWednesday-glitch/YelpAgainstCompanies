@@ -1,40 +1,41 @@
 # This workflow will build a .NET project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-name: Build and Test dotnet
-
-on:
-  schedule:
-  - cron: '0 9 * * 1'
-  push:
-    branches: [ "development" ]
-  pull_request:
-    branches: [ "development" ]
-    
-permissions:
-  checks: write
-  pull-requests: write
-  
-jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
-    - name: Restore dependencies
-      run: dotnet restore ./YelpAgainstCompanies.sln
-    - name: Build
-      run: dotnet build ./YelpAgainstCompanies.sln --no-restore
-    - name: Test
-      run: dotnet test ./YelpAgainstCompanies.Business.Testing/YelpAgainstCompanies.Business.Testing.csproj --no-build --verbosity normal --logger "trx;LogFileName=xtests.trx"
-    - name: Publish Test Results # If the test results are not found in the scheduled cron job they are found in a previous push or pull trigger.
-      uses: EnricoMi/publish-unit-test-result-action@v2
-      if: always()
-      with:
-        files: |
-          YelpAgainstCompanies.Business.Testing/TestResults/xtests.trx
+# Turn back on if the project ever goes public again
+# name: Build and Test dotnet
+# 
+# on:
+#   schedule:
+#   - cron: '0 9 * * 1'
+#   push:
+#     branches: [ "development" ]
+#   pull_request:
+#     branches: [ "development" ]
+#     
+# permissions:
+#   checks: write
+#   pull-requests: write
+#   
+# jobs:
+#   build:
+# 
+#     runs-on: ubuntu-latest
+# 
+#     steps:
+#     - uses: actions/checkout@v3
+#     - name: Setup .NET
+#       uses: actions/setup-dotnet@v3
+#       with:
+#         dotnet-version: ${{ env.DOTNET_VERSION }}
+#     - name: Restore dependencies
+#       run: dotnet restore ./YelpAgainstCompanies.sln
+#     - name: Build
+#       run: dotnet build ./YelpAgainstCompanies.sln --no-restore
+#     - name: Test
+#       run: dotnet test ./YelpAgainstCompanies.Business.Testing/YelpAgainstCompanies.Business.Testing.csproj --no-build --verbosity normal --logger "trx;LogFileName=xtests.trx"
+#     - name: Publish Test Results # If the test results are not found in the scheduled cron job they are found in a previous push or pull trigger.
+#       uses: EnricoMi/publish-unit-test-result-action@v2
+#       if: always()
+#       with:
+#         files: |
+#           YelpAgainstCompanies.Business.Testing/TestResults/xtests.trx
