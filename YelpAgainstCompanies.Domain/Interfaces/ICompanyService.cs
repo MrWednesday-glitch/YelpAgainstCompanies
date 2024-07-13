@@ -42,5 +42,5 @@ public interface ICompanyService
     /// <summary>
     /// Soft Delete a company from the database by adding the data of deletion to the entity.
     /// </summary>
-    Task Delete(Company company);
+    Task<Company> Delete(int id);
 }

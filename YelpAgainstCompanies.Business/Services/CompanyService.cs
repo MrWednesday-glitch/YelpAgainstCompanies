@@ -88,11 +88,12 @@ public class CompanyService : ICompanyService
         await _companyRepository.SaveChanges();
     }
 
-    private async Task<Company?> ExistingCompanyInDB(Company company) =>
-      (await _companyRepository.GetRecords())
-            .SingleOrDefault(x =>
-                x.Name == company.Name &&
-                x.PostalCode == company.PostalCode);
+    private async Task<Company?> ExistingCompanyInDB(Company company)
+    {
+        return (await _companyRepository.GetRecords())
+            .SingleOrDefault(x => x.Name == company.Name && x.PostalCode == company.PostalCode);
+    }
+
 
     public async Task<Company> AddToCompany(Rating rating)
     {
@@ -115,9 +116,19 @@ public class CompanyService : ICompanyService
         return company;
     }
 
-    public async Task Delete(Company company)
+    // TODO Write unit tests
+    public async Task<Company> Delete(int id)
     {
+        var company = await Get(id);
+
+        if (company.DeletedDate != null) 
+        {
+            throw new CompanyAlreadyDeletedException($"/companies/{id}");
+        }
+
         await _companyRepository.DeleteRecord(company);
         await _companyRepository.SaveChanges();
+
+        return company;
     }
 }

@@ -44,6 +44,7 @@ public class CompanyController : Controller
         return Ok(companyAndRatingsDTO);
     }
 
+    // TODO Uncomment this
     //[Authorize]
     [HttpPost]
     public async Task<IActionResult> SaveCompanyToDatabase([FromBody] CompanyDTO companyDTO)
@@ -96,15 +97,16 @@ public class CompanyController : Controller
         });
     }
 
+    // TODO Uncomment this
+    //[Authorize]
     [HttpDelete("{id}")]
     public async Task<IActionResult> RemoveCompanyFromDatabase(int id)
     {
-        var company = await _companyService.Get(id);
-        await _companyService.Delete(company);
+        var deletedCompany = await _companyService.Delete(id);
 
         return Ok(new
         {
-            Message = $"The company {company} has been removed from the database.",
+            Message = $"The company {deletedCompany.Name} has been removed from the database.",
             Success = true
         });
     }
