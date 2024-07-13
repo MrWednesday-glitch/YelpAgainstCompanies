@@ -137,6 +137,11 @@ public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
         builder.Entity<Rating>().HasData(new Rating[] { ratingRowanAH, ratingRowanBK, ratingWednesdayKB, ratingWednesdayAH });
         builder.Entity<Company>().HasData(new Company[] { keesBalvert, albertHeijn, burgerKing });
 
+        // This does not work...
+        //builder.Entity<EntityBase>().HasQueryFilter(b => b.DeletedDate == null);
+
+        builder.Entity<Company>().HasQueryFilter(company => company.DeletedDate == null);
+        builder.Entity<Rating>().HasQueryFilter(company => company.DeletedDate == null);
 
         base.OnModelCreating(builder);
     }
