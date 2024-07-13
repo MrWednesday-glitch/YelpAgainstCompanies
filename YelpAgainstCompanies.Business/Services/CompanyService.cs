@@ -114,4 +114,10 @@ public class CompanyService : ICompanyService
 
         return company;
     }
+
+    public async Task Delete(Company company)
+    {
+        await _companyRepository.DeleteRecord(company);
+        await _companyRepository.SaveChanges();
+    }
 }

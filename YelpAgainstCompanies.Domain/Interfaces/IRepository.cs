@@ -6,12 +6,14 @@
 /// <typeparam name="TEntity">A generic class, ensuring that this can be used for, among others, both Company and Rating.</typeparam>
 public interface IRepository<TEntity> where TEntity : EntityBase
 {
-    /// <summary>
-    /// Deletes a record from the database based on a given id.
-    /// </summary>
-    /// <param name="id">The id of the record that needs to be deleted.</param>
-    /// <returns></returns>
-    Task DeleteRecord(int id);
+    ///// <summary>
+    ///// Deletes a record from the database based on a given id.
+    ///// </summary>
+    ///// <param name="id">The id of the record that needs to be deleted.</param>
+    ///// <returns></returns>
+    //Task DeleteRecord(int id);
+
+    Task DeleteRecord(TEntity entity);
 
     /// <summary>
     /// Retrieves all the records from the database of type TEntity.

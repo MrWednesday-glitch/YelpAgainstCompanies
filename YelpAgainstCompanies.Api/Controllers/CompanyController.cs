@@ -1,4 +1,6 @@
-﻿namespace YelpAgainstCompanies.Api.Controllers;
+﻿using YelpAgainstCompanies.Domain.Entities;
+
+namespace YelpAgainstCompanies.Api.Controllers;
 
 [ApiController]
 [Route("companies")]
@@ -42,7 +44,7 @@ public class CompanyController : Controller
         return Ok(companyAndRatingsDTO);
     }
 
-    [Authorize]
+    //[Authorize]
     [HttpPost]
     public async Task<IActionResult> SaveCompanyToDatabase([FromBody] CompanyDTO companyDTO)
     {
@@ -90,6 +92,19 @@ public class CompanyController : Controller
         return Ok(new
         {
             Message = $"The rating to {companyAndRatingsDTO.Name} has been added.",
+            Success = true
+        });
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> RemoveCompanyFromDatabase(int id)
+    {
+        var company = await _companyService.Get(id);
+        await _companyService.Delete(company);
+
+        return Ok(new
+        {
+            Message = $"The company {company} has been removed from the database.",
             Success = true
         });
     }

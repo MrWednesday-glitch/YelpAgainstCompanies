@@ -38,4 +38,7 @@ public interface ICompanyService
     /// <param name="rating">The given rating to be added to the company.</param>
     /// <returns></returns>
     Task<Company> AddToCompany(Rating rating);
+
+    // TODO Summary
+    Task Delete(Company company);
 }
