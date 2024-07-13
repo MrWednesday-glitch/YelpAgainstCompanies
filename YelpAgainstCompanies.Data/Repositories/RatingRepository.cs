@@ -12,9 +12,9 @@ public class RatingRepository : EFRepository<Rating>, IRatingRepository
         return base.CreateRecord(entity);
     }
 
-    public override Task DeleteRecord(int id)
+    public override Task DeleteRecord(Rating entity)
     {
-        return base.DeleteRecord(id);
+        return base.DeleteRecord(entity);
     }
 
     public override async Task<Rating> GetRecord(int id)
