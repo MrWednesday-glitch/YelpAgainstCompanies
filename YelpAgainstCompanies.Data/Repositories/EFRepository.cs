@@ -15,11 +15,6 @@ public class EFRepository<TEntity> : IRepository<TEntity> where TEntity : Entity
         await _dataContext.Set<TEntity>().AddAsync(entity);
     }
 
-    //public virtual async Task DeleteRecord(int id)
-    //{
-    //    _dataContext.Set<TEntity>().Remove(await GetRecord(id));
-    //}
-
     public virtual async Task DeleteRecord(TEntity entity)
     {
         _dataContext.Set<TEntity>().Remove(entity);

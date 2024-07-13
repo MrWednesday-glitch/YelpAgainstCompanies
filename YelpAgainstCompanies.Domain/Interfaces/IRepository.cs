@@ -6,13 +6,9 @@
 /// <typeparam name="TEntity">A generic class, ensuring that this can be used for, among others, both Company and Rating.</typeparam>
 public interface IRepository<TEntity> where TEntity : EntityBase
 {
-    ///// <summary>
-    ///// Deletes a record from the database based on a given id.
-    ///// </summary>
-    ///// <param name="id">The id of the record that needs to be deleted.</param>
-    ///// <returns></returns>
-    //Task DeleteRecord(int id);
-
+    /// <summary>
+    /// Softdeletes the record from the database by filling in the DeletedTime property.
+    /// </summary>
     Task DeleteRecord(TEntity entity);
 
     /// <summary>

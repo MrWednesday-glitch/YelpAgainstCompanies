@@ -141,7 +141,7 @@ public class DataContext : IdentityDbContext<AppUser, AppUserRole, Guid>
         //builder.Entity<EntityBase>().HasQueryFilter(b => b.DeletedDate == null);
 
         builder.Entity<Company>().HasQueryFilter(company => company.DeletedDate == null);
-        builder.Entity<Rating>().HasQueryFilter(company => company.DeletedDate == null);
+        builder.Entity<Rating>().HasQueryFilter(rating => rating.DeletedDate == null);
 
         base.OnModelCreating(builder);
     }
