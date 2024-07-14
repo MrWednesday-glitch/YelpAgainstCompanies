@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace YelpAgainstCompanies.Domain.Interceptors;
 
+[ExcludeFromCodeCoverage]
 public sealed class SoftDeleteInterceptor : SaveChangesInterceptor
 {
     public override ValueTask<InterceptionResult<int>> SavingChangesAsync(
