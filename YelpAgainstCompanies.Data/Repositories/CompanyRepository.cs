@@ -17,11 +17,9 @@ public class CompanyRepository : EFRepository<Company>, ICompanyRepository
         await base.CreateRecord(entity);
     }
 
-    public override async Task DeleteRecord(int id)
+    public override async Task DeleteRecord(Company company)
     {
-        var company = GetRecord(id);
-
-        await base.DeleteRecord(company.Id);
+        await base.DeleteRecord(company);
     }
 
     public override Task<IQueryable<Company>> GetRecords()

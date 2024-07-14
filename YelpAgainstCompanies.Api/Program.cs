@@ -1,4 +1,5 @@
 using Hellang.Middleware.ProblemDetails;
+using YelpAgainstCompanies.Domain.Interceptors;
 
 namespace YelpAgainstCompanies.Api;
 
@@ -77,11 +78,13 @@ public class Program
         });
         webAppBuilder.Services.AddControllers();
 
-        webAppBuilder.Services.AddDbContext<DataContext>(options =>
+        webAppBuilder.Services.AddSingleton<SoftDeleteInterceptor>();
+        webAppBuilder.Services.AddDbContext<DataContext>((serviceProvider, options) =>
         {
             options
                 .UseLazyLoadingProxies()
-                .UseSqlServer(configBuilder.GetConnectionString("DefaultConnection"));
+                .UseSqlServer(configBuilder.GetConnectionString("DefaultConnection"))
+                .AddInterceptors(serviceProvider.GetRequiredService<SoftDeleteInterceptor>());
         },
             ServiceLifetime.Scoped);
         webAppBuilder.Services.AddScoped<Transformations>();

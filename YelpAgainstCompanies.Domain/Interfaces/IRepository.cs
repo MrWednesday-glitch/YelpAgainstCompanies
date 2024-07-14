@@ -7,11 +7,9 @@
 public interface IRepository<TEntity> where TEntity : EntityBase
 {
     /// <summary>
-    /// Deletes a record from the database based on a given id.
+    /// Softdeletes the record from the database by filling in the DeletedTime property.
     /// </summary>
-    /// <param name="id">The id of the record that needs to be deleted.</param>
-    /// <returns></returns>
-    Task DeleteRecord(int id);
+    Task DeleteRecord(TEntity entity);
 
     /// <summary>
     /// Retrieves all the records from the database of type TEntity.

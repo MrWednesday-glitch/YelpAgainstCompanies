@@ -38,4 +38,9 @@ public interface ICompanyService
     /// <param name="rating">The given rating to be added to the company.</param>
     /// <returns></returns>
     Task<Company> AddToCompany(Rating rating);
+
+    /// <summary>
+    /// Soft Delete a company from the database by adding the data of deletion to the entity.
+    /// </summary>
+    Task<Company> Delete(int id);
 }
