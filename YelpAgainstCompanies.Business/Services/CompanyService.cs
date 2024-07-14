@@ -116,7 +116,6 @@ public class CompanyService : ICompanyService
         return company;
     }
 
-    // TODO Write unit tests
     public async Task<Company> Delete(int id)
     {
         var company = await Get(id);
